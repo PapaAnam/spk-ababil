@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/', function(){
+	return redirect()->route('satuan');
+});
+
 Route::prefix('satuan')->group(function(){
 	Route::get('/', 'SatuanController@index')->name('satuan');
 	Route::get('/tambah', 'SatuanController@create')->name('satuan.tambah');
