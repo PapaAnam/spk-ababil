@@ -21,3 +21,6 @@ Route::prefix('rekening')->group(function(){
 	Route::put('/ubah/{rekening}', 'RekeningController@update')->name('rekening.update');
 	Route::delete('/{rekening}', 'RekeningController@destroy')->name('rekening.destroy');
 });
+
+Route::resource('vendor', 'VendorController')->except(['show']);
+Route::resource('uam', 'UamController')->except(['show']);

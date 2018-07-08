@@ -5,7 +5,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p>Administrator</p>
@@ -46,7 +46,7 @@
           <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
         </ul>
       </li> --}}
-      <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">
           <i class="fa fa-laptop"></i>
           <span>Setting</span>
@@ -55,6 +55,12 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          <li @if(in_array($active, ['uam.index', 'uam.create', 'uam.edit'])) class="active" @endif>
+            <a href="{{ route('uam.index') }}"><i class="fa fa-circle-o"></i> User Account Management</a>
+          </li>
+          <li @if(in_array($active, ['vendor.index', 'vendor.create', 'vendor.edit'])) class="active" @endif>
+            <a href="{{ route('vendor.index') }}"><i class="fa fa-circle-o"></i> Vendor</a>
+          </li>
           <li @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit'])) class="active" @endif>
             <a href="{{ route('satuan') }}"><i class="fa fa-circle-o"></i> Satuan</a>
           </li>
