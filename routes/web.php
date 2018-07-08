@@ -24,3 +24,4 @@ Route::prefix('rekening')->group(function(){
 
 Route::resource('vendor', 'VendorController')->except(['show']);
 Route::resource('uam', 'UamController')->except(['show']);
+Route::resource('karyawan', 'KaryawanController')->except(['show']);
