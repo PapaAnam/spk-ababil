@@ -36,6 +36,11 @@
           <i class="fa fa-users"></i> <span>Karyawan</span>
         </a>
       </li>
+      <li class="{{ $active == 'time-sheet.index' ? 'active' : '' }}">
+        <a href="{{ route('time-sheet.index') }}">
+          <i class="fa fa-clock-o"></i> <span>Time Sheet Karyawan</span>
+        </a>
+      </li>
       <li class="{{ $active == 'klien.index' ? 'active' : '' }}">
         <a href="{{ route('klien.index') }}">
           <i class="fa fa-user-plus"></i> <span>Klien</span>

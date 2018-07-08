@@ -26,3 +26,4 @@ Route::resource('vendor', 'VendorController')->except(['show']);
 Route::resource('uam', 'UamController')->except(['show']);
 Route::resource('karyawan', 'KaryawanController')->except(['show']);
 Route::resource('klien', 'KlienController')->except(['show']);
+Route::resource('time-sheet', 'TimeSheetController')->except(['show']);

@@ -7,6 +7,7 @@
     <th>Nama</th>
     <th>No Telp</th>
     <th>Jabatan</th>
+    <th>Armada</th>
     <th>Aksi</th>
   </tr>
 </thead>
@@ -18,6 +19,7 @@
     <td><?=$d->nama?></td>
     <td><?=$d->no_hp?></td>
     <td><?=$d->jabatan?></td>
+    <td><?=$d->armada?></td>
     <td>
       @include('edit_button', ['link' => route('karyawan.edit', [$d->id])])
       @include('delete_button', ['link' => route('karyawan.destroy', [$d->id])])

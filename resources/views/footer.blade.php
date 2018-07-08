@@ -1,7 +1,7 @@
 <footer class="main-footer">
 	<div class="pull-right hidden-xs">
-		<b>Version</b> 2.3.8
+		<b>Version</b> 1.0.0
 	</div>
-	<strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+	<strong>Copyright &copy; {{ date('Y') == 2018 ? 2018 : '2018-'.date('Y') }} <a href="#">SPK ABABIL</a>.</strong> All rights
 	reserved.
 </footer>
