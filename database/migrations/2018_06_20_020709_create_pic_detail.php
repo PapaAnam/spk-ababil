@@ -18,6 +18,7 @@ class CreatePicDetail extends Migration
             $table->enum('tipe', ['bapak', 'ibu']);
             $table->string('nama');
             $table->string('no_hp', 30);
+            $table->integer('klien')->unisgned();
         });
     }
 
