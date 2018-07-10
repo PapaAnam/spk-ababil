@@ -8,7 +8,7 @@
         <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Administrator</p>
+        <p class="text-capitalize">{{ Auth::user()->nama_lengkap }}</p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -61,12 +61,16 @@
           <li @if(in_array($active, ['vendor.index', 'vendor.create', 'vendor.edit'])) class="active" @endif>
             <a href="{{ route('vendor.index') }}"><i class="fa fa-circle-o"></i> Vendor</a>
           </li>
+          @if(Auth::user()->role == 'superadmin')
           <li @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit'])) class="active" @endif>
             <a href="{{ route('satuan') }}"><i class="fa fa-circle-o"></i> Satuan</a>
           </li>
+          @endif
+          @if(Auth::user()->role == 'superadmin' || Auth::user()->role == 'finance')
           <li @if(in_array($active, ['rekening', 'rekening.create', 'rekening.edit'])) class="active" @endif>
             <a href="{{ route('rekening') }}"><i class="fa fa-circle-o"></i> Rekening</a>
           </li>
+          @endif
         </ul>
       </li>
       {{-- <li class="treeview">

@@ -9,6 +9,13 @@ use DB;
 
 class TimeSheetController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('myrole:superadmin')->only('edit','update','destroy');
+        $this->middleware('myrole:superadmin,admin')->only('create','store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +33,10 @@ class TimeSheetController extends Controller
             'data'      => $data,
             'title'     => 'Time Sheet',
             'active'    => 'time-sheet.index',
-            'createLink'=>route('time-sheet.create')
+            'createLink'=>route('time-sheet.create'),
+            'role'=>[
+                'admin','superadmin'
+            ]
         ]);
     }
 

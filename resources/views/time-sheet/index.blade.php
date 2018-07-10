@@ -29,7 +29,9 @@
     <th>Jam Selesai</th>
     <th>Total Jam</th>
     <th>Ritase</th>
+    @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
+    @endif
   </tr>
 </thead>
 <tbody>
@@ -43,10 +45,12 @@
     <td>{{ $d->jam_selesai }}</td>
     <td>{{ $d->total_jam }}</td>
     <td>{{ $d->ritase }}</td>
+    @if('superadmin' == Auth::user()->role)
     <td>
       @include('edit_button', ['link' => route('time-sheet.edit', [$d->id])])
       @include('delete_button', ['link' => route('time-sheet.destroy', [$d->id])])
     </td>
+    @endif
   </tr>
   @endforeach
 </tbody>
@@ -60,7 +64,9 @@
     <th>Jam Selesai</th>
     <th>Total Jam</th>
     <th>Ritase</th>
+    @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
+    @endif
   </tr>
 </tfoot>
 @endsection

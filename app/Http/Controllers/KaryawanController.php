@@ -8,6 +8,12 @@ use DB;
 
 class KaryawanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('myrole:superadmin')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +26,8 @@ class KaryawanController extends Controller
             'data'      => $data,
             'title'     => 'Karyawan',
             'active'    => 'karyawan.index',
-            'createLink'=>route('karyawan.create')
+            'createLink'=>route('karyawan.create'),
+            'role'=>'superadmin'
         ]);
     }
 

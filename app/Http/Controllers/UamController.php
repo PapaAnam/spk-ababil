@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use DB;
 
 class UamController extends Controller
 {
@@ -15,11 +16,11 @@ class UamController extends Controller
     public function index()
     {
         $data = User::all();
-        return view('vendor.index', [
+        return view('uam.index', [
             'data'      => $data,
             'title'     => 'User',
-            'active'    => 'vendor.index',
-            'createLink'=>route('vendor.create')
+            'active'    => 'uam.index',
+            'createLink'=>route('uam.create')
         ]);
     }
 
@@ -30,12 +31,12 @@ class UamController extends Controller
      */
     public function create()
     {
-        return view('vendor.tambah', [
+        return view('uam.tambah', [
             'title'         => 'Tambah User',
-            'modul_link'    => route('vendor.index'),
+            'modul_link'    => route('uam.index'),
             'modul'         => 'User',
-            'action'        => route('vendor.store'),
-            'active'        => 'vendor.create'
+            'action'        => route('uam.store'),
+            'active'        => 'uam.create'
         ]);
     }
 
@@ -48,22 +49,24 @@ class UamController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'              => 'required',
-            'telp'         => 'required',
-            'alamat'            => 'required',
-            'keterangan'     => 'required',
+            'nama_lengkap'              => 'required',
+            'jabatan'         => 'required',
+            'email'            => 'required|unique:users',
+            'password'     => 'required',
+            'role'     => 'required',
         ]);
         if(User::count() == 0){
             DB::statement('set foreign_key_checks=0;');
             User::truncate();
         }
         User::create([
-            'nama'              => $request->nama,
-            'telp'         => $request->telp,
-            'alamat'            => $request->alamat,
-            'keterangan'     => $request->keterangan,
+            'nama_lengkap'              => $request->nama_lengkap,
+            'jabatan'         => $request->jabatan,
+            'email'            => $request->email,
+            'password'     => $request->password,
+            'role'     => $request->role,
         ]);
-        return redirect()->route('vendor.index')->with('success_msg', 'User berhasil dibuat');
+        return redirect()->route('uam.index')->with('success_msg', 'User berhasil dibuat');
     }
 
     /**
@@ -85,13 +88,13 @@ class UamController extends Controller
      */
     public function edit(User $uam)
     {
-        return view('vendor.ubah', [
+        return view('uam.ubah', [
             'd'             => $uam,
             'title'         => 'Ubah User',
-            'modul_link'    => route('vendor.index'),
+            'modul_link'    => route('uam.index'),
             'modul'         => 'User',
-            'action'        => route('vendor.update', $uam->id),
-            'active'        => 'vendor.edit'
+            'action'        => route('uam.update', $uam->id),
+            'active'        => 'uam.edit'
         ]);
     }
 
@@ -104,19 +107,28 @@ class UamController extends Controller
      */
     public function update(Request $request, User $uam)
     {
-        $request->validate([
-            'nama'              => 'required',
-            'telp'         => 'required',
-            'alamat'            => 'required',
-            'keterangan'     => 'required',
-        ]);
-        $uam->update([
-            'nama'              => $request->nama,
-            'telp'         => $request->telp,
-            'alamat'            => $request->alamat,
-            'keterangan'     => $request->keterangan,
-        ]);
-        return redirect()->route('vendor.index')->with('success_msg', 'User berhasil diperbarui');
+        $rule = [
+            'nama_lengkap'              => 'required',
+            'jabatan'         => 'required',
+            'email'            => 'required|unique:users',
+            'password'     => 'nullable',
+            'role'     => 'required',
+        ];
+        if($uam->email == $request->email){
+            $rule['email'] = 'required';
+        }
+        $data = [
+            'nama_lengkap'              => $request->nama_lengkap,
+            'jabatan'         => $request->jabatan,
+            'email'            => $request->email,
+            'role'     => $request->role,
+        ];
+        if($request->password){
+            $data['password'] = $request->password;
+        }
+        $request->validate($rule);
+        $uam->update($data);
+        return redirect()->route('uam.index')->with('success_msg', 'User berhasil diperbarui');
     }
 
     /**
@@ -128,6 +140,6 @@ class UamController extends Controller
     public function destroy(User $uam)
     {
         $uam->delete();
-        return redirect()->route('vendor.index')->with('success_msg', 'User berhasil dihapus');
+        return redirect()->route('uam.index')->with('success_msg', 'User berhasil dihapus');
     }
 }

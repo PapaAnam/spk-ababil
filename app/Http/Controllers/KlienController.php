@@ -9,6 +9,12 @@ use DB;
 
 class KlienController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('myrole:superadmin')->except('index','create','store');
+    }
+
     /**
      * Display a listing of the resource.
      *

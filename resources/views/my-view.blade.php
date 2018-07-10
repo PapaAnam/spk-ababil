@@ -9,7 +9,15 @@
         <div class="box">
           <div class="box-header">
             <h3 class="box-title">{{ $title }}</h3>
+            @isset($role)
+            @if(is_array($role) && in_array(Auth::user()->role, $role))
             @include('tambah_button', ['link'  => $createLink])
+            @elseif($role == Auth::user()->role)
+            @include('tambah_button', ['link'  => $createLink])
+            @endif
+            @else
+            @include('tambah_button', ['link'  => $createLink])
+            @endisset
           </div>
           <div class="box-body">
             <table id="dt" class="table table-bordered table-striped">

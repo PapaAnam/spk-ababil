@@ -4,6 +4,7 @@
   @include('page_header2')
   <section class="content">
     <div class="row">
+      @include('success_msg')
       <div class="col-md-12">
         @include('error_msg')
         <div class="box box-primary">

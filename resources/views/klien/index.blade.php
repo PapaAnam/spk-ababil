@@ -1,4 +1,5 @@
 @extends('my-view')
+@if(Auth::user()->role == 'superadmin')
 @section('table')
 <thead>
   <tr>
@@ -44,3 +45,4 @@
   </tr>
 </tfoot>
 @endsection
+@endif
