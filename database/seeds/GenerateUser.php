@@ -14,7 +14,7 @@ class GenerateUser extends Seeder
     {
     	if(User::count()<=0){
     		DB::statement('set foreign_key_checks=0;');
-    		DB::table('user')->truncate();
+    		DB::table('users')->truncate();
     	}
     	User::updateOrCreate([
     		'email'=>'superadmin@spkababil.com',
