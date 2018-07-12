@@ -15,4 +15,16 @@ class Klien extends Model
 	{
 		return $this->hasMany('App\Pic', 'klien');
 	}
+
+	public function scopeSelectMode($q)
+	{
+		$data = [];
+		foreach ($q->get() as $a) {
+			$data[] = collect([
+				'value'=>$a->id,
+				'text'=>'['.$a->id.'] '.$a->nama_perusahaan
+			]);
+		}
+		return $data;
+	}
 }

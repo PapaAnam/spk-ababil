@@ -46,6 +46,11 @@
           <i class="fa fa-user-plus"></i> <span>Klien</span>
         </a>
       </li>
+      <li class="{{ $active == 'proyek.index' ? 'active' : '' }}">
+        <a href="{{ route('proyek.index') }}">
+          <i class="fa fa-check-square-o"></i> <span>Proyek</span>
+        </a>
+      </li>
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">
           <i class="fa fa-laptop"></i>
