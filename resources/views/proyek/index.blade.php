@@ -24,7 +24,7 @@
     <td>{{ $d->kliendetail->nama_perusahaan }}</td>
     <td>{{ $d->deskripsi }}</td>
     <td>{{ $d->qty }}</td>
-    <td>{{ $d->satuan }}</td>
+    <td>{{ $d->satuandetail->nama }}</td>
     <td>
       @if(count($d->pelaksana) > 0)
       <ul>

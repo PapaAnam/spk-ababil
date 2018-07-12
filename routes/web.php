@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function(){
 	Route::resource('klien', 'KlienController')->except(['show']);
 	Route::resource('time-sheet', 'TimeSheetController')->except(['show']);
 	Route::resource('proyek', 'ProyekController')->except(['show']);
+	Route::resource('tugas', 'TugasController')->except(['show']);
 
 	Route::get('/home', function(){
 		return redirect()->route('karyawan.index');

@@ -177,6 +177,7 @@ class ProyekController extends Controller
      */
     public function destroy(Proyek $proyek)
     {
+        $proyek->pelaksana()->delete();
         $proyek->delete();
         return redirect()->route('proyek.index')->with('success_msg', 'Proyek berhasil dihapus');
     }

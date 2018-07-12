@@ -15,13 +15,8 @@ class MyRole
      */
     public function handle($request, Closure $next, String $role, String $role2 = null)
     {
-        if($role == $request->user()->role){
+        if($role == $request->user()->role || $role2 == $request->user()->role){
             return $next($request);
-        }
-        if($role2){
-            if($role2 == $request->user()->role){
-                return $next($request);
-            }   
         }
         return abort(503);
     }

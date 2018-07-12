@@ -27,4 +27,21 @@ class Proyek extends Model
 	{
 		return $this->belongsTo('App\Klien', 'klien');
 	}
+
+	public function satuandetail()
+	{
+		return $this->belongsTo('App\Satuan','satuan');
+	}
+
+	public function scopeSelectMode($q)
+	{
+		$data = [];
+		foreach ($q->get() as $a) {
+			$data[] = collect([
+				'value'=>$a->id,
+				'text'=>'['.$a->id.'] '.$a->nama,
+			]);
+		}
+		return $data;
+	}
 }
