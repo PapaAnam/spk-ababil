@@ -18,6 +18,11 @@ class Proyek extends Model
 		'end_date',
 	];
 
+	public function tugas()
+	{
+		return $this->hasMany('App\Tugas', 'id_proyek');
+	}
+
 	public function pelaksana()
 	{
 		return $this->hasMany('App\PelaksanaDetail', 'id_proyek');

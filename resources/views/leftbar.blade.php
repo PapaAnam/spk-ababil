@@ -56,6 +56,13 @@
           <i class="fa fa-circle-o"></i> <span>Tugas</span>
         </a>
       </li>
+      @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
+      <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">
+        <a href="{{ route('progress-kerja-harian.index') }}">
+          <i class="fa fa-money"></i> <span>Lap. Progress Kerja Harian</span>
+        </a>
+      </li>
+      @endif
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">
           <i class="fa fa-laptop"></i>
