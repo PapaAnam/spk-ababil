@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function(){
 	Route::resource('proyek', 'ProyekController')->except(['show']);
 	Route::resource('tugas', 'TugasController')->except(['show']);
 	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController')->except(['show']);
+	Route::resource('invoice', 'InvoiceController')->only(['index','create','store']);
 
 	Route::get('/home', function(){
 		return redirect()->route('karyawan.index');

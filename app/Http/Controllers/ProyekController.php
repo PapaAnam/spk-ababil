@@ -181,4 +181,9 @@ class ProyekController extends Controller
         $proyek->delete();
         return redirect()->route('proyek.index')->with('success_msg', 'Proyek berhasil dihapus');
     }
+
+    public function get(Request $r)
+    {
+        return Proyek::where('klien', $r->klien)->get();
+    }
 }

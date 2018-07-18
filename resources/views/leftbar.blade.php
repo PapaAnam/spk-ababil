@@ -63,6 +63,13 @@
         </a>
       </li>
       @endif
+      @if(Auth::user()->role == 'finance' || Auth::user()->role == 'superadmin')
+      <li class="{{ $active == 'invoice.index' ? 'active' : '' }}">
+        <a href="{{ route('invoice.index') }}">
+          <i class="fa fa-print"></i> <span>Invoice</span>
+        </a>
+      </li>
+      @endif
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">
           <i class="fa fa-laptop"></i>

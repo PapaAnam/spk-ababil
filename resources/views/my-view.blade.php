@@ -20,9 +20,11 @@
             @endisset
           </div>
           <div class="box-body">
-            <table id="dt" class="table table-bordered table-striped">
-              @yield('table')
-            </table>
+            <div class="table-responsive">
+              <table id="dt" class="table table-bordered table-striped">
+                @yield('table')
+              </table>
+            </div>
           </div>
         </div>
       </div>
