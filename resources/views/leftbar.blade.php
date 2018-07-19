@@ -63,10 +63,10 @@
         </a>
       </li>
       @endif
-      @if(Auth::user()->role == 'finance' || Auth::user()->role == 'superadmin')
-      <li class="{{ $active == 'invoice.index' ? 'active' : '' }}">
-        <a href="{{ route('invoice.index') }}">
-          <i class="fa fa-print"></i> <span>Invoice</span>
+      @if(Auth::user()->role == 'superadmin')
+      <li class="{{ $active == 'kategori.index' ? 'active' : '' }}">
+        <a href="{{ route('kategori.index') }}">
+          <i class="fa fa-cubes"></i> <span>Kategori Pengeluaran</span>
         </a>
       </li>
       @endif

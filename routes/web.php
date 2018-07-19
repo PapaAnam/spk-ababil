@@ -38,6 +38,12 @@ Route::middleware('auth')->group(function(){
 	Route::resource('tugas', 'TugasController')->except(['show']);
 	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController')->except(['show']);
 	Route::resource('invoice', 'InvoiceController')->only(['index','create','store']);
+	Route::resource('kategori', 'KategoriController')->except(['show']);
+	Route::get('/sub-kategori/{kategori}/tambah', 'SubKategoriController@create')->name('sub-kategori.create');
+	Route::post('/sub-kategori/{kategori}', 'SubKategoriController@store')->name('sub-kategori.store');
+	Route::get('/sub-kategori/{kategori}/{sub_kategori}/ubah', 'SubKategoriController@edit')->name('sub-kategori.edit');
+	Route::put('/sub-kategori/{kategori}/{sub_kategori}', 'SubKategoriController@update')->name('sub-kategori.update');
+	Route::delete('/sub-kategori/{kategori}/{sub_kategori}', 'SubKategoriController@destroy')->name('sub-kategori.destroy');
 
 	Route::get('/home', function(){
 		return redirect()->route('karyawan.index');
