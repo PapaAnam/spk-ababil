@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+// use Auth;
 
 class MyRole
 {
@@ -15,9 +16,11 @@ class MyRole
      */
     public function handle($request, Closure $next, String $role, String $role2 = null)
     {
-        if($role == $request->user()->role || $role2 == $request->user()->role){
-            return $next($request);
-        }
+        // if(Auth::check()){
+            if($role == $request->user()->role || $role2 == $request->user()->role){
+                return $next($request);
+            }   
+        // }
         return abort(503);
     }
 }

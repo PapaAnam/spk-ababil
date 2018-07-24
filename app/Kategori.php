@@ -17,4 +17,16 @@ class Kategori extends Model
 	{
 		return $this->hasMany('App\Kategori', 'id_kategori');
 	}
+
+	public function scopeSelectMode($q)
+	{
+		$data = [];
+		foreach ($q->whereNull('id_kategori')->get() as $a) {
+			$data[] = collect([
+				'value'=>$a->id,
+				'text'=>'['.$a->id.'] '.$a->nama,
+			]);
+		}
+		return $data;
+	}
 }

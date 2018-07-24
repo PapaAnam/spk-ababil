@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/sub-kategori/{kategori}/{sub_kategori}/ubah', 'SubKategoriController@edit')->name('sub-kategori.edit');
 	Route::put('/sub-kategori/{kategori}/{sub_kategori}', 'SubKategoriController@update')->name('sub-kategori.update');
 	Route::delete('/sub-kategori/{kategori}/{sub_kategori}', 'SubKategoriController@destroy')->name('sub-kategori.destroy');
+	Route::resource('pengeluaran', 'PengeluaranController')->except(['show']);
 
 	Route::get('/home', function(){
 		return redirect()->route('karyawan.index');

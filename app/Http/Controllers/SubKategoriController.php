@@ -10,7 +10,7 @@ class SubKategoriController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('myrole:superadmin');
+        $this->middleware('myrole:superadmin')->except('getData');
     }
     
     public function create(Kategori $kategori)
@@ -65,6 +65,11 @@ class SubKategoriController extends Controller
     {
         $subKategori->delete();
         return redirect()->route('kategori.index')->with('success_msg', 'Sub Kategori Pengeluaran berhasil dihapus');
+    }
+
+    public function getData(Request $r)
+    {
+        return Kategori::where('id_kategori', $r->kategori)->get();
     }
 
 }

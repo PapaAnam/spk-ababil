@@ -11,7 +11,7 @@
           <div class="box-header with-border">
             <h3 class="box-title">{{ $title }}</h3>
           </div>
-          <form action="{{ $action }}" method="post" class="form-horizontal">
+          <form action="{{ $action }}" method="post" class="form-horizontal" enctype="multipart/form-data">
             @csrf
             <div class="box-body">
               @yield('form')              
