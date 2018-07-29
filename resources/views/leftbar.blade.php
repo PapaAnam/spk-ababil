@@ -77,10 +77,31 @@
         </a>
       </li>
       @endif
-      <li class="{{ $active == 'pengeluaran.index' ? 'active' : '' }}">
-        <a href="{{ route('pengeluaran.index') }}">
-          <i class="fa fa-paypal"></i> <span>Pengeluaran</span>
+      <li class="treeview @if(in_array($active, ['pengeluaran.by-waktu','pengeluaran.by-proyek','pengeluaran.by-kategori','pengeluaran.by-pelaksana','pengeluaran.by-vendor',])) active @endif ">
+        <a href="#">
+          <i class="fa fa-paypal"></i>
+          <span>Pengeluaran</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['pengeluaran.by-waktu'])) class="active" @endif>
+            <a href="{{ route('pengeluaran.by-waktu') }}"><i class="fa fa-circle-o"></i> By Rentang Waktu</a>
+          </li>
+          <li @if(in_array($active, ['pengeluaran.by-proyek'])) class="active" @endif>
+            <a href="{{ route('pengeluaran.by-proyek') }}"><i class="fa fa-circle-o"></i> By Proyek</a>
+          </li>
+          <li @if(in_array($active, ['pengeluaran.by-kategori'])) class="active" @endif>
+            <a href="{{ route('pengeluaran.by-kategori') }}"><i class="fa fa-circle-o"></i> By Kategori</a>
+          </li>
+          <li @if(in_array($active, ['pengeluaran.by-pelaksana'])) class="active" @endif>
+            <a href="{{ route('pengeluaran.by-pelaksana') }}"><i class="fa fa-circle-o"></i> By Pelaksana</a>
+          </li>
+          <li @if(in_array($active, ['pengeluaran.by-vendor'])) class="active" @endif>
+            <a href="{{ route('pengeluaran.by-vendor') }}"><i class="fa fa-circle-o"></i> By Vendor</a>
+          </li>
+        </ul>
       </li>
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">

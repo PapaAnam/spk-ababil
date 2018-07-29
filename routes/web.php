@@ -45,6 +45,11 @@ Route::middleware('auth')->group(function(){
 	Route::put('/sub-kategori/{kategori}/{sub_kategori}', 'SubKategoriController@update')->name('sub-kategori.update');
 	Route::delete('/sub-kategori/{kategori}/{sub_kategori}', 'SubKategoriController@destroy')->name('sub-kategori.destroy');
 	Route::resource('pengeluaran', 'PengeluaranController')->except(['show']);
+	Route::get('/pengeluaran/by-waktu', 'PengeluaranController@byWaktu')->name('pengeluaran.by-waktu');
+	Route::get('/pengeluaran/by-proyek', 'PengeluaranController@byProyek')->name('pengeluaran.by-proyek');
+	Route::get('/pengeluaran/by-kategori', 'PengeluaranController@byKategori')->name('pengeluaran.by-kategori');
+	Route::get('/pengeluaran/by-pelaksana', 'PengeluaranController@byPelaksana')->name('pengeluaran.by-pelaksana');
+	Route::get('/pengeluaran/by-vendor', 'PengeluaranController@byVendor')->name('pengeluaran.by-vendor');
 
 	Route::get('/home', function(){
 		return redirect()->route('karyawan.index');

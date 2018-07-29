@@ -47,16 +47,16 @@ class PengeluaranController extends Controller
             ->where('id_proyek', $r->query('proyek'))
             ->get();
         }
-    	return view('pengeluaran.index', [
-    		'data'      => $data,
-    		'title'     => 'Pengeluaran',
-    		'active'    => 'pengeluaran.index',
-    		'createLink'=>route('pengeluaran.create'),
-    		'listKategori'=>Kategori::selectMode(),
-            'listVendor'=>Vendor::selectMode(),
-            'listProyek'=>Proyek::selectMode(),
-            'listPelaksana'=>Karyawan::selectMode(),
-    	]);
+        return view('pengeluaran.index', [
+          'data'      => $data,
+          'title'     => 'Pengeluaran',
+          'active'    => 'pengeluaran.index',
+          'createLink'=>route('pengeluaran.create'),
+          'listKategori'=>Kategori::selectMode(),
+          'listVendor'=>Vendor::selectMode(),
+          'listProyek'=>Proyek::selectMode(),
+          'listPelaksana'=>Karyawan::selectMode(),
+      ]);
     }
 
     /**
@@ -98,26 +98,26 @@ class PengeluaranController extends Controller
     		'kwitansi'=>'required',
             'no'=>'required',
             'tanggal'=>'required',
-    	]);
+        ]);
     	if(Pengeluaran::count() == 0){
     		DB::statement('set foreign_key_checks=0;');
     		Pengeluaran::truncate();
     	}
         $kwitansi = $request->kwitansi->store('public/kwitansi');
         $kwitansi = url(str_replace('public/', 'storage/', $kwitansi));
-    	$klien = Pengeluaran::create([
-    		'id_vendor'=>$request->id_vendor,
-            'id_karyawan'=>$request->id_karyawan,
-            'nominal'=>$request->nominal,
-            'id_proyek'=>$request->id_proyek,
-            'id_kategori'=>$request->id_kategori,
-            'id_sub_kategori'=>$request->id_sub_kategori,
-            'ref'=>$request->ref,
-            'kwitansi'=>$kwitansi,
-            'no'=>$request->no,
-            'tanggal'=>$request->tanggal,
-    	]);
-    	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil dibuat');
+        $klien = Pengeluaran::create([
+          'id_vendor'=>$request->id_vendor,
+          'id_karyawan'=>$request->id_karyawan,
+          'nominal'=>$request->nominal,
+          'id_proyek'=>$request->id_proyek,
+          'id_kategori'=>$request->id_kategori,
+          'id_sub_kategori'=>$request->id_sub_kategori,
+          'ref'=>$request->ref,
+          'kwitansi'=>$kwitansi,
+          'no'=>$request->no,
+          'tanggal'=>$request->tanggal,
+      ]);
+        return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil dibuat');
     }
 
     /**
@@ -197,4 +197,94 @@ class PengeluaranController extends Controller
     	$klien->delete();
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil dihapus');
     }
-  }
+
+    public function byWaktu(Request $r)
+    {
+        $data = [];
+        $query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+        if($r->query('dari') && $r->query('sampai')){
+            $data = $query
+            ->whereBetween('tanggal', [$r->query('dari'), $r->query('sampai')])
+            ->get();
+        }
+        return view('pengeluaran.by-waktu', [
+            'data'      => $data,
+            'title'     => 'Pengeluaran By Waktu',
+            'active'    => 'pengeluaran.by-waktu',
+            'createLink'=>route('pengeluaran.create'),
+        ]);
+    }
+
+    public function byProyek(Request $r)
+    {
+        $data = [];
+        $query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+        if($r->query('proyek')){
+            $data = $query
+            ->where('id_proyek', $r->query('proyek'))
+            ->get();
+        }
+        return view('pengeluaran.by-proyek', [
+            'data'      => $data,
+            'title'     => 'Pengeluaran By Proyek',
+            'active'    => 'pengeluaran.by-proyek',
+            'createLink'=>route('pengeluaran.create'),
+            'listProyek'=>Proyek::selectMode(),
+        ]);
+    }
+
+    public function byKategori(Request $r)
+    {
+        $data = [];
+        $query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+        if($r->query('kategori')){
+            $data = $query
+            ->where('id_kategori', $r->query('kategori'))
+            ->get();
+        }
+        return view('pengeluaran.by-kategori', [
+            'data'      => $data,
+            'title'     => 'Pengeluaran By Kategori',
+            'active'    => 'pengeluaran.by-kategori',
+            'createLink'=>route('pengeluaran.create'),
+            'listKategori'=>Kategori::selectMode(),
+        ]);
+    }
+
+    public function byPelaksana(Request $r)
+    {
+        $data = [];
+        $query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+        if($r->query('pelaksana')){
+            $data = $query
+            ->where('id_karyawan', $r->query('pelaksana'))
+            ->get();
+        }
+        return view('pengeluaran.by-pelaksana', [
+            'data'      => $data,
+            'title'     => 'Pengeluaran By Pelaksana',
+            'active'    => 'pengeluaran.by-pelaksana',
+            'createLink'=>route('pengeluaran.create'),
+            'listPelaksana'=>Karyawan::selectMode(),
+        ]);
+    }
+
+    public function byVendor(Request $r)
+    {
+        $data = [];
+        $query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+        if($r->query('vendor')){
+            $data = $query
+            ->where('id_vendor', $r->query('vendor'))
+            ->get();
+        }
+        return view('pengeluaran.by-vendor', [
+            'data'      => $data,
+            'title'     => 'Pengeluaran By Vendor',
+            'active'    => 'pengeluaran.by-vendor',
+            'createLink'=>route('pengeluaran.create'),
+            'listVendor'=>Vendor::selectMode(),
+        ]);
+    }
+
+}
