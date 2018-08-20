@@ -28,6 +28,7 @@ class KaryawanSeeder extends Seeder
     			'um_harian'=>$faker->numberBetween(100000,1000000),
     			'rate_lembur'=>$faker->numberBetween(100000,1000000),
     			'insentif'=>$faker->numberBetween(1000000,10000000),
+                'jenis'=>$faker->randomElement(['Office','Sopir','Operator']),
     		]);
     	}
     }

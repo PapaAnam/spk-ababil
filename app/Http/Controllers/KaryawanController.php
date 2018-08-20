@@ -14,6 +14,16 @@ class KaryawanController extends Controller
         $this->middleware('myrole:superadmin')->except('index');
     }
 
+    private function getListJenis()
+    {
+        return [
+            ['text'=>'--- Pilih Jenis Karyawan ---','value'=>''],
+            ['text'=>'Office','value'=>'Office'],
+            ['text'=>'Operator','value'=>'Operator'],
+            ['text'=>'Sopir','value'=>'Sopir'],
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +53,8 @@ class KaryawanController extends Controller
             'modul_link'    => route('karyawan.index'),
             'modul'         => 'Karyawan',
             'action'        => route('karyawan.store'),
-            'active'        => 'karyawan.create'
+            'active'        => 'karyawan.create',
+            'listJenis'=>$this->getListJenis(),
         ]);
     }
 
@@ -68,6 +79,7 @@ class KaryawanController extends Controller
             'um_harian'=>'required|numeric',
             'rate_lembur'=>'required|numeric',
             'insentif'=>'required|numeric',
+            'jenis'=>'required',
         ]);
         if(Karyawan::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -86,6 +98,7 @@ class KaryawanController extends Controller
             'um_harian'=>$request->um_harian,
             'rate_lembur'=>$request->rate_lembur,
             'insentif'=>$request->insentif,
+            'jenis'=>$request->jenis,
         ]);
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil dibuat');
     }
@@ -98,7 +111,15 @@ class KaryawanController extends Controller
      */
     public function show(Karyawan $karyawan)
     {
-        //
+        return view('karyawan.detail', [
+            'd'=>$karyawan,
+            'title'=>'Detail Karyawan',
+            'modul_link'=>route('karyawan.index'),
+            'modul'=>'Karyawan',
+            'action'=>false,
+            'active'=>'karyawan.index',
+            'saveBtn'=>false,
+        ]);
     }
 
     /**
@@ -115,7 +136,8 @@ class KaryawanController extends Controller
             'modul_link'    => route('karyawan.index'),
             'modul'         => 'Karyawan',
             'action'        => route('karyawan.update', $karyawan->id),
-            'active'        => 'karyawan.edit'
+            'active'        => 'karyawan.edit',
+            'listJenis'=>$this->getListJenis(),
         ]);
     }
 
@@ -141,6 +163,7 @@ class KaryawanController extends Controller
             'um_harian'=>'required|numeric',
             'rate_lembur'=>'required|numeric',
             'insentif'=>'required|numeric',
+            'jenis'=>'required',
         ]);
         $karyawan->update([
             'nama'=>$request->nama,
@@ -155,6 +178,7 @@ class KaryawanController extends Controller
             'um_harian'=>$request->um_harian,
             'rate_lembur'=>$request->rate_lembur,
             'insentif'=>$request->insentif,
+            'jenis'=>$request->jenis,
         ]);
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil diperbarui');
     }

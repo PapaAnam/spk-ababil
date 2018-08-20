@@ -14,6 +14,8 @@ class TimeSheet extends Model
 		'jam_mulai',
 		'jam_selesai',
 		'ritase',
+		'lembur',
+		'istirahat',
 	];
 	protected $appends = ['total_jam'];
 
@@ -29,6 +31,6 @@ class TimeSheet extends Model
 		if($total_waktu_dalam_detik < 0){
 			$total_waktu_dalam_detik = 0;
 		}
-		return round($total_waktu_dalam_detik/3600, 2);
+		return round( ( $total_waktu_dalam_detik / 3600 ) - $this->istirahat , 2 );
 	}
 }

@@ -26,6 +26,7 @@ class ProyekController extends Controller
     public function index(Request $r)
     {
         $data = Proyek::with('pelaksana.karyawan','kliendetail')->get();
+        // return $data;
         return view('proyek.index', [
             'data'      => $data,
             'title'     => 'Proyek',
@@ -105,7 +106,15 @@ class ProyekController extends Controller
      */
     public function show(Proyek $proyek)
     {
-        //
+        return view('proyek.detail', [
+            'active'=>'proyek.index',
+            'modul'=>'Proyek',
+            'saveBtn'=>false,
+            'd'=>$proyek,
+            'title'=>'Detail Proyek',
+            'modul_link'=>route('proyek.index'),
+            'action'=>false,
+        ]);
     }
 
     /**

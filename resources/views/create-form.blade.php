@@ -18,7 +18,10 @@
             </div>
             <div class="box-footer">
               @include('batal_btn')
+              @isset($saveBtn)
+              @else
               @include('simpan_btn')
+              @endisset
             </div>
           </form>
         </div>

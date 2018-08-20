@@ -21,14 +21,16 @@
 @section('table')
 <thead>
   <tr>
-    <th>ID Time Sheet</th>
+    <th>ID</th>
     <th>NIK</th>
     <th>Nama</th>
     <th>Tanggal</th>
     <th>Jam Mulai</th>
     <th>Jam Selesai</th>
-    <th>Total Jam</th>
     <th>Ritase</th>
+    <th>Istirahat</th>
+    <th>Lembur</th>
+    <th>Total Jam</th>
     @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
     @endif
@@ -43,8 +45,10 @@
     <td>{{ $d->tanggal }}</td>
     <td>{{ $d->jam_mulai }}</td>
     <td>{{ $d->jam_selesai }}</td>
-    <td>{{ $d->total_jam }}</td>
     <td>{{ $d->ritase }}</td>
+    <td>{{ $d->istirahat }}</td>
+    <td>{{ $d->lembur }}</td>
+    <td>{{ $d->total_jam }}</td>
     @if('superadmin' == Auth::user()->role)
     <td>
       @include('edit_button', ['link' => route('time-sheet.edit', [$d->id])])
@@ -56,7 +60,7 @@
 </tbody>
 <tfoot>
   <tr>
-    <th>ID Time Sheet</th>
+    <th>ID</th>
     <th>NIK</th>
     <th>Nama</th>
     <th>Tanggal</th>

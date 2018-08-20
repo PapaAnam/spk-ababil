@@ -4,7 +4,9 @@
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal'])
 @include('timemask',['id'=>'jam_mulai','label'=>'Jam Mulai'])
 @include('timemask',['id'=>'jam_selesai','label'=>'Jam Selesai'])
-@include('input_number',['id'=>'ritase','label'=>'Ritase'])
+@include('input',['id'=>'ritase','label'=>'Ritase'])
+@include('input',['id'=>'lembur','label'=>'Lembur','value'=>0])
+@include('input',['id'=>'istirahat','label'=>'Istirahat','value'=>0])
 @endsection
 
 @include('import-datepicker')

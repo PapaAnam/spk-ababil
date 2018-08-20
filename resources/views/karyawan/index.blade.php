@@ -3,8 +3,8 @@
 <thead>
   <tr>
     <th>ID</th>
+    <th>NIK</th>
     <th>Nama</th>
-    <th>Alamat</th>
     <th>No Telp</th>
     <th>Jabatan</th>
     <th>Armada</th>
@@ -17,8 +17,8 @@
   @foreach ($data as $d)
   <tr>
     <td>{{ $d->id }}</td>
+    <td>{{ $d->nik }}</td>
     <td>{{ $d->nama }}</td>
-    <td>{{ $d->alamat }}</td>
     <td>{{ $d->no_hp }}</td>
     <td>{{ $d->jabatan }}</td>
     <td>{{ $d->armada }}</td>
@@ -26,6 +26,7 @@
     <td>
       @include('edit_button', ['link' => route('karyawan.edit', [$d->id])])
       @include('delete_button', ['link' => route('karyawan.destroy', [$d->id])])
+      @include('detail_button', ['link' => route('karyawan.show', [$d->id])])
     </td>
     @endif
   </tr>
@@ -34,8 +35,8 @@
 <tfoot>
   <tr>
     <th>ID</th>
+    <th>NIK</th>
     <th>Nama</th>
-    <th>Alamat</th>
     <th>No Telp</th>
     <th>Jabatan</th>
     <th>Armada</th>

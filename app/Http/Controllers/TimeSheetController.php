@@ -69,8 +69,10 @@ class TimeSheetController extends Controller
             'id_karyawan'=>'required',
             'tanggal'=>'required|date_format:Y-m-d',
             'jam_mulai'=>'required|date_format:H\:i\:s',
-            'jam_selesai'=>'required',
-            'ritase'=>'required',
+            'jam_selesai'=>'required|date_format:H\:i\:s',
+            'ritase'=>'required|numeric',
+            'lembur'=>'required|numeric',
+            'istirahat'=>'required|numeric',
         ]);
         if(TimeSheet::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -82,6 +84,8 @@ class TimeSheetController extends Controller
             'jam_mulai'=>$request->jam_mulai,
             'jam_selesai'=>$request->jam_selesai,
             'ritase'=>$request->ritase,
+            'lembur'=>$request->lembur,
+            'istirahat'=>$request->istirahat,
         ]);
         return redirect()->route('time-sheet.index')->with('success_msg', 'Time Sheet berhasil dibuat');
     }
@@ -131,6 +135,8 @@ class TimeSheetController extends Controller
             'jam_mulai'=>'required|date_format:H\:i\:s',
             'jam_selesai'=>'required',
             'ritase'=>'required',
+            'lembur'=>'required|numeric',
+            'istirahat'=>'required|numeric',
         ]);
         $timeSheet->update([
             'id_karyawan'=>$request->id_karyawan,
@@ -138,6 +144,8 @@ class TimeSheetController extends Controller
             'jam_mulai'=>$request->jam_mulai,
             'jam_selesai'=>$request->jam_selesai,
             'ritase'=>$request->ritase,
+            'lembur'=>$request->lembur,
+            'istirahat'=>$request->istirahat,
         ]);
         return redirect()->route('time-sheet.index')->with('success_msg', 'Time Sheet berhasil diperbarui');
     }

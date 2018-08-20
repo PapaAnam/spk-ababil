@@ -2,9 +2,7 @@
 
 Route::middleware('auth')->group(function(){
 
-	Route::get('/', function(){
-		return redirect()->route('karyawan.index');
-	});
+	Route::get('/', 'DasborController@index')->name('dasbor');
 
 	Route::get('/profile', 'ProfileController@index')->name('profile');
 	Route::put('/profile', 'ProfileController@update')->name('profile.update');
@@ -31,10 +29,10 @@ Route::middleware('auth')->group(function(){
 
 	Route::resource('vendor', 'VendorController')->except(['show']);
 	Route::resource('uam', 'UamController')->except(['show']);
-	Route::resource('karyawan', 'KaryawanController')->except(['show']);
+	Route::resource('karyawan', 'KaryawanController');
 	Route::resource('klien', 'KlienController')->except(['show']);
 	Route::resource('time-sheet', 'TimeSheetController')->except(['show']);
-	Route::resource('proyek', 'ProyekController')->except(['show']);
+	Route::resource('proyek', 'ProyekController');
 	Route::resource('tugas', 'TugasController')->except(['show']);
 	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController')->except(['show']);
 	Route::resource('invoice', 'InvoiceController')->only(['index','create','store']);
@@ -50,6 +48,11 @@ Route::middleware('auth')->group(function(){
 	Route::get('/pengeluaran/by-kategori', 'PengeluaranController@byKategori')->name('pengeluaran.by-kategori');
 	Route::get('/pengeluaran/by-pelaksana', 'PengeluaranController@byPelaksana')->name('pengeluaran.by-pelaksana');
 	Route::get('/pengeluaran/by-vendor', 'PengeluaranController@byVendor')->name('pengeluaran.by-vendor');
+	Route::get('/gaji/cek', 'GajiController@cek')->name('gaji.cek');
+	Route::get('/gaji/by-karyawan', 'GajiController@byKaryawan')->name('gaji.by-karyawan');
+	Route::get('/gaji/by-periode', 'GajiController@byPeriode')->name('gaji.by-periode');
+	Route::get('/gaji/by-jabatan', 'GajiController@byJabatan')->name('gaji.by-jabatan');
+	Route::resource('gaji', 'GajiController');
 
 	Route::get('/home', function(){
 		return redirect()->route('karyawan.index');
