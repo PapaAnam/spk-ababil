@@ -51,10 +51,25 @@
           <i class="fa fa-check-square-o"></i> <span>Proyek</span>
         </a>
       </li>
-      <li class="{{ $active == 'tugas.index' ? 'active' : '' }}">
-        <a href="{{ route('tugas.index') }}">
-          <i class="fa fa-circle-o"></i> <span>Tugas</span>
+      <li class="treeview @if(in_array($active, ['tugas.by-waktu','tugas.by-klien','tugas.by-proyek'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-cubes"></i>
+          <span>Tugas</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['tugas.by-waktu'])) class="active" @endif>
+            <a href="{{ route('tugas.by-waktu') }}"><i class="fa fa-circle-o"></i> By Rentang Waktu</a>
+          </li>
+          <li @if(in_array($active, ['tugas.by-klien'])) class="active" @endif>
+            <a href="{{ route('tugas.by-klien') }}"><i class="fa fa-circle-o"></i> By Klien</a>
+          </li>
+          <li @if(in_array($active, ['tugas.by-proyek'])) class="active" @endif>
+            <a href="{{ route('tugas.by-proyek') }}"><i class="fa fa-circle-o"></i> By Proyek</a>
+          </li>
+        </ul>
       </li>
       @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
       <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">

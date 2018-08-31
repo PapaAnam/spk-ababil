@@ -22,17 +22,18 @@
     <td>{{ $d->id }}</td>
     <td>{{ $d->tanggal }}</td>
     <td>{{ $d->proyek->nama }}</td>
-    <td>{{ $d->proyek->tugas_count }}</td>
+    <td>ID Tugas {{ $d->id_tugas }}</td>
     <td>{{ $d->deskripsi }}</td>
     <td>{{ $d->ritase }}</td>
     <td>
-      @if(count($d->material) > 0)
+      {{ $d->tugas->material }} : {{ $d->tugas->qty }}
+      {{-- @if(count($d->material) > 0)
       <ul>
         @foreach($d->material as $material)
         <li>Material {{ $loop->iteration }} : {{ $material->qty }}</li>
         @endforeach
       </ul>
-      @endif
+      @endif --}}
     </td>
     <td>{{ $d->cuaca }}</td>
     <td>{{ $d->kendala }}</td>

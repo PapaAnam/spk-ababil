@@ -11,6 +11,7 @@ class Tugas extends Model
 	protected $fillable = [
 		'id_proyek',
 		'deskripsi',
+		'material',
 		'qty',
 		'satuan',
 		'start_date',

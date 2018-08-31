@@ -2,6 +2,7 @@
 @section('form')
 @include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
 @include('select2',['id'=>'pelaksana','label'=>'Pilih Pelaksana','selectData'=>$listKaryawan])
+@include('input',['id'=>'material','label'=>'Material'])
 @include('input_number',['id'=>'qty','label'=>'Qty'])
 @include('select',['id'=>'satuan','label'=>'Pilih Satuan','selectData'=>$listSatuan])
 @include('datepicker',['id'=>'start_date','label'=>'Start Date'])

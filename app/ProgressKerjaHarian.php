@@ -15,6 +15,7 @@ class ProgressKerjaHarian extends Model
 		'ritase',
 		'cuaca',
 		'kendala',
+		'id_tugas',
 	];
 
 	public function proyek()
@@ -22,8 +23,13 @@ class ProgressKerjaHarian extends Model
 		return $this->belongsTo('App\Proyek', 'id_proyek');
 	}
 
-	public function material()
+	public function tugas()
 	{
-		return $this->hasMany('App\MaterialProgressKerjaHarian', 'id_progress');
+		return $this->belongsTo('App\Tugas', 'id_tugas');
 	}
+
+	// public function material()
+	// {
+	// 	return $this->hasMany('App\MaterialProgressKerjaHarian', 'id_progress');
+	// }
 }

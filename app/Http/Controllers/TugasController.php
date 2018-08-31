@@ -18,20 +18,24 @@ class TugasController extends Controller
         $this->middleware('myrole:superadmin,admin')->only('create','store', 'edit','update','destroy');
     }
 
+    public function index()
+    {
+        return view('tugas.index',[
+            'title'=>'Tugas',
+            'active'=>null,
+            'createLink'=>false,
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function byKlien(Request $r)
     {
         $data = [];
-        if($r->query('dari') && $r->query('sampai')){
-            $data = Tugas::with('pelaksana.karyawan','proyek.kliendetail')
-            ->where('start_date','>=',$r->query('dari'))
-            ->where('end_date','<=',$r->query('sampai'))
-            ->get();
-        }elseif($r->query('klien')){
+        if($r->query('klien')){
             $data = Tugas::with('pelaksana.karyawan','proyek.kliendetail')
             ->get()
             ->transform(function($item) use ($r){
@@ -42,15 +46,55 @@ class TugasController extends Controller
                 return is_null($item);
             })->values();
         }
-        return view('tugas.index', [
+        return view('tugas.by-klien', [
             'data'      => $data,
-            'title'     => 'Tugas',
-            'active'    => 'tugas.index',
+            'title'     => 'Tugas By Klien',
+            'active'    => 'tugas.by-klien',
             'createLink'=>route('tugas.create'),
             'role'=>[
                 'admin','superadmin'
             ],
             'listKlien'=>Klien::selectMode(),
+        ]);
+    }
+
+    public function byProyek(Request $r)
+    {
+        $data = [];
+        if($r->query('proyek')){
+            $data = Tugas::with('pelaksana.karyawan','proyek.kliendetail')
+            ->where('id_proyek', $r->proyek)
+            ->get();
+        }
+        return view('tugas.by-proyek', [
+            'data'      => $data,
+            'title'     => 'Tugas By Klien',
+            'active'    => 'tugas.by-proyek',
+            'createLink'=>route('tugas.create'),
+            'role'=>[
+                'admin','superadmin'
+            ],
+            'listProyek'=>Proyek::selectMode(),
+        ]);
+    }
+
+    public function byWaktu(Request $r)
+    {
+        $data = [];
+        if($r->query('dari') && $r->query('sampai')){
+            $data = Tugas::with('pelaksana.karyawan','proyek.kliendetail')
+            ->where('start_date','>=',$r->query('dari'))
+            ->where('end_date','<=',$r->query('sampai'))
+            ->get();
+        }
+        return view('tugas.by-waktu', [
+            'data'      => $data,
+            'title'     => 'Tugas By Waktu',
+            'active'    => 'tugas.by-waktu',
+            'createLink'=>route('tugas.create'),
+            'role'=>[
+                'admin','superadmin'
+            ],
         ]);
     }
 
@@ -84,6 +128,7 @@ class TugasController extends Controller
         $request->validate([
             'id_proyek'=>'required',
             'deskripsi'=>'required',
+            'material'=>'required',
             'qty'=>'required|numeric',
             'satuan'=>'required',
             'pelaksana'=>'required|array',
@@ -102,6 +147,7 @@ class TugasController extends Controller
             'satuan'=>$request->satuan,
             'start_date'=>$request->start_date,
             'end_date'=>$request->end_date,
+            'material'=>$request->material,
         ]);
         foreach ($request->pelaksana as $p) {
             PelaksanaTugas::create([
@@ -192,6 +238,26 @@ class TugasController extends Controller
     {
         $tuga->pelaksana()->delete();
         $tuga->delete();
-        return redirect()->route('tugas.index')->with('success_msg', 'Tugas berhasil dihapus');
+        return redirect()->back()->with('success_msg', 'Tugas berhasil dihapus');
     }
+
+    public function select(Request $r)
+    {
+        $tugas = Tugas::where('id_proyek', $r->proyek)->get();
+        $options = '';
+        if(count($tugas) > 0){
+            foreach ($tugas as $t) {
+                $options .= '<option value="'.$t->id.'">ID Tugas '.$t->id.'</option>';
+            }   
+        }else{
+            $options .= '<option value="">Tidak ada tugas di proyek ini</option>';
+        }
+        return $options;
+    }
+
+    public function detail(Request $r)
+    {
+        return Tugas::find($r->query('id'));
+    }
+
 }

@@ -34,6 +34,11 @@ Route::middleware('auth')->group(function(){
 	Route::resource('time-sheet', 'TimeSheetController')->except(['show']);
 	Route::resource('proyek', 'ProyekController');
 	Route::resource('tugas', 'TugasController')->except(['show']);
+	Route::get('/tugas-select', 'TugasController@select');
+	Route::get('/tugas-detail', 'TugasController@detail');
+	Route::get('/tugas/by-waktu', 'TugasController@byWaktu')->name('tugas.by-waktu');
+	Route::get('/tugas/by-klien', 'TugasController@byKlien')->name('tugas.by-klien');
+	Route::get('/tugas/by-proyek', 'TugasController@byProyek')->name('tugas.by-proyek');
 	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController')->except(['show']);
 	Route::resource('invoice', 'InvoiceController')->only(['index','create','store']);
 	Route::resource('kategori', 'KategoriController')->except(['show']);

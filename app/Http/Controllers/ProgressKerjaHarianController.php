@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ProgressKerjaHarian;
+use App\Tugas;
 use Illuminate\Http\Request;
 use App\Proyek;
 use DB;
@@ -30,11 +31,8 @@ class ProgressKerjaHarianController extends Controller
      */
     public function index(Request $r)
     {
-        $data = ProgressKerjaHarian::with(['proyek'=>function($q){
-            $q->withCount('tugas');
-        }, 'material'=>function($q){
-            $q->orderBy('tipe', 'asc');
-        }])->get();
+        $data = ProgressKerjaHarian::with(['proyek','tugas'])->get();
+        // return $data;
         return view('progress-kerja-harian.index', [
             'data'      => $data,
             'title'     => 'Progress Kerja Harian',
@@ -88,20 +86,21 @@ class ProgressKerjaHarianController extends Controller
             'deskripsi'=>$request->deskripsi,
             'ritase'=>$request->ritase,
             'id_proyek'=>$request->id_proyek,
+            'id_tugas'=>$request->id_tugas,
             'kendala'=>$request->kendala
         ]);
         // set material
-        $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
-        $progressKerjaHarian->material()->create([
-            'qty'=>$proyek->qty,
-            'tipe'=>'proyek'
-        ]);
-        foreach ($proyek->tugas as $tugas) {
-            $progressKerjaHarian->material()->create([
-                'qty'=>$tugas->qty,
-                'tipe'=>'tugas'
-            ]);
-        }
+        // $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
+        // $progressKerjaHarian->material()->create([
+        //     'qty'=>$proyek->qty,
+        //     'tipe'=>'proyek'
+        // ]);
+        // foreach ($proyek->tugas as $tugas) {
+        //     $progressKerjaHarian->material()->create([
+        //         'qty'=>$tugas->qty,
+        //         'tipe'=>'tugas'
+        //     ]);
+        // }
         return redirect()->route('progress-kerja-harian.index')->with('success_msg', 'Progress Kerja Harian berhasil dibuat');
     }
 
@@ -133,7 +132,18 @@ class ProgressKerjaHarianController extends Controller
             'active'        => 'progress-kerja-harian.edit',
             'listProyek'=>Proyek::selectMode(),
             'listCuaca'=>$this->getListCuaca(),
+            'listTugas'=>$this->getListTugas($progressKerjaHarian->id_proyek)
         ]);
+    }
+
+    private function getListTugas($idProyek)
+    {
+        $tugas = Tugas::where('id_proyek', $idProyek)->get();
+        $data = [];
+        foreach ($tugas as $t) {
+            $data[] = ['text'=>'ID Tugas '.$t->id,'value'=>$t->id];
+        }
+        return $data;
     }
 
     /**
@@ -157,21 +167,22 @@ class ProgressKerjaHarianController extends Controller
             'deskripsi'=>$request->deskripsi,
             'ritase'=>$request->ritase,
             'id_proyek'=>$request->id_proyek,
+            'id_tugas'=>$request->id_tugas,
             'kendala'=>$request->kendala
         ]);
-        $progressKerjaHarian->material()->delete();
+        // $progressKerjaHarian->material()->delete();
         // set material
-        $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
-        $progressKerjaHarian->material()->create([
-            'qty'=>$proyek->qty,
-            'tipe'=>'proyek'
-        ]);
-        foreach ($proyek->tugas as $tugas) {
-            $progressKerjaHarian->material()->create([
-                'qty'=>$tugas->qty,
-                'tipe'=>'tugas'
-            ]);
-        }
+        // $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
+        // $progressKerjaHarian->material()->create([
+        //     'qty'=>$proyek->qty,
+        //     'tipe'=>'proyek'
+        // ]);
+        // foreach ($proyek->tugas as $tugas) {
+        //     $progressKerjaHarian->material()->create([
+        //         'qty'=>$tugas->qty,
+        //         'tipe'=>'tugas'
+        //     ]);
+        // }
         return redirect()->route('progress-kerja-harian.index')->with('success_msg', 'Progress Kerja Harian berhasil diperbarui');
     }
 
