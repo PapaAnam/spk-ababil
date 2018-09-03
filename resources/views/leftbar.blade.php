@@ -31,21 +31,18 @@
           <i class="fa fa-dashboard"></i> <span>Dasbor</span>
         </a>
       </li>
-      <li class="{{ $active == 'karyawan.index' ? 'active' : '' }}">
-        <a href="{{ route('karyawan.index') }}">
-          <i class="fa fa-users"></i> <span>Karyawan</span>
-        </a>
-      </li>
       <li class="{{ $active == 'time-sheet.index' ? 'active' : '' }}">
         <a href="{{ route('time-sheet.index') }}">
           <i class="fa fa-clock-o"></i> <span>Time Sheet Karyawan</span>
         </a>
       </li>
-      <li class="{{ $active == 'klien.index' ? 'active' : '' }}">
-        <a href="{{ route('klien.index') }}">
-          <i class="fa fa-user-plus"></i> <span>Klien</span>
+      @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
+      <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">
+        <a href="{{ route('progress-kerja-harian.index') }}">
+          <i class="fa fa-money"></i> <span>Lap. Progress Kerja Harian</span>
         </a>
       </li>
+      @endif
       <li class="{{ $active == 'proyek.index' ? 'active' : '' }}">
         <a href="{{ route('proyek.index') }}">
           <i class="fa fa-check-square-o"></i> <span>Proyek</span>
@@ -71,13 +68,6 @@
           </li>
         </ul>
       </li>
-      @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
-      <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">
-        <a href="{{ route('progress-kerja-harian.index') }}">
-          <i class="fa fa-money"></i> <span>Lap. Progress Kerja Harian</span>
-        </a>
-      </li>
-      @endif
       @if(Auth::user()->role == 'finance' || Auth::user()->role == 'superadmin')
       <li class="{{ $active == 'invoice.index' ? 'active' : '' }}">
         <a href="{{ route('invoice.index') }}">
@@ -85,14 +75,7 @@
         </a>
       </li>
       @endif
-      @if(Auth::user()->role == 'superadmin')
-      <li class="{{ $active == 'kategori.index' ? 'active' : '' }}">
-        <a href="{{ route('kategori.index') }}">
-          <i class="fa fa-cubes"></i> <span>Kategori Pengeluaran</span>
-        </a>
-      </li>
-      @endif
-      <li class="treeview @if(in_array($active, ['pengeluaran.by-waktu','pengeluaran.by-proyek','pengeluaran.by-kategori','pengeluaran.by-pelaksana','pengeluaran.by-vendor','pengeluaran.create',])) active @endif ">
+      <li class="treeview @if(in_array($active, ['pengeluaran.by-waktu','pengeluaran.by-proyek','pengeluaran.by-kategori','pengeluaran.by-pelaksana','pengeluaran.by-vendor','pengeluaran.create','kategori.index',])) active @endif ">
         <a href="#">
           <i class="fa fa-paypal"></i>
           <span>Pengeluaran</span>
@@ -119,7 +102,17 @@
           <li @if(in_array($active, ['pengeluaran.by-vendor'])) class="active" @endif>
             <a href="{{ route('pengeluaran.by-vendor') }}"><i class="fa fa-circle-o"></i> By Vendor</a>
           </li>
+          @if(Auth::user()->role == 'superadmin')
+          <li @if(in_array($active, ['kategori.index'])) class="active" @endif>
+            <a href="{{ route('kategori.index') }}"><i class="fa fa-circle-o"></i> Kategori</a>
+          </li>
+          @endif
         </ul>
+      </li>
+      <li class="{{ $active == 'karyawan.index' ? 'active' : '' }}">
+        <a href="{{ route('karyawan.index') }}">
+          <i class="fa fa-users"></i> <span>Karyawan</span>
+        </a>
       </li>
       <li class="treeview @if(in_array($active, ['gaji.index', 'gaji.create','gaji.index', 'gaji.by-karyawan','gaji.by-periode','gaji.by-jabatan'])) active @endif ">
         <a href="#">
@@ -148,6 +141,11 @@
           </li>
           @endif
         </ul>
+      </li>
+      <li class="{{ $active == 'klien.index' ? 'active' : '' }}">
+        <a href="{{ route('klien.index') }}">
+          <i class="fa fa-user-plus"></i> <span>Klien</span>
+        </a>
       </li>
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">
