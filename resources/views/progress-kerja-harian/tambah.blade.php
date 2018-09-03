@@ -48,12 +48,5 @@
 			}
 		})
 	});
-	function initHapusPic(){
-		$('#hapus-pic-button').on('click', function(e){
-			$(this).parents('.pic-tambahan-view').remove();
-			initHapusPic();
-		});
-	}
-	initHapusPic();
 </script>
 @endpush

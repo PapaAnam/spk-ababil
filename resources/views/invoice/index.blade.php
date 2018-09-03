@@ -79,7 +79,7 @@
   @foreach ($data as $d)
   <tr>
     <td>{{ $d->id }}</td>
-    <td>{{ $d->tanggal }}</td>
+    <td>{{ $d->tanggal_indo }}</td>
     <td>{{ $d->no_invoice }}</td>
     <td>{{ $d->proyek->kliendetail->nama_perusahaan }}</td>
     <td>
@@ -91,13 +91,13 @@
     </td>
     <td>{{ $d->proyek->nama }}</td>
     <td>{{ $d->deskripsi }}</td>
-    <td>{{ $d->total_tagihan }}</td>
-    <td>{{ $d->terbayar }}</td>
-    <td>{{ $d->tertagih }}</td>
+    <td align="right">{{ number_format($d->total_tagihan, 0, ',', '.') }}</td>
+    <td align="right">{{ number_format($d->terbayar, 0, ',', '.') }}</td>
+    <td align="right">{{ number_format($d->tertagih, 0, ',', '.') }}</td>
     <td>
       <ul>
         @foreach($d->pajak as $pajak)
-        <li>{{ $pajak->nama.' : '.$pajak->pajak }}</li>
+        <li>{{ $pajak->nama.' : '.number_format($pajak->pajak, 0, ',', '.') }}</li>
         @endforeach
       </ul>
     </td>

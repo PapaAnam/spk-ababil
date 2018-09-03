@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Mytrait\Tanggal;
 
 class ProgressKerjaHarian extends Model
 {
+
+use Tanggal;
+
 	public $timestamps = false;
 	protected $table = 'progress_kerja_harian';
 	protected $fillable = [
@@ -18,6 +22,10 @@ class ProgressKerjaHarian extends Model
 		'id_tugas',
 	];
 
+	protected $appends = [
+		'tanggal_indo'
+	];
+
 	public function proyek()
 	{
 		return $this->belongsTo('App\Proyek', 'id_proyek');
@@ -27,9 +35,9 @@ class ProgressKerjaHarian extends Model
 	{
 		return $this->belongsTo('App\Tugas', 'id_tugas');
 	}
-
-	// public function material()
-	// {
-	// 	return $this->hasMany('App\MaterialProgressKerjaHarian', 'id_progress');
-	// }
+	
+	public function getTanggalIndoAttribute()
+	{
+		return $this->tglIndo($this->tanggal);
+	}
 }

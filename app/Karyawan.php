@@ -9,7 +9,16 @@ class Karyawan extends Model
 
 	public $timestamps = false;
 	protected $table = 'karyawan';
-	protected $fillable = ['nama','nik','alamat','no_hp','no_darurat','jabatan','armada','gaji_pokok','rate_per_jam','um_harian','rate_lembur','insentif','jenis'
+	protected $fillable = [
+		'nama','nik','alamat','no_hp','no_darurat','jabatan','armada','gaji_pokok','rate_per_jam','um_harian','rate_lembur','insentif','jenis'
+	];
+
+	protected $appends = [
+		'gaji_pokok_rp',
+		'rate_per_jam_rp',
+		'um_harian_rp',
+		'rate_lembur_rp',
+		'insentif_rp',
 	];
 
 	public function scopeSelectMode($q)
@@ -22,5 +31,30 @@ class Karyawan extends Model
 			]);
 		}
 		return $data;
+	}
+
+	public function getGajiPokokRpAttribute()
+	{
+		return number_format($this->gaji_pokok, 0, ',', '.');
+	}
+
+	public function getRatePerJamRpAttribute()
+	{
+		return number_format($this->rate_per_jam, 0, ',', '.');
+	}
+
+	public function getUmHarianRpAttribute()
+	{
+		return number_format($this->um_harian, 0, ',', '.');
+	}
+
+	public function getRateLemburRpAttribute()
+	{
+		return number_format($this->rate_lembur, 0, ',', '.');
+	}
+
+	public function getInsentifRpAttribute()
+	{
+		return number_format($this->insentif, 0, ',', '.');
 	}
 }

@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function(){
 	Route::resource('gaji', 'GajiController');
 
 	Route::get('/home', function(){
-		return redirect()->route('karyawan.index');
+		return redirect('/');
 	});
 
 	Route::get('/keluar', 'Auth\LoginController@logout');

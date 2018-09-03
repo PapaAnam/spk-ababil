@@ -25,6 +25,7 @@ class TugasSeeder extends Seeder
     			'id_proyek'=>$faker->randomElement($proyek),
     			'deskripsi'=>$faker->text,
     			'qty'=>$faker->numberBetween(1,1000),
+                'material'=>$faker->word,
     			'satuan'=>$faker->randomElement($satuan),
     			'start_date'=>$start_date,
     			'end_date'=>$end_date,

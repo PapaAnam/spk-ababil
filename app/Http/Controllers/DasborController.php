@@ -11,6 +11,8 @@ use App\Tugas;
 use App\ProgressKerjaHarian;
 use App\Kategori;
 use App\User;
+use App\Invoice;
+use App\Pengeluaran;
 
 class DasborController extends Controller
 {
@@ -29,6 +31,8 @@ class DasborController extends Controller
 			'jmlProg'=>ProgressKerjaHarian::count(),
 			'jmlKat'=>Kategori::count(),
 			'jmlUser'=>User::count(),
+			'jmlInvoice'=>Invoice::count(),
+			'jmlPengeluaran'=>Pengeluaran::count(),
 			'createLink'=>false,
 		]);
 	}

@@ -16,6 +16,23 @@
     @endif
   </tr>
 </thead>
+<tfoot>
+    <tr>
+    <th>ID</th>
+    <th>Proyek</th>
+    <th>Klien</th>
+    <th>Deskripsi</th>
+    <th>Material</th>
+    <th>Qty</th>
+    <th>Satuan</th>
+    <th>Pelaksana</th>
+    <th>Mulai</th>
+    <th>Akhir</th>
+    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    <th>Aksi</th>
+    @endif
+  </tr>
+</tfoot>
 <tbody>
   @foreach ($data as $d)
   <tr>
@@ -35,8 +52,8 @@
       </ul>
       @endif
     </td>
-    <td>{{ $d->start_date }}</td>
-    <td>{{ $d->end_date }}</td>
+    <td>{{ $d->start_date_indo }}</td>
+    <td>{{ $d->end_date_indo }}</td>
     @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <td>
       @include('edit_button', ['link' => route('tugas.edit', [$d->id])])
@@ -46,19 +63,4 @@
   </tr>
   @endforeach
 </tbody>
-<tfoot>
-  <tr>
-    <th>ID</th>
-    <th>Proyek</th>
-    <th>Deskripsi</th>
-    <th>Qty</th>
-    <th>Satuan</th>
-    <th>Pelaksana</th>
-    <th>Mulai</th>
-    <th>Akhir</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
-    <th>Aksi</th>
-    @endif
-  </tr>
-</tfoot>
 @endsection

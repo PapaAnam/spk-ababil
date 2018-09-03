@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Mytrait\Tanggal;
 
 class Tugas extends Model
 {
+
+use Tanggal;
+
     public $timestamps = false;
 	protected $table = 'tugas';
 	protected $fillable = [
@@ -16,6 +20,11 @@ class Tugas extends Model
 		'satuan',
 		'start_date',
 		'end_date',
+	];
+
+	protected $appends = [
+		'start_date_indo',
+		'end_date_indo',
 	];
 
 	public function pelaksana()
@@ -31,5 +40,15 @@ class Tugas extends Model
 	public function satuandetail()
 	{
 		return $this->belongsTo('App\Satuan','satuan');
+	}
+
+	public function getStartDateIndoAttribute()
+	{
+		return $this->tglIndo($this->start_date);
+	}
+
+	public function getEndDateIndoAttribute()
+	{
+		return $this->tglIndo($this->end_date);
 	}
 }

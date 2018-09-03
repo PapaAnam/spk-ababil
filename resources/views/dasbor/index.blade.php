@@ -1,6 +1,6 @@
 <div class="row">
 
-  <div class="col-lg-3 col-xs-6">
+{{--   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-maroon">
       <div class="inner">
         <h3>{{ $jmlKar }}</h3>
@@ -13,7 +13,7 @@
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
 
   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-red">
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="col-lg-3 col-xs-6">
+  {{-- <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-orange">
       <div class="inner">
         <h3>{{ $jmlKlien }}</h3>
@@ -43,9 +43,9 @@
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
 
-  <div class="col-lg-3 col-xs-6">
+{{--   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-yellow">
       <div class="inner">
         <h3>{{ $jmlProyek }}</h3>
@@ -58,9 +58,9 @@
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
 
-  <div class="col-lg-3 col-xs-6">
+{{--   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-green">
       <div class="inner">
         <h3>{{ $jmlTugas }}</h3>
@@ -73,7 +73,7 @@
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
 
   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-teal">
@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <div class="col-lg-3 col-xs-6">
+  {{-- <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-primary">
       <div class="inner">
         <h3>{{ $jmlUser }}</h3>
@@ -103,9 +103,9 @@
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
-  </div>
+  </div> --}}
 
-  <div class="col-lg-3 col-xs-6">
+{{--   <div class="col-lg-3 col-xs-6">
     <div class="small-box bg-purple">
       <div class="inner">
         <h3>{{ $jmlKat }}</h3>
@@ -115,6 +115,36 @@
         <i class="fa fa-cubes"></i>
       </div>
       <a href="{{ Auth::user()->role === 'superadmin' ? route('kategori.index') : '#' }}" class="small-box-footer">
+        Selengkapnya <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div> --}}
+
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-purple">
+      <div class="inner">
+        <h3>{{ $jmlInvoice }}</h3>
+        <p>Invoice</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-print"></i>
+      </div>
+      <a href="{{ Auth::user()->role === 'superadmin' || Auth::user()->role === 'finance' ? route('invoice.index') : '#' }}" class="small-box-footer">
+        Selengkapnya <i class="fa fa-arrow-circle-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-maroon">
+      <div class="inner">
+        <h3>{{ $jmlPengeluaran }}</h3>
+        <p>Tambah Pengeluaran</p>
+      </div>
+      <div class="icon">
+        <i class="fa fa-paypal"></i>
+      </div>
+      <a href="{{ route('pengeluaran.create') }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>

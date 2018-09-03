@@ -92,7 +92,7 @@
         </a>
       </li>
       @endif
-      <li class="treeview @if(in_array($active, ['pengeluaran.by-waktu','pengeluaran.by-proyek','pengeluaran.by-kategori','pengeluaran.by-pelaksana','pengeluaran.by-vendor',])) active @endif ">
+      <li class="treeview @if(in_array($active, ['pengeluaran.by-waktu','pengeluaran.by-proyek','pengeluaran.by-kategori','pengeluaran.by-pelaksana','pengeluaran.by-vendor','pengeluaran.create',])) active @endif ">
         <a href="#">
           <i class="fa fa-paypal"></i>
           <span>Pengeluaran</span>
@@ -101,6 +101,9 @@
           </span>
         </a>
         <ul class="treeview-menu">
+          <li @if(in_array($active, ['pengeluaran.create'])) class="active" @endif>
+            <a href="{{ route('pengeluaran.create') }}"><i class="fa fa-circle-o"></i> Tambah Pengeluaran</a>
+          </li>
           <li @if(in_array($active, ['pengeluaran.by-waktu'])) class="active" @endif>
             <a href="{{ route('pengeluaran.by-waktu') }}"><i class="fa fa-circle-o"></i> By Rentang Waktu</a>
           </li>

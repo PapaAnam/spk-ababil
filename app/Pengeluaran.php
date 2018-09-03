@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Mytrait\TanggalIndo;
 
 class Pengeluaran extends Model
 {
+
+	use TanggalIndo;
+
 	public $timestamps = false;
 	protected $table = 'pengeluaran';
 	protected $fillable = [
@@ -20,6 +24,11 @@ class Pengeluaran extends Model
 		'kwitansi',
 		'no',
 		'tanggal',
+		'jumlah_pengeluaran'
+	];
+
+	protected $appends = [
+		'tanggal_indo',
 	];
 
 	public function pelaksana()

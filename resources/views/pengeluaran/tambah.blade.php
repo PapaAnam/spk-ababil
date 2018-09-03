@@ -1,10 +1,11 @@
 @extends('create-form')
 @section('form')
-@include('input',['id'=>'no','label'=>'No'])
+@include('input',['id'=>'no','label'=>'No','value'=>$no])
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('Y-m-d')])
 @include('select',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor])
 @include('select',['id'=>'id_karyawan','label'=>'Pilih Pelaksana','selectData'=>$listPelaksana])
 @include('input_number',['id'=>'nominal','label'=>'Nominal'])
+@include('input_number',['id'=>'jumlah_pengeluaran','label'=>'Jumlah Pengeluaran'])
 @include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
 @include('select',['id'=>'id_kategori','label'=>'Pilih Kategori','selectData'=>$listKategori])
 <div class="form-group">
@@ -53,7 +54,7 @@
 		success : function(response,status){
 			var optHtml = "";
 			if(response.length <= 0){
-				optHtml = '<option>Tidak ada pekerjaan</option>';
+				optHtml = '<option value="">Tidak ada pekerjaan</option>';
 			}else{
 				for (var i = 0; i < response.length; i++) {
 					optHtml += '<option value="'+response[i].id+'">['+response[i].id+']'+response[i].nama+'</option>';

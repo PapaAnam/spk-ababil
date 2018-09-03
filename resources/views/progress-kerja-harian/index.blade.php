@@ -20,11 +20,11 @@
   @foreach ($data as $d)
   <tr>
     <td>{{ $d->id }}</td>
-    <td>{{ $d->tanggal }}</td>
+    <td>{{ $d->tanggal_indo }}</td>
     <td>{{ $d->proyek->nama }}</td>
     <td>ID Tugas {{ $d->id_tugas }}</td>
     <td>{{ $d->deskripsi }}</td>
-    <td>{{ $d->ritase }}</td>
+    <td align="right">{{ $d->ritase }}</td>
     <td>
       {{ $d->tugas->material }} : {{ $d->tugas->qty }}
       {{-- @if(count($d->material) > 0)

@@ -36,8 +36,8 @@
     <td>{{ $d->kliendetail->nama_perusahaan }}</td>
     <td>{{ $d->qty }}</td>
     <td>{{ $d->satuandetail->nama }}</td>
-    <td>{{ $d->start_date }}</td>
-    <td>{{ $d->end_date }}</td>
+    <td>{{ $d->start_date_indo }}</td>
+    <td>{{ $d->end_date_indo }}</td>
     <td>
     @if('superadmin' == Auth::user()->role)
       @include('edit_button', ['link' => route('proyek.edit', [$d->id])])

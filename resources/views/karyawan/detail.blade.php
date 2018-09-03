@@ -9,13 +9,13 @@
 @include('input_readonly',['value'=>$d->jabatan,'id'=>'jabatan','label'=>'Jabatan'])
 @include('textarea_readonly',['value'=>$d->alamat,'id'=>'alamat','label'=>'Alamat'])
 @include('input_readonly',['value'=>$d->armada,'id'=>'armada','label'=>'Armada'])
-@include('input_readonly',['value'=>$d->gaji_pokok,'id'=>'gaji_pokok','label'=>'Gaji Pokok'])
-@include('input_readonly',['value'=>$d->um_harian,'id'=>'um_harian','label'=>'UM Harian'])
-@include('input_readonly',['value'=>$d->rate_lembur,'id'=>'rate_lembur','label'=>'Rate Lembur'])
+@include('input_readonly',['value'=>$d->gaji_pokok_rp,'id'=>'gaji_pokok','label'=>'Gaji Pokok'])
+@include('input_readonly',['value'=>$d->um_harian_rp,'id'=>'um_harian','label'=>'UM Harian'])
+@include('input_readonly',['value'=>$d->rate_lembur_rp,'id'=>'rate_lembur','label'=>'Rate Lembur'])
 @include('input_readonly',['value'=>$d->jenis,'id'=>'jenis','label'=>'Jenis Karyawan'])
 @if($d->jenis == 'Operator')
-@include('input_readonly',['value'=>$d->rate_per_jam,'id'=>'rate_per_jam','label'=>'Rate Per Jam'])
+@include('input_readonly',['value'=>$d->rate_per_jam_rp,'id'=>'rate_per_jam','label'=>'Rate Per Jam'])
 @elseif($d->jenis == 'Sopir')
-@include('input_readonly',['value'=>$d->insentif,'id'=>'insentif','label'=>'Insentif'])
+@include('input_readonly',['value'=>$d->insentif_rp,'id'=>'insentif','label'=>'Insentif'])
 @endif
 @endsection

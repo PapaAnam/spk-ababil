@@ -39,16 +39,16 @@
 <tbody>
   @foreach ($data as $d)
   <tr>
-    <td>{{ $d->id }}</td>
-    <td>{{ $d->karyawan->nik }}</td>
+    <td align="right">{{ $d->id }}</td>
+    <td align="right">{{ $d->karyawan->nik }}</td>
     <td>{{ $d->karyawan->nama }}</td>
-    <td>{{ $d->tanggal }}</td>
-    <td>{{ $d->jam_mulai }}</td>
-    <td>{{ $d->jam_selesai }}</td>
-    <td>{{ $d->ritase }}</td>
-    <td>{{ $d->istirahat }}</td>
-    <td>{{ $d->lembur }}</td>
-    <td>{{ $d->total_jam }}</td>
+    <td>{{ $d->tanggal_indo }}</td>
+    <td align="right">{{ $d->jam_mulai }}</td>
+    <td align="right">{{ $d->jam_selesai }}</td>
+    <td align="right">{{ $d->ritase }}</td>
+    <td align="right">{{ $d->istirahat }}</td>
+    <td align="right">{{ $d->lembur }}</td>
+    <td align="right">{{ $d->total_jam }}</td>
     @if('superadmin' == Auth::user()->role)
     <td>
       @include('edit_button', ['link' => route('time-sheet.edit', [$d->id])])

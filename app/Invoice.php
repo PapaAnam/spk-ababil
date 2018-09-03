@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Mytrait\Tanggal;
 
 class Invoice extends Model
 {
+
+use Tanggal;
+
 	public $timestamps = false;
 	protected $table = 'invoice';
 	protected $fillable = [
@@ -19,6 +23,10 @@ class Invoice extends Model
 		'tertagih',
 		'id_rekening',
 		'id_user',
+	];
+
+	protected $appends = [
+		'tanggal_indo'
 	];
 
 	public function pajak()
@@ -39,5 +47,10 @@ class Invoice extends Model
 	public function proyek()
 	{
 		return $this->belongsTo('App\Proyek', 'id_proyek');
+	}
+
+	public function getTanggalIndoAttribute()
+	{
+		return $this->tglIndo($this->tanggal);
 	}
 }

@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Mytrait\Tanggal;
 
 class TimeSheet extends Model
 {
+
+	use Tanggal;
+
 	public $timestamps = false;
 	protected $table = 'time_sheet';
 	protected $fillable = [
@@ -17,7 +21,10 @@ class TimeSheet extends Model
 		'lembur',
 		'istirahat',
 	];
-	protected $appends = ['total_jam'];
+	
+	protected $appends = [
+		'total_jam', 'tanggal_indo'
+	];
 
 
 	public function karyawan()
@@ -32,5 +39,10 @@ class TimeSheet extends Model
 			$total_waktu_dalam_detik = 0;
 		}
 		return round( ( $total_waktu_dalam_detik / 3600 ) - $this->istirahat , 2 );
+	}
+
+	public function getTanggalIndoAttribute()
+	{
+		return $this->tglIndo($this->tanggal);
 	}
 }
