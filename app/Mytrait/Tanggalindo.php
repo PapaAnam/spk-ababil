@@ -3,7 +3,7 @@
 namespace App\Mytrait;
 use App\Mytrait\Tanggal;
 
-trait Tanggalindo {
+trait TanggalIndo {
 
 	use Tanggal;
 
