@@ -12,4 +12,9 @@ trait TanggalIndo {
 		return $this->tglIndo($this->tanggal);
 	}
 
+	public function hh()
+	{
+		return 2;
+	}
+
 }
