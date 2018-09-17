@@ -129,7 +129,7 @@
       <div class="icon">
         <i class="fa fa-print"></i>
       </div>
-      <a href="{{ Auth::user()->role === 'superadmin' || Auth::user()->role === 'finance' ? route('invoice.index') : '#' }}" class="small-box-footer">
+      <a href="{{ Auth::user()->role === 'superadmin' || Auth::user()->role === 'finance' ? route('invoice.by-waktu') : '#' }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
