@@ -47,10 +47,14 @@ use Tanggal;
 		return $this->belongsTo('App\Satuan','satuan');
 	}
 
-	public function scopeSelectMode($q)
+	public function scopeSelectMode($q, $where = [])
 	{
 		$data = [];
-		foreach ($q->get() as $a) {
+		$dd = $q->get();
+		if(count($where) > 0){
+			$dd = $q->where($where[0], $where[1])->get();
+		}
+		foreach ($dd as $a) {
 			$data[] = collect([
 				'value'=>$a->id,
 				'text'=>'['.$a->id.'] '.$a->nama,

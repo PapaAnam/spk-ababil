@@ -31,8 +31,12 @@ Route::middleware('auth')->group(function(){
 	Route::resource('uam', 'UamController')->except(['show']);
 	Route::resource('karyawan', 'KaryawanController');
 	Route::resource('klien', 'KlienController')->except(['show']);
-	Route::resource('time-sheet', 'TimeSheetController')->except(['show']);
-	Route::resource('proyek', 'ProyekController');
+	Route::get('time-sheet/by-waktu', 'TimeSheetController@byWaktu')->name('time-sheet.by-waktu');
+	Route::get('time-sheet/by-karyawan', 'TimeSheetController@byKaryawan')->name('time-sheet.by-karyawan');
+	Route::resource('time-sheet', 'TimeSheetController')->except(['show', 'index']);
+	Route::get('proyek/by-waktu', 'ProyekController@byWaktu')->name('proyek.by-waktu');
+	Route::get('proyek/by-klien', 'ProyekController@byKlien')->name('proyek.by-klien');
+	Route::resource('proyek', 'ProyekController')->except('index');
 	Route::resource('tugas', 'TugasController')->except(['show']);
 	Route::get('/tugas-select', 'TugasController@select');
 	Route::get('/tugas-detail', 'TugasController@detail');
@@ -40,7 +44,10 @@ Route::middleware('auth')->group(function(){
 	Route::get('/tugas/by-klien', 'TugasController@byKlien')->name('tugas.by-klien');
 	Route::get('/tugas/by-proyek', 'TugasController@byProyek')->name('tugas.by-proyek');
 	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController')->except(['show']);
-	Route::resource('invoice', 'InvoiceController')->only(['index','create','store']);
+	Route::get('/invoice/by-proyek', 'InvoiceController@byProyek')->name('invoice.by-proyek');
+	Route::get('/invoice/by-klien', 'InvoiceController@byKlien')->name('invoice.by-klien');
+	Route::get('/invoice/by-waktu', 'InvoiceController@byWaktu')->name('invoice.by-waktu');
+	Route::resource('invoice', 'InvoiceController')->except(['index']);
 	Route::resource('kategori', 'KategoriController')->except(['show']);
 	Route::get('/sub-kategori/{kategori}/tambah', 'SubKategoriController@create')->name('sub-kategori.create');
 	Route::post('/sub-kategori/{kategori}', 'SubKategoriController@store')->name('sub-kategori.store');

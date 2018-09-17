@@ -8,6 +8,7 @@ use App\Klien;
 use App\Rekening;
 use App\Proyek;
 use DB;
+
 class InvoiceController extends Controller
 {
     public function __construct()
@@ -22,30 +23,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $r)
     {
-        $data = [];
-        if($r->query('dari') && $r->query('sampai')){
-            $data = Invoice::with('proyek.kliendetail.pic', 'ttd', 'pajak', 'rekening')
-            ->whereBetween('tanggal', [$r->dari, $r->sampai])->get();
-        }
-        elseif($r->query('klien')){
-            $data = Invoice::with('proyek.kliendetail.pic', 'ttd', 'pajak', 'rekening')->get()->transform(function($item) use ($r){
-                if($item->proyek->klien == $r->klien){
-                    return $item;
-                }
-            })->values()->reject(function($item){
-                return is_null($item);
-            })->values();
-        }
-        return view('invoice.index', [
-            'data'      => $data,
-            'title'     => 'Invoice',
-            'active'    => 'invoice.index',
-            'createLink'=>route('invoice.create'),
-            'role'=>[
-                'finance','superadmin'
-            ],
-            'listKlien'=>Klien::selectMode(),
-        ]);
+        
     }
 
     /**
@@ -57,11 +35,11 @@ class InvoiceController extends Controller
     {
         return view('invoice.tambah', [
             'title'         => 'Tambah Invoice',
-            'modul_link'    => route('invoice.index'),
+            'modul_link'    => url()->previous(),
             'modul'         => 'Invoice',
             'action'        => route('invoice.store'),
             'active'        => 'invoice.index',
-            'listProyek'=>Proyek::selectMode(),
+            // 'listProyek'=>Proyek::selectMode(),
             'listKlien'=>Klien::selectMode(),
             'listRekening'=>Rekening::selectMode(),
         ]);
@@ -77,7 +55,6 @@ class InvoiceController extends Controller
     {
         $request->validate([
             'tanggal'=>'required',
-            // 'no_invoice'=>'required',
             'id_klien'=>'required',
             'id_proyek'=>'required',
             'total_tagihan'=>'required|numeric',
@@ -101,6 +78,7 @@ class InvoiceController extends Controller
             'tertagih'=>$request->tertagih,
             'id_rekening'=>$request->id_rekening,
             'id_user'=>$request->user()->id,
+            'deskripsi'=>$request->deskripsi,
         ]);
         if($invoice->id <= 9){
             $no_invoice = '000'.$invoice->id;
@@ -122,7 +100,7 @@ class InvoiceController extends Controller
                 'pajak'=>$request->pajak[$i++]
             ]);
         }
-        return redirect()->route('invoice.index')->with('success_msg', 'Invoice berhasil dibuat');
+        return redirect()->back()->with('success_msg', 'Invoice berhasil dibuat');
     }
 
     /**
@@ -144,15 +122,17 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
+        $p = Proyek::find($invoice->id_proyek);
         return view('invoice.ubah', [
             'd'             => $invoice,
             'title'         => 'Ubah Invoice',
-            'modul_link'    => route('invoice.index'),
+            'modul_link'    => url()->previous(),
             'modul'         => 'Invoice',
             'action'        => route('invoice.update', $invoice->id),
             'active'        => 'invoice.edit',
-            'listProyek'=>Proyek::selectMode(),
-            'listCuaca'=>$this->getListCuaca(),
+            'listProyek'=>Proyek::selectMode(['klien', $p->klien]),
+            'listKlien'=>Klien::selectMode(),
+            'listRekening'=>Rekening::selectMode(),
         ]);
     }
 
@@ -166,33 +146,37 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $request->validate([
+            'tanggal'=>'required',
+            'id_klien'=>'required',
             'id_proyek'=>'required',
-            'ritase'=>'required|numeric',
-            'cuaca'=>'required',
-            'tanggal'=>'required|date_format:Y-m-d',
+            'total_tagihan'=>'required|numeric',
+            'terbayar'=>'required|numeric',
+            'tertagih'=>'required|numeric',
+            'id_rekening'=>'required',
+            'nama_pajak'=>'required|array',
+            'pajak'=>'required|array',
+            'nama_pajak.*'=>'required',
+            'pajak.*'=>'required|numeric',
         ]);
         $invoice->update([
             'tanggal'=>$request->tanggal,
-            'cuaca'=>$request->cuaca,
-            'deskripsi'=>$request->deskripsi,
-            'ritase'=>$request->ritase,
             'id_proyek'=>$request->id_proyek,
-            'kendala'=>$request->kendala
+            'total_tagihan'=>$request->total_tagihan,
+            'terbayar'=>$request->terbayar,
+            'tertagih'=>$request->tertagih,
+            'id_rekening'=>$request->id_rekening,
+            'id_user'=>$request->user()->id,
+            'deskripsi'=>$request->deskripsi,
         ]);
-        $invoice->material()->delete();
-        // set material
-        $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
-        $invoice->material()->create([
-            'qty'=>$proyek->qty,
-            'tipe'=>'proyek'
-        ]);
-        foreach ($proyek->tugas as $tugas) {
-            $invoice->material()->create([
-                'qty'=>$tugas->qty,
-                'tipe'=>'tugas'
+        $invoice->pajak()->delete();
+        $i = 0;
+        foreach ($request->nama_pajak as $namaPajak) {
+            $invoice->pajak()->create([
+                'nama'=>$namaPajak,
+                'pajak'=>$request->pajak[$i++]
             ]);
         }
-        return redirect()->route('invoice.index')->with('success_msg', 'Invoice berhasil diperbarui');
+        return redirect()->back()->with('success_msg', 'Invoice berhasil diperbarui');
     }
 
     /**
@@ -204,6 +188,69 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         $invoice->delete();
-        return redirect()->route('invoice.index')->with('success_msg', 'Invoice berhasil dihapus');
+        return redirect()->back()->with('success_msg', 'Invoice berhasil dihapus');
     }
+
+    public function byWaktu(Request $r)
+    {
+        $data = [];
+        if($r->query('dari') && $r->query('sampai')){
+            $data = Invoice::with('proyek.kliendetail.pic', 'ttd', 'pajak', 'rekening')
+            ->whereBetween('tanggal', [$r->dari, $r->sampai])->get();
+        }
+        return view('invoice.by-waktu', [
+            'data'      => $data,
+            'title'     => 'Invoice By Waktu',
+            'active'    => 'invoice.by-waktu',
+            'createLink'=>route('invoice.create'),
+            'role'=>[
+                'finance','superadmin'
+            ],
+        ]);
+    }
+
+    public function byKlien(Request $r)
+    {
+        $data = [];
+        if($r->query('klien')){
+            $data = Invoice::with('proyek.kliendetail.pic', 'ttd', 'pajak', 'rekening')->get()->transform(function($item) use ($r){
+                if($item->proyek->klien == $r->klien){
+                    return $item;
+                }
+            })->values()->reject(function($item){
+                return is_null($item);
+            })->values();
+        }
+        return view('invoice.by-klien', [
+            'data'      => $data,
+            'title'     => 'Invoice By Klien',
+            'active'    => 'invoice.by-klien',
+            'createLink'=>route('invoice.create'),
+            'role'=>[
+                'finance','superadmin'
+            ],
+            'listKlien'=>Klien::selectMode(),
+        ]);
+    }
+
+    public function byProyek(Request $r)
+    {
+        $data = [];
+        if($r->query('proyek')){
+            $data = Invoice::with('proyek.kliendetail.pic', 'ttd', 'pajak', 'rekening')
+            ->where('id_proyek', $r->query('proyek'))
+            ->get();
+        }
+        return view('invoice.by-proyek', [
+            'data'      => $data,
+            'title'     => 'Invoice By Proyek',
+            'active'    => 'invoice.by-proyek',
+            'createLink'=>route('invoice.create'),
+            'role'=>[
+                'finance','superadmin'
+            ],
+            'listProyek'=>Proyek::selectMode(),
+        ]);
+    }
+
 }

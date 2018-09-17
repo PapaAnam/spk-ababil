@@ -1,7 +1,7 @@
 @extends('create-form')
 @section('form')
 @method('PUT')
-@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>$d->tanggal])
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>$tanggal])
 @include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek,'selected'=>$d->id_proyek])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
@@ -19,6 +19,7 @@
 @include('input',['id'=>'material','label'=>'Material','readonly'=>true,'value'=>$d->tugas->material])
 @include('input',['id'=>'qty','label'=>'Qty','readonly'=>true,'value'=>$d->tugas->qty])
 @include('input_number',['id'=>'ritase','label'=>'Ritase','value'=>$d->ritase])
+@include('input_number',['id'=>'qty2','label'=>'Qty','value'=>$d->qty])
 @include('select',['id'=>'cuaca','label'=>'Pilih Cuaca','selectData'=>$listCuaca,'selected'=>$d->cuaca])
 @include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>$d->deskripsi])
 @include('textarea',['id'=>'kendala','label'=>'Kendala','value'=>$d->kendala])

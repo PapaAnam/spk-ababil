@@ -10,7 +10,7 @@
 <script>
 	$('[data-toggle="datepicker"]').datepicker({
 		autoclose: true,
-		format : "yyyy-mm-dd"
+		format : "dd-mm-yyyy"
 	});
 </script>
 @endpush

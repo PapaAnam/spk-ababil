@@ -4,6 +4,8 @@
 @include('input_number',['value'=>$d->nik,'id'=>'nik','label'=>'NIK'])
 @include('input',['value'=>$d->nama,'id'=>'nama','label'=>'Nama'])
 @include('input',['value'=>$d->no_hp,'id'=>'no_hp','label'=>'No HP'])
+@include('input_number',['id'=>'no_rek','label'=>'No Rekening','value'=>$d->no_rek])
+@include('input',['id'=>'atas_nama','label'=>'Atas Nama','value'=>$d->atas_nama])
 @include('input',['value'=>$d->no_darurat,'id'=>'no_darurat','label'=>'No Darurat'])
 @include('input',['value'=>$d->jabatan,'id'=>'jabatan','label'=>'Jabatan'])
 @include('textarea',['value'=>$d->alamat,'id'=>'alamat','label'=>'Alamat'])

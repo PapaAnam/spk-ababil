@@ -20,6 +20,7 @@ use Tanggal;
 		'cuaca',
 		'kendala',
 		'id_tugas',
+		'qty'
 	];
 
 	protected $appends = [

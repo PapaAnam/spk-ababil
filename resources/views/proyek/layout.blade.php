@@ -1,4 +1,7 @@
 @extends('my-view')
+@section('other-box')
+@yield('filter')
+@endsection
 @section('table')
 <thead>
   <tr>
@@ -49,5 +52,3 @@
   @endforeach
 </tbody>
 @endsection
-
-@include('import-datepicker')

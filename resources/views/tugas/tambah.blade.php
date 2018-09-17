@@ -1,6 +1,7 @@
 @extends('create-form')
 @section('form')
 @include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
+@include('input',['id'=>'nama_tugas','label'=>'Nama Tugas'])
 @include('select2',['id'=>'pelaksana','label'=>'Pilih Pelaksana','selectData'=>$listKaryawan])
 @include('input',['id'=>'material','label'=>'Material'])
 @include('input_number',['id'=>'qty','label'=>'Qty'])

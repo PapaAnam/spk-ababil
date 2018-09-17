@@ -9,6 +9,16 @@ trait Tanggal {
 		return $this->tgl($tgl).' '.$this->namaBulan($this->bulan($tgl)).' '.$this->tahun($tgl);
 	}
 
+	public function englishFormat($tgl)
+	{
+		return substr($tgl, 6, 4).'-'.substr($tgl, 3, 2).'-'.substr($tgl, 0, 2);
+	}
+
+	public function formatIndo($tgl)
+	{
+		return $this->tgl($tgl).'-'.$this->bulan($tgl).'-'.$this->tahun($tgl);
+	}
+
 	public function tahun($tgl)
 	{
 		return substr($tgl, 0, 4);

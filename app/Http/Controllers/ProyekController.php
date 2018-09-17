@@ -9,9 +9,13 @@ use App\Klien;
 use App\Satuan;
 use App\PelaksanaDetail;
 use DB;
+use App\Mytrait\Tanggal;
 
 class ProyekController extends Controller
 {
+
+    use Tanggal;
+
     public function __construct()
     {
         $this->middleware('myrole:superadmin')->only('edit','update','destroy');
@@ -25,17 +29,7 @@ class ProyekController extends Controller
      */
     public function index(Request $r)
     {
-        $data = Proyek::with('pelaksana.karyawan','kliendetail')->get();
-        // return $data;
-        return view('proyek.index', [
-            'data'      => $data,
-            'title'     => 'Proyek',
-            'active'    => 'proyek.index',
-            'createLink'=>route('proyek.create'),
-            'role'=>[
-                'admin','superadmin'
-            ]
-        ]);
+
     }
 
     /**
@@ -47,7 +41,7 @@ class ProyekController extends Controller
     {
         return view('proyek.tambah', [
             'title'         => 'Tambah Proyek',
-            'modul_link'    => route('proyek.index'),
+            'modul_link'    => url()->previous(),
             'modul'         => 'Proyek',
             'action'        => route('proyek.store'),
             'active'        => 'proyek.create',
@@ -73,8 +67,8 @@ class ProyekController extends Controller
             'satuan'=>'required',
             'pelaksana'=>'array',
             'pelaksana.*'=>'required',
-            'start_date'=>'required|date_format:Y-m-d',
-            'end_date'=>'required|date_format:Y-m-d',
+            'start_date'=>'required|date_format:d-m-Y',
+            'end_date'=>'required|date_format:d-m-Y',
         ]);
         if(Proyek::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -86,8 +80,8 @@ class ProyekController extends Controller
             'deskripsi'=>$request->deskripsi,
             'qty'=>$request->qty,
             'satuan'=>$request->satuan,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
+            'start_date'=>$this->englishFormat($request->start_date),
+            'end_date'=>$this->englishFormat($request->end_date),
         ]);
         foreach ($request->pelaksana as $p) {
             PelaksanaDetail::create([
@@ -95,7 +89,7 @@ class ProyekController extends Controller
                 'id_proyek'=>$proyek->id,
             ]);
         }
-        return redirect()->route('proyek.index')->with('success_msg', 'Proyek berhasil dibuat');
+        return redirect()->back()->with('success_msg', 'Proyek berhasil dibuat');
     }
 
     /**
@@ -112,7 +106,7 @@ class ProyekController extends Controller
             'saveBtn'=>false,
             'd'=>$proyek,
             'title'=>'Detail Proyek',
-            'modul_link'=>route('proyek.index'),
+            'modul_link'=>url()->previous(),
             'action'=>false,
         ]);
     }
@@ -128,7 +122,7 @@ class ProyekController extends Controller
         return view('proyek.ubah', [
             'd'             => $proyek,
             'title'         => 'Ubah Proyek',
-            'modul_link'    => route('proyek.index'),
+            'modul_link'    => url()->previous(),
             'modul'         => 'Proyek',
             'action'        => route('proyek.update', $proyek->id),
             'active'        => 'proyek.edit',
@@ -156,8 +150,8 @@ class ProyekController extends Controller
             'satuan'=>'required',
             'pelaksana'=>'array',
             'pelaksana.*'=>'required',
-            'start_date'=>'required|date_format:Y-m-d',
-            'end_date'=>'required|date_format:Y-m-d',
+            'start_date'=>'required|date_format:d-m-Y',
+            'end_date'=>'required|date_format:d-m-Y',
         ]);
         $proyek->update([
             'nama'=>$request->nama,
@@ -165,8 +159,8 @@ class ProyekController extends Controller
             'deskripsi'=>$request->deskripsi,
             'qty'=>$request->qty,
             'satuan'=>$request->satuan,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
+            'start_date'=>$this->englishFormat($request->start_date),
+            'end_date'=>$this->englishFormat($request->end_date),
         ]);
         $proyek->pelaksana()->delete();
         foreach ($request->pelaksana as $p) {
@@ -175,7 +169,7 @@ class ProyekController extends Controller
                 'id_proyek'=>$proyek->id,
             ]);
         }
-        return redirect()->route('proyek.index')->with('success_msg', 'Proyek berhasil diperbarui');
+        return redirect()->back()->with('success_msg', 'Proyek berhasil diperbarui');
     }
 
     /**
@@ -188,11 +182,54 @@ class ProyekController extends Controller
     {
         $proyek->pelaksana()->delete();
         $proyek->delete();
-        return redirect()->route('proyek.index')->with('success_msg', 'Proyek berhasil dihapus');
+        return redirect()->back()->with('success_msg', 'Proyek berhasil dihapus');
     }
 
     public function get(Request $r)
     {
         return Proyek::where('klien', $r->klien)->get();
     }
+
+    public function byWaktu(Request $r)
+    {
+        $data = [];
+        $dari = $this->englishFormat($r->query('dari'));
+        $sampai = $this->englishFormat($r->query('sampai'));
+        if($r->query('dari') && $r->query('sampai')){
+            $data = Proyek::with('pelaksana.karyawan','kliendetail')
+            ->where('start_date','>=',$dari)
+            ->where('end_date','<=',$sampai)
+            ->get();
+        }
+        return view('proyek.by-waktu', [
+            'data'      => $data,
+            'title'     => 'Proyek By Waktu',
+            'active'    => 'proyek.by-waktu',
+            'createLink'=>route('proyek.create'),
+            'role'=>[
+                'admin','superadmin'
+            ]
+        ]);
+    }
+
+    public function byKlien(Request $r)
+    {
+        $data = [];
+        if($r->query('klien')){
+            $data = Proyek::with('pelaksana.karyawan','kliendetail')
+            ->where('klien', $r->query('klien'))
+            ->get();
+        }
+        return view('proyek.by-klien', [
+            'data'      => $data,
+            'title'     => 'Proyek By Klien',
+            'active'    => 'proyek.by-klien',
+            'createLink'=>route('proyek.create'),
+            'listKlien'=>Klien::selectMode(),
+            'role'=>[
+                'admin','superadmin'
+            ]
+        ]);
+    }
+
 }

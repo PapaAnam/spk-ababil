@@ -2,6 +2,7 @@
 <thead>
   <tr>
     <th>ID</th>
+    <th>Nama Tugas</th>
     <th>Proyek</th>
     <th>Klien</th>
     <th>Deskripsi</th>
@@ -17,8 +18,9 @@
   </tr>
 </thead>
 <tfoot>
-    <tr>
+  <tr>
     <th>ID</th>
+    <th>Nama Tugas</th>
     <th>Proyek</th>
     <th>Klien</th>
     <th>Deskripsi</th>
@@ -37,6 +39,7 @@
   @foreach ($data as $d)
   <tr>
     <td>{{ $d->id }}</td>
+    <td>{{ $d->nama_tugas }}</td>
     <td>{{ $d->proyek->nama }}</td>
     <td>{{ $d->proyek->kliendetail->nama_perusahaan }}</td>
     <td>{{ $d->deskripsi }}</td>
@@ -47,7 +50,9 @@
       @if(count($d->pelaksana) > 0)
       <ul>
         @foreach($d->pelaksana as $pelaksana)
+        @if($pelaksana->karyawan)
         <li>{{ $pelaksana->karyawan->nama }}</li>
+        @endif
         @endforeach
       </ul>
       @endif

@@ -26,14 +26,11 @@
     <td>{{ $d->deskripsi }}</td>
     <td align="right">{{ $d->ritase }}</td>
     <td>
-      {{ $d->tugas->material }} : {{ $d->tugas->qty }}
-      {{-- @if(count($d->material) > 0)
-      <ul>
-        @foreach($d->material as $material)
-        <li>Material {{ $loop->iteration }} : {{ $material->qty }}</li>
-        @endforeach
-      </ul>
-      @endif --}}
+      {{ $d->tugas->material }}
+      <br>
+      {{ $d->qty }}
+      <br>
+      {{ $d->tugas->satuandetail->nama }}
     </td>
     <td>{{ $d->cuaca }}</td>
     <td>{{ $d->kendala }}</td>

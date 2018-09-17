@@ -107,7 +107,7 @@ class TugasController extends Controller
     {
         return view('tugas.tambah', [
             'title'         => 'Tambah Tugas',
-            'modul_link'    => route('tugas.index'),
+            'modul_link'    => url()->previous(),
             'modul'         => 'Tugas',
             'action'        => route('tugas.store'),
             'active'        => 'tugas.create',
@@ -126,6 +126,7 @@ class TugasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nama_tugas'=>'required',
             'id_proyek'=>'required',
             'deskripsi'=>'required',
             'material'=>'required',
@@ -140,7 +141,7 @@ class TugasController extends Controller
             DB::statement('set foreign_key_checks=0;');
             Tugas::truncate();
         }
-        $tuga = Tugas::create([
+        $tugas = Tugas::create([
             'id_proyek'=>$request->id_proyek,
             'deskripsi'=>$request->deskripsi,
             'qty'=>$request->qty,
@@ -148,14 +149,15 @@ class TugasController extends Controller
             'start_date'=>$request->start_date,
             'end_date'=>$request->end_date,
             'material'=>$request->material,
+            'nama_tugas'=>$request->nama_tugas,
         ]);
         foreach ($request->pelaksana as $p) {
             PelaksanaTugas::create([
                 'id_pelaksana'=>$p,
-                'id_tugas'=>$tuga->id,
+                'id_tugas'=>$tugas->id,
             ]);
         }
-        return redirect()->route('tugas.index')->with('success_msg', 'Tugas berhasil dibuat');
+        return redirect()->back()->with('success_msg', 'Tugas berhasil dibuat');
     }
 
     /**
@@ -200,7 +202,9 @@ class TugasController extends Controller
      */
     public function update(Request $request, Tugas $tuga)
     {
+        // dd($request->all());
         $request->validate([
+            'nama_tugas'=>'required',
             'id_proyek'=>'required',
             'deskripsi'=>'required',
             'qty'=>'required|numeric',
@@ -217,6 +221,7 @@ class TugasController extends Controller
             'satuan'=>$request->satuan,
             'start_date'=>$request->start_date,
             'end_date'=>$request->end_date,
+            'nama_tugas'=>$request->nama_tugas,
         ]);
         $tuga->pelaksana()->delete();
         foreach ($request->pelaksana as $p) {
@@ -225,7 +230,7 @@ class TugasController extends Controller
                 'id_tugas'=>$tuga->id,
             ]);
         }
-        return redirect()->route('tugas.index')->with('success_msg', 'Tugas berhasil diperbarui');
+        return redirect()->back()->with('success_msg', 'Tugas berhasil diperbarui');
     }
 
     /**

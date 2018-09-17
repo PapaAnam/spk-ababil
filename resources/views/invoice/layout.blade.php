@@ -1,38 +1,6 @@
 @extends('my-view')
 @section('other-box')
-<div class="box">
-  <div class="box-header">
-    <h3 class="box-title">Lihat berdasarkan rentang waktu</h3>
-  </div>
-  <div class="box-body">
-    <form method="get" action="" class="form-horizontal">
-      @include('datepicker', ['id'=>'dari','label'=>'Dari','required'=>true,'value'=>request()->query('dari')])
-      @include('datepicker', ['id'=>'sampai','label'=>'Sampai','required'=>true,'value'=>request()->query('sampai')])
-      <div class="form-group">
-        <label class="col-lg-2 control-label"></label>
-        <div class="col-sm-6">
-          <button type="submit" class="btn btn-primary btn-flat">Lihat</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-<div class="box">
-  <div class="box-header">
-    <h3 class="box-title">Lihat berdasarkan Klien</h3>
-  </div>
-  <div class="box-body">
-    <form method="get" action="" class="form-horizontal">
-      @include('select',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>request()->query('klien')])
-      <div class="form-group">
-        <label class="col-lg-2 control-label"></label>
-        <div class="col-sm-6">
-          <button type="submit" class="btn btn-primary btn-flat">Lihat</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+@yield('filter')
 @endsection
 @section('table')
 <thead>
@@ -49,10 +17,10 @@
     <th>Tertagih</th>
     <th>Pajak</th>
     <th width="300px">Detail Bank Account</th>
-    <td>Ttd</td>
-    {{-- @if('superadmin' == Auth::user()->role || 'finance' == Auth::user()->role)
+    <th>Ttd</th>
+    @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
-    @endif --}}
+    @endif
   </tr>
 </thead>
 <tfoot>
@@ -69,10 +37,10 @@
     <th>Tertagih</th>
     <th>Pajak</th>
     <th width="300px">Detail Bank Account</th>
-    <td>Ttd</td>
-    {{-- @if('superadmin' == Auth::user()->role || 'finance' == Auth::user()->role)
+    <th>Ttd</th>
+    @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
-    @endif --}}
+    @endif
   </tr>
 </tfoot>
 <tbody>
@@ -103,12 +71,12 @@
     </td>
     <td>{{ $d->rekening->bank }}</td>
     <td>{{ $d->ttd->nama_lengkap }}</td>
-    {{-- @if('superadmin' == Auth::user()->role || 'finance' == Auth::user()->role)
+    @if('superadmin' == Auth::user()->role)
     <td>
-      @include('edit_button', ['link' => route('tugas.edit', [$d->id])])
-      @include('delete_button', ['link' => route('tugas.destroy', [$d->id])])
+      @include('edit_button', ['link' => route('invoice.edit', [$d->id])])
+      @include('delete_button', ['link' => route('invoice.destroy', [$d->id])])
     </td>
-    @endif --}}
+    @endif
   </tr>
   @endforeach
 </tbody>

@@ -7,9 +7,13 @@ use App\Tugas;
 use Illuminate\Http\Request;
 use App\Proyek;
 use DB;
+use App\Mytrait\Tanggal;
 
 class ProgressKerjaHarianController extends Controller
 {
+
+    use Tanggal;
+
     public function __construct()
     {
         $this->middleware('myrole:superadmin,admin')->except('show');
@@ -31,8 +35,7 @@ class ProgressKerjaHarianController extends Controller
      */
     public function index(Request $r)
     {
-        $data = ProgressKerjaHarian::with(['proyek','tugas'])->get();
-        // return $data;
+        $data = ProgressKerjaHarian::with(['proyek','tugas.satuandetail'])->get();
         return view('progress-kerja-harian.index', [
             'data'      => $data,
             'title'     => 'Progress Kerja Harian',
@@ -74,33 +77,23 @@ class ProgressKerjaHarianController extends Controller
             'id_proyek'=>'required',
             'ritase'=>'required|numeric',
             'cuaca'=>'required',
-            'tanggal'=>'required|date_format:Y-m-d',
+            'tanggal'=>'required|date_format:d-m-Y',
+            'qty2'=>'required|numeric|min:0',
         ]);
         if(ProgressKerjaHarian::count() == 0){
             DB::statement('set foreign_key_checks=0;');
             ProgressKerjaHarian::truncate();
         }
         $progressKerjaHarian = ProgressKerjaHarian::create([
-            'tanggal'=>$request->tanggal,
+            'tanggal'=>$this->englishFormat($request->tanggal),
             'cuaca'=>$request->cuaca,
             'deskripsi'=>$request->deskripsi,
             'ritase'=>$request->ritase,
             'id_proyek'=>$request->id_proyek,
             'id_tugas'=>$request->id_tugas,
-            'kendala'=>$request->kendala
+            'kendala'=>$request->kendala,
+            'qty'=>$request->qty2
         ]);
-        // set material
-        // $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
-        // $progressKerjaHarian->material()->create([
-        //     'qty'=>$proyek->qty,
-        //     'tipe'=>'proyek'
-        // ]);
-        // foreach ($proyek->tugas as $tugas) {
-        //     $progressKerjaHarian->material()->create([
-        //         'qty'=>$tugas->qty,
-        //         'tipe'=>'tugas'
-        //     ]);
-        // }
         return redirect()->route('progress-kerja-harian.index')->with('success_msg', 'Progress Kerja Harian berhasil dibuat');
     }
 
@@ -132,7 +125,8 @@ class ProgressKerjaHarianController extends Controller
             'active'        => 'progress-kerja-harian.edit',
             'listProyek'=>Proyek::selectMode(),
             'listCuaca'=>$this->getListCuaca(),
-            'listTugas'=>$this->getListTugas($progressKerjaHarian->id_proyek)
+            'listTugas'=>$this->getListTugas($progressKerjaHarian->id_proyek),
+            'tanggal'=>$this->formatIndo($progressKerjaHarian->tanggal),
         ]);
     }
 
@@ -159,10 +153,10 @@ class ProgressKerjaHarianController extends Controller
             'id_proyek'=>'required',
             'ritase'=>'required|numeric',
             'cuaca'=>'required',
-            'tanggal'=>'required|date_format:Y-m-d',
+            'tanggal'=>'required|date_format:d-m-Y',
         ]);
         $progressKerjaHarian->update([
-            'tanggal'=>$request->tanggal,
+            'tanggal'=>$this->englishFormat($request->tanggal),
             'cuaca'=>$request->cuaca,
             'deskripsi'=>$request->deskripsi,
             'ritase'=>$request->ritase,

@@ -14,6 +14,7 @@ use Tanggal;
 	protected $table = 'tugas';
 	protected $fillable = [
 		'id_proyek',
+		'nama_tugas',
 		'deskripsi',
 		'material',
 		'qty',

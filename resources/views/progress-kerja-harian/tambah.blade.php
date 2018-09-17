@@ -18,6 +18,7 @@
 @include('input',['id'=>'material','label'=>'Material','readonly'=>true])
 @include('input',['id'=>'qty','label'=>'Qty','readonly'=>true])
 @include('input_number',['id'=>'ritase','label'=>'Ritase'])
+@include('input_number',['id'=>'qty2','label'=>'Qty','value'=>0])
 @include('select',['id'=>'cuaca','label'=>'Pilih Cuaca','selectData'=>$listCuaca])
 @include('textarea',['id'=>'deskripsi','label'=>'Deskripsi'])
 @include('textarea',['id'=>'kendala','label'=>'Kendala'])

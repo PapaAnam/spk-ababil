@@ -80,6 +80,8 @@ class KaryawanController extends Controller
             'rate_lembur'=>'required|numeric',
             'insentif'=>'required|numeric',
             'jenis'=>'required',
+            'no_rek'=>'required|numeric',
+            'atas_nama'=>'required',
         ]);
         if(Karyawan::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -99,6 +101,8 @@ class KaryawanController extends Controller
             'rate_lembur'=>$request->rate_lembur,
             'insentif'=>$request->insentif,
             'jenis'=>$request->jenis,
+            'no_rek'=>$request->no_rek,
+            'atas_nama'=>$request->atas_nama,
         ]);
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil dibuat');
     }
@@ -164,6 +168,8 @@ class KaryawanController extends Controller
             'rate_lembur'=>'required|numeric',
             'insentif'=>'required|numeric',
             'jenis'=>'required',
+            'no_rek'=>'required|numeric',
+            'atas_nama'=>'required',
         ]);
         $karyawan->update([
             'nama'=>$request->nama,
@@ -179,6 +185,8 @@ class KaryawanController extends Controller
             'rate_lembur'=>$request->rate_lembur,
             'insentif'=>$request->insentif,
             'jenis'=>$request->jenis,
+            'no_rek'=>$request->no_rek,
+            'atas_nama'=>$request->atas_nama,
         ]);
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil diperbarui');
     }

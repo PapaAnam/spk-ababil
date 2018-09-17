@@ -24,7 +24,7 @@
       <div class="icon">
         <i class="fa fa-clock-o"></i>
       </div>
-      <a href="{{ route('time-sheet.index') }}" class="small-box-footer">
+      <a href="{{ route('time-sheet.by-waktu') }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
