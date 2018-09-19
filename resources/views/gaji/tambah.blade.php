@@ -120,8 +120,10 @@
 		$('#cek-gaji-btn').trigger('click');
 		@endif
 
+		@if(is_array(old('pengeluaran')))
 		@if(count(old('pengeluaran')) > 1)
 		initHapus();
+		@endif
 		@endif
 
 	});
