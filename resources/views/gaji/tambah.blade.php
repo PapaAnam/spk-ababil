@@ -1,7 +1,7 @@
 @extends('create-form')
 @section('form')
-@include('datepicker',['id'=>'tanggal_dari','label'=>'Dari Tanggal','value'=>date('Y-m-d')])
-@include('datepicker',['id'=>'tanggal_sampai','label'=>'Sampai Tanggal','value'=>date('Y-m-d')])
+@include('datepicker',['id'=>'tanggal_dari','label'=>'Dari Tanggal','value'=>date('d-m-Y')])
+@include('datepicker',['id'=>'tanggal_sampai','label'=>'Sampai Tanggal','value'=>date('d-m-Y')])
 @include('select',['id'=>'id_karyawan','label'=>'Pilih Karyawan','selectData'=>$listKaryawan])
 @include('input',['id'=>'plat_no','label'=>'Plat No'])
 <div class="form-group">

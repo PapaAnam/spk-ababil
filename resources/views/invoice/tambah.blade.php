@@ -1,6 +1,6 @@
 @extends('create-form')
 @section('form')
-@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('Y-m-d')])
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('d-m-Y')])
 {{-- @include('input',['id'=>'no_invoice','label'=>'No Invoice']) --}}
 @include('select',['id'=>'id_klien','label'=>'Pilih Klien','selectData'=>$listKlien])
 <div class="form-group">
