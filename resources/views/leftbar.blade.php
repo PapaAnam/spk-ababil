@@ -95,7 +95,7 @@
       @if(Auth::user()->role == 'finance' || Auth::user()->role == 'superadmin')
       <li class="treeview @if(in_array($active, ['invoice.by-waktu','invoice.by-proyek','invoice.by-klien','invoice.create'])) active @endif ">
         <a href="#">
-          <i class="fa fa-paypal"></i>
+          <i class="fa fa-print"></i>
           <span>Invoice</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
