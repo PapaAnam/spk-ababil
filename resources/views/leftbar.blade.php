@@ -67,7 +67,7 @@
           </li>
         </ul>
       </li>
-      <li class="treeview @if(in_array($active, ['tugas.by-waktu','tugas.by-klien','tugas.by-proyek'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['tugas.by-waktu','tugas.by-klien','tugas.by-proyek','tugas.create'])) active @endif ">
         <a href="#">
           <i class="fa fa-cubes"></i>
           <span>Tugas</span>

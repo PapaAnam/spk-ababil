@@ -10,9 +10,13 @@ use App\Satuan;
 use App\PelaksanaTugas;
 use DB;
 use App\Klien;
+use App\Mytrait\Tanggal;
 
 class TugasController extends Controller
 {
+
+    use Tanggal;
+
     public function __construct()
     {
         $this->middleware('myrole:superadmin,admin')->only('create','store', 'edit','update','destroy');
@@ -81,10 +85,12 @@ class TugasController extends Controller
     public function byWaktu(Request $r)
     {
         $data = [];
+        $dari = $this->englishFormat($r->query('dari'));
+        $sampai = $this->englishFormat($r->query('sampai'));
         if($r->query('dari') && $r->query('sampai')){
             $data = Tugas::with('pelaksana.karyawan','proyek.kliendetail')
-            ->where('start_date','>=',$r->query('dari'))
-            ->where('end_date','<=',$r->query('sampai'))
+            ->where('start_date','>=',$dari)
+            ->where('end_date','<=',$sampai)
             ->get();
         }
         return view('tugas.by-waktu', [
@@ -146,8 +152,8 @@ class TugasController extends Controller
             'deskripsi'=>$request->deskripsi,
             'qty'=>$request->qty,
             'satuan'=>$request->satuan,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
+            'start_date'=>$this->englishFormat($request->start_date),
+            'end_date'=>$this->englishFormat($request->end_date),
             'material'=>$request->material,
             'nama_tugas'=>$request->nama_tugas,
         ]);
@@ -219,8 +225,8 @@ class TugasController extends Controller
             'deskripsi'=>$request->deskripsi,
             'qty'=>$request->qty,
             'satuan'=>$request->satuan,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
+            'start_date'=>$this->englishFormat($request->start_date),
+            'end_date'=>$this->englishFormat($request->end_date),
             'nama_tugas'=>$request->nama_tugas,
         ]);
         $tuga->pelaksana()->delete();

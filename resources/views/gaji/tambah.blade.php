@@ -41,14 +41,16 @@
 	</div>
 </div>
 <div id="pengeluaran-tambahan">
+	@if(is_array(old('pengeluaran')))
 	@if(count(old('pengeluaran')) > 1)
 	@for($i = 1; $i < count(old('pengeluaran')); $i++)
 	<div id="siap-hapus">
-	@include('input_number',['id'=>'pengeluaran','name'=>'pengeluaran[]','label'=>'Pengeluaran','index'=>$i])
-	@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','array'=>true,'index'=>$i])
-	<div class="form-group"><label class="col-lg-2 control-label"></label><div class="col-sm-6"><button class="hapus-btn btn btn-danger btn-flat">Hapus</button></div></div>
-</div>
+		@include('input_number',['id'=>'pengeluaran','name'=>'pengeluaran[]','label'=>'Pengeluaran','index'=>$i])
+		@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','array'=>true,'index'=>$i])
+		<div class="form-group"><label class="col-lg-2 control-label"></label><div class="col-sm-6"><button class="hapus-btn btn btn-danger btn-flat">Hapus</button></div></div>
+	</div>
 	@endfor
+	@endif
 	@endif
 </div>
 @include('input_readonly',['id'=>'total_gaji','label'=>'Total Gaji'])

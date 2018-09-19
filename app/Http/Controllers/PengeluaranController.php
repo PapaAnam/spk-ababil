@@ -10,9 +10,13 @@ use App\Karyawan;
 use App\Proyek;
 use DB;
 use Storage;
+use App\Mytrait\Tanggal;
 
 class PengeluaranController extends Controller
 {
+
+use Tanggal;
+
 	public function __construct()
 	{
 	}
@@ -120,7 +124,7 @@ class PengeluaranController extends Controller
     		'ref'=>$request->ref,
     		'kwitansi'=>$kwitansi,
     		'no'=>$request->no,
-    		'tanggal'=>$request->tanggal,
+    		'tanggal'=>$this->englishFormat($request->tanggal),
     	]);
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil dibuat');
     }
@@ -199,7 +203,7 @@ class PengeluaranController extends Controller
     		'ref'=>$request->ref,
     		'kwitansi'=>$kwitansi,
     		'no'=>$request->no,
-    		'tanggal'=>$request->tanggal,
+    		'tanggal'=>$this->englishFormat($request->tanggal),
     	]);
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil diperbarui');
     }
@@ -219,10 +223,12 @@ class PengeluaranController extends Controller
     public function byWaktu(Request $r)
     {
     	$data = [];
+        $dari = $this->englishFormat($r->query('dari'));
+        $sampai = $this->englishFormat($r->query('sampai'));
     	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
     	if($r->query('dari') && $r->query('sampai')){
     		$data = $query
-    		->whereBetween('tanggal', [$r->query('dari'), $r->query('sampai')])
+    		->whereBetween('tanggal', [$dari, $sampai])
     		->get();
     	}
     	return view('pengeluaran.by-waktu', [

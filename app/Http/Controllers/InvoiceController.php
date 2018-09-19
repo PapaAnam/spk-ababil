@@ -8,9 +8,13 @@ use App\Klien;
 use App\Rekening;
 use App\Proyek;
 use DB;
+use App\Mytrait\Tanggal;
 
 class InvoiceController extends Controller
 {
+
+    use Tanggal;
+
     public function __construct()
     {
         $this->middleware('myrole:superadmin,finance')->only('index','create','store');
@@ -23,7 +27,7 @@ class InvoiceController extends Controller
      */
     public function index(Request $r)
     {
-        
+
     }
 
     /**
@@ -71,7 +75,7 @@ class InvoiceController extends Controller
             Invoice::truncate();
         }
         $invoice = Invoice::create([
-            'tanggal'=>$request->tanggal,
+            'tanggal'=>$this->englishFormat($request->tanggal),
             'id_proyek'=>$request->id_proyek,
             'total_tagihan'=>$request->total_tagihan,
             'terbayar'=>$request->terbayar,
@@ -159,7 +163,7 @@ class InvoiceController extends Controller
             'pajak.*'=>'required|numeric',
         ]);
         $invoice->update([
-            'tanggal'=>$request->tanggal,
+            'tanggal'=>$this->englishFormat($request->tanggal),
             'id_proyek'=>$request->id_proyek,
             'total_tagihan'=>$request->total_tagihan,
             'terbayar'=>$request->terbayar,
@@ -194,9 +198,11 @@ class InvoiceController extends Controller
     public function byWaktu(Request $r)
     {
         $data = [];
+        $dari = $this->englishFormat($r->query('dari'));
+        $sampai = $this->englishFormat($r->query('sampai'));
         if($r->query('dari') && $r->query('sampai')){
             $data = Invoice::with('proyek.kliendetail.pic', 'ttd', 'pajak', 'rekening')
-            ->whereBetween('tanggal', [$r->dari, $r->sampai])->get();
+            ->whereBetween('tanggal', [$dari, $sampai])->get();
         }
         return view('invoice.by-waktu', [
             'data'      => $data,

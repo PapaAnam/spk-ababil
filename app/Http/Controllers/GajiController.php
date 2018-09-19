@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Karyawan;
 use DB;
 use App\TimeSheet;
+use App\Mytrait\Tanggal;
 
 class GajiController extends Controller
 {
+
+    use Tanggal;
 
     public function __construct()
     {
@@ -49,8 +52,8 @@ class GajiController extends Controller
     public function byPeriode(Request $r)
     {
         $data = [];
-        $tanggal_dari = $r->query('tanggal_dari');
-        $tanggal_sampai = $r->query('tanggal_sampai');
+        $tanggal_dari = $this->englishFormat($r->query('tanggal_dari'));
+        $tanggal_sampai = $this->englishFormat($r->query('tanggal_sampai'));
         if($tanggal_dari && $tanggal_sampai){
             $data = Gaji::with('karyawan','pengeluaran')
             ->whereBetween('tanggal_dari', [$tanggal_dari, $tanggal_sampai])
@@ -139,7 +142,10 @@ class GajiController extends Controller
             'total_gaji'=>'required|numeric'
         ]);
 
-        $gaji = Gaji::create($request->all());
+        $gaji = Gaji::create([
+            'tanggal_sampai'=>$this->englishFormat($request->tanggal_sampai),
+            'tanggal_dari'=>$this->englishFormat($request->tanggal_dari),
+        ]+$request->except('tanggal_dari','tanggal_sampai'));
         $i = 0;
         foreach ($request->pengeluaran as $p) {
             if($p != null){
