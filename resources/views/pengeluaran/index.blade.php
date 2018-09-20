@@ -13,7 +13,7 @@
     <th>Vendor</th>
     <th>Pelaksana</th>
     <th>Nominal</th>
-    <th>Jumlah Pengeluaran</th>
+    {{-- <th>Jumlah Pengeluaran</th> --}}
     <th>Proyek</th>
     <th>Kategori</th>
     <th>Deskripsi</th>
@@ -32,7 +32,7 @@
     <th>Vendor</th>
     <th>Pelaksana</th>
     <th>Nominal</th>
-    <th>Jumlah Pengeluaran</th>
+    {{-- <th>Jumlah Pengeluaran</th> --}}
     <th>Proyek</th>
     <th>Kategori</th>
     <th>Deskripsi</th>
@@ -52,7 +52,7 @@
     <td>{{ $d->vendor->nama }}</td>
     <td>{{ $d->pelaksana->nama }}</td>
     <td align="right">{{ number_format($d->nominal, 0, ',', '.') }}</td>
-    <td align="right">{{ number_format($d->jumlah_pengeluaran, 0, ',', '.') }}</td>
+    {{-- <td align="right">{{ number_format($d->jumlah_pengeluaran, 0, ',', '.') }}</td> --}}
     <td>{{ $d->proyek->nama }}</td>
     <td>
       {{ $d->kategori->nama }} <br>

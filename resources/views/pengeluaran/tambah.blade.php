@@ -5,7 +5,7 @@
 @include('select',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor])
 @include('select',['id'=>'id_karyawan','label'=>'Pilih Pelaksana','selectData'=>$listPelaksana])
 @include('input_number',['id'=>'nominal','label'=>'Nominal'])
-@include('input_number',['id'=>'jumlah_pengeluaran','label'=>'Jumlah Pengeluaran'])
+{{-- @include('input_number',['id'=>'jumlah_pengeluaran','label'=>'Jumlah Pengeluaran']) --}}
 @include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
 @include('select',['id'=>'id_kategori','label'=>'Pilih Kategori','selectData'=>$listKategori])
 <div class="form-group">
