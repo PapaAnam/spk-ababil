@@ -26,11 +26,11 @@
     <td>{{ $d->deskripsi }}</td>
     <td align="right">{{ $d->ritase }}</td>
     <td>
-      {{ $d->tugas->material }}
+      {{ $d->tugas ? $d->tugas->material : "" }}
       <br>
       {{ $d->qty }}
       <br>
-      {{ $d->tugas->satuandetail->nama }}
+      {{ $d->tugas ? $d->tugas->satuandetail->nama : '' }}
     </td>
     <td>{{ $d->cuaca }}</td>
     <td>{{ $d->kendala }}</td>
