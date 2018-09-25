@@ -22,7 +22,7 @@
     <td>{{ $d->id }}</td>
     <td>{{ $d->tanggal_indo }}</td>
     <td>{{ $d->proyek->nama }}</td>
-    <td>{{ $d->tugas->nama_tugas }}</td>
+    <td>{{ $d->tugas ? $d->tugas->nama_tugas : '' }}</td>
     <td>{{ $d->deskripsi }}</td>
     <td align="right">{{ $d->ritase }}</td>
     <td>
