@@ -1,7 +1,7 @@
 @extends('create-form')
 @section('form')
 @method('PUT')
-@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>$d->tanggal])
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>$tanggal])
 @include('select',['id'=>'id_klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>$d->id_klien])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>

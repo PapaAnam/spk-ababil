@@ -125,6 +125,7 @@ use Tanggal;
     		'kwitansi'=>$kwitansi,
     		'no'=>$request->no,
     		'tanggal'=>$this->englishFormat($request->tanggal),
+            'deskripsi'=>$request->deskripsi,
     	]);
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil dibuat');
     }
@@ -203,6 +204,7 @@ use Tanggal;
     		'ref'=>$request->ref,
     		'kwitansi'=>$kwitansi,
     		'no'=>$request->no,
+            'deskripsi'=>$request->deskripsi,
     		'tanggal'=>$this->englishFormat($request->tanggal),
     	]);
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil diperbarui');

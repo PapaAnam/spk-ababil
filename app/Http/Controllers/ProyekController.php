@@ -130,6 +130,8 @@ class ProyekController extends Controller
             'listKaryawan'=>Karyawan::selectMode(),
             'listKlien'=>Klien::selectMode(),
             'listSatuan'=>Satuan::selectMode(),
+            'start_date'=>$this->formatIndo($proyek->start_date),
+            'end_date'=>$this->formatIndo($proyek->end_date),
         ]);
     }
 

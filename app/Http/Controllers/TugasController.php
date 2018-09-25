@@ -196,6 +196,8 @@ class TugasController extends Controller
             'listKaryawan'=>Karyawan::selectMode(),
             'listProyek'=>Proyek::selectMode(),
             'listSatuan'=>Satuan::selectMode(),
+            'start_date'=>$this->formatIndo($tuga->start_date),
+            'end_date'=>$this->formatIndo($tuga->end_date),
         ]);
     }
 

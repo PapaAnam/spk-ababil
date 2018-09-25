@@ -6,8 +6,8 @@
 @include('select2',['selected'=>$pelaksana,'id'=>'pelaksana','label'=>'Pilih Pelaksana','selectData'=>$listKaryawan])
 @include('input_number',['value'=>$d->qty,'id'=>'qty','label'=>'Qty'])
 @include('select',['id'=>'satuan','label'=>'Pilih Satuan','selectData'=>$listSatuan])
-@include('datepicker',['value'=>$d->start_date,'id'=>'start_date','label'=>'Start Date'])
-@include('datepicker',['value'=>$d->end_date,'id'=>'end_date','label'=>'End Date'])
+@include('datepicker',['value'=>$start_date,'id'=>'start_date','label'=>'Start Date'])
+@include('datepicker',['value'=>$end_date,'id'=>'end_date','label'=>'End Date'])
 @include('textarea',['value'=>$d->deskripsi,'id'=>'deskripsi','label'=>'Deskripsi'])
 @endsection
 

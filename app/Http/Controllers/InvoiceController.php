@@ -137,6 +137,7 @@ class InvoiceController extends Controller
             'listProyek'=>Proyek::selectMode(['klien', $p->klien]),
             'listKlien'=>Klien::selectMode(),
             'listRekening'=>Rekening::selectMode(),
+            'tanggal'=>$this->formatIndo($invoice->tanggal),
         ]);
     }
 

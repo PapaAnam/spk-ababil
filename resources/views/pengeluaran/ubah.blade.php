@@ -2,9 +2,10 @@
 @section('form')
 @method('PUT')
 @include('input',['id'=>'no','label'=>'No','value'=>$d->no])
-@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>$d->tanggal])
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>$tanggal])
 @include('select',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor,'selected'=>$d->id_vendor])
 @include('select',['id'=>'id_karyawan','label'=>'Pilih Pelaksana','selectData'=>$listPelaksana,'selected'=>$d->id_karyawan])
+@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>$d->deskripsi])
 @include('input_number',['id'=>'nominal','label'=>'Nominal','value'=>$d->nominal])
 {{-- @include('input_number',['id'=>'jumlah_pengeluaran','label'=>'Jumlah Pengeluaran','value'=>$d->jumlah_pengeluaran]) --}}
 @include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek,'selected'=>$d->id_proyek])
