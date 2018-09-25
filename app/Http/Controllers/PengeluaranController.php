@@ -166,6 +166,7 @@ use Tanggal;
     		'listPelaksana'=>Karyawan::selectMode(),
     		'listKategori'=>Kategori::selectMode(),
     		'subs'=>$subs,
+            'tanggal'=>$this->formatIndo($pengeluaran->tanggal)
     	]);
     }
 
