@@ -18,4 +18,36 @@
 @include('input_number',['value'=>$d->insentif,'id'=>'insentif','label'=>'Insentif'])
 @endsection
 
-@include('karyawan.script')
+@push('script')
+<script>
+	$(document).ready(function(){
+		$('select#jenis').on('change', function(){
+			var jenis = $(this).val();
+			if(jenis){
+				if(jenis == 'Operator'){
+					$('#rate_per_jam').parent().parent().show();
+					$('#insentif').parent().parent().fadeOut();
+				}else if(jenis == 'Sopir'){
+					$('#rate_per_jam').parent().parent().fadeOut();
+					$('#insentif').parent().parent().show();
+				}else{
+					$('#rate_per_jam').parent().parent().fadeOut();
+					$('#insentif').parent().parent().fadeOut();
+				}
+				$('#rate_per_jam').val({{$d->rate_per_jam}});
+				$('#insentif').val({{$d->insentif}});
+			}else{
+				alert('Pilih salah satu jenis karyawan terlebih dahulu!!!');
+			}
+		});
+		@if($d->jenis != 'Sopir')
+		$('#insentif').parent().parent().fadeOut();
+		$('#insentif').val(0);
+		@endif
+		@if($d->jenis != 'Operator')
+		$('#rate_per_jam').parent().parent().fadeOut();
+		$('#rate_per_jam').val(0);
+		@endif
+	});
+</script>
+@endpush

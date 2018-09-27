@@ -6,8 +6,8 @@
       @include('success_msg')
       <div class="col-xs-12">
         @yield('other-box')
-        <div class="box">
-          <div class="box-header">
+        <div class="box box-primary">
+          <div class="box-header with-border">
             <h3 class="box-title">{{ $title }}</h3>
             @isset($role)
             @if(is_array($role) && in_array(Auth::user()->role, $role))

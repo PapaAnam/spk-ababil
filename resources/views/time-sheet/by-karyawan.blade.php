@@ -6,7 +6,7 @@
 	</div>
 	<div class="box-body">
 		<form method="get" action="" class="form-horizontal">
-			@include('select', ['id'=>'karyawan','selectData'=>$listKaryawan,'label'=>'Pilih Karyawan'])
+			@include('select2-no-tags', ['id'=>'karyawan','selectData'=>$listKaryawan,'label'=>'Pilih Karyawan','selected'=>request()->query('karyawan')])
 			<div class="form-group">
 				<label class="col-lg-2 control-label"></label>
 				<div class="col-sm-6">
@@ -19,3 +19,4 @@
 @endsection
 
 @include('import-datepicker')
+@include('import-select2')

@@ -162,7 +162,8 @@ class ProgressKerjaHarianController extends Controller
             'ritase'=>$request->ritase,
             'id_proyek'=>$request->id_proyek,
             'id_tugas'=>$request->id_tugas,
-            'kendala'=>$request->kendala
+            'kendala'=>$request->kendala,
+            'qty'=>$request->qty2
         ]);
         // $progressKerjaHarian->material()->delete();
         // set material

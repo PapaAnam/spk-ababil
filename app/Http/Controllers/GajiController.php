@@ -219,14 +219,15 @@ class GajiController extends Controller
     public function cek(Request $r)
     {
         $karyawan = $r->query('karyawan');
-        $tanggal_dari = $r->query('tanggal_dari');
-        $tanggal_sampai = $r->query('tanggal_sampai');
+        $tanggal_dari = $this->englishFormat($r->query('tanggal_dari'));
+        $tanggal_sampai = $this->englishFormat($r->query('tanggal_sampai'));
         $k = Karyawan::find($karyawan);
         // DB::enableQueryLog();
-        $jumlahHariTimeSheet = floor((strtotime($tanggal_sampai) - strtotime($tanggal_dari)) / 3600 / 24);
         $timeSheet = TimeSheet::where('id_karyawan', $karyawan)->whereBetween('tanggal', [
             $tanggal_dari, $tanggal_sampai
         ])->get();
+        // $jumlahHariTimeSheet = floor((strtotime($tanggal_sampai) - strtotime($tanggal_dari)) / 3600 / 24);
+        $jumlahHariTimeSheet = count($timeSheet);
         $totalJamKerja  = $timeSheet->sum('total_jam');
         $jumlahInsentif = $timeSheet->sum('ritase');
         $jumlahLembur   = $timeSheet->sum('lembur');
@@ -237,7 +238,8 @@ class GajiController extends Controller
         return view('gaji.cek',[
             'k'=>$k,
             'totalJamKerja'=>$totalJamKerja,
-            'jumlahHariTimeSheet'=>$jumlahHariTimeSheet+1,
+            'jumlahHariTimeSheet'=>$jumlahHariTimeSheet,
+            // 'jumlahHariTimeSheet'=>$jumlahHariTimeSheet+1,
             'jumlahInsentif'=>$jumlahInsentif,
             'jumlahLembur'=>$jumlahLembur,
         ]);

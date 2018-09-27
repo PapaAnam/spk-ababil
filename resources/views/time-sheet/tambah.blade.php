@@ -1,6 +1,6 @@
 @extends('create-form')
 @section('form')
-@include('select',['id'=>'id_karyawan','label'=>'Karyawan','selectData'=>$listKaryawan])
+@include('select2-no-tags',['id'=>'id_karyawan','label'=>'Karyawan','selectData'=>$listKaryawan])
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal'])
 @include('timemask',['id'=>'jam_mulai','label'=>'Jam Mulai'])
 @include('timemask',['id'=>'jam_selesai','label'=>'Jam Selesai'])
@@ -11,3 +11,4 @@
 
 @include('import-datepicker')
 @include('import-timemask')
+@include('import-select2')

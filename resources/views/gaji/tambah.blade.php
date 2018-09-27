@@ -2,7 +2,7 @@
 @section('form')
 @include('datepicker',['id'=>'tanggal_dari','label'=>'Dari Tanggal','value'=>date('d-m-Y')])
 @include('datepicker',['id'=>'tanggal_sampai','label'=>'Sampai Tanggal','value'=>date('d-m-Y')])
-@include('select',['id'=>'id_karyawan','label'=>'Pilih Karyawan','selectData'=>$listKaryawan])
+@include('select2-no-tags',['id'=>'id_karyawan','label'=>'Pilih Karyawan','selectData'=>$listKaryawan])
 @include('input',['id'=>'plat_no','label'=>'Plat No'])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
@@ -129,3 +129,5 @@
 	});
 </script>
 @endpush
+
+@include('import-select2')

@@ -140,8 +140,8 @@ class TugasController extends Controller
             'satuan'=>'required',
             'pelaksana'=>'required|array',
             'pelaksana.*'=>'required',
-            'start_date'=>'required|date_format:Y-m-d',
-            'end_date'=>'required|date_format:Y-m-d',
+            'start_date'=>'required|date_format:d-m-Y',
+            'end_date'=>'required|date_format:d-m-Y',
         ]);
         if(Tugas::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -219,8 +219,8 @@ class TugasController extends Controller
             'satuan'=>'required',
             'pelaksana'=>'required|array',
             'pelaksana.*'=>'required',
-            'start_date'=>'required|date_format:Y-m-d',
-            'end_date'=>'required|date_format:Y-m-d',
+            'start_date'=>'required|date_format:d-m-Y',
+            'end_date'=>'required|date_format:d-m-Y',
         ]);
         $tuga->update([
             'id_proyek'=>$request->id_proyek,
@@ -260,7 +260,7 @@ class TugasController extends Controller
         $options = '';
         if(count($tugas) > 0){
             foreach ($tugas as $t) {
-                $options .= '<option value="'.$t->id.'">ID Tugas '.$t->id.'</option>';
+                $options .= '<option value="'.$t->id.'">['.$t->id.'] '.$t->nama_tugas.'</option>';
             }   
         }else{
             $options .= '<option value="">Tidak ada tugas di proyek ini</option>';
