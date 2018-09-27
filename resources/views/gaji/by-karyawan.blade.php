@@ -7,9 +7,9 @@
       </div>
       <div class="box-body">
         <form method="get" action="" class="form-horizontal">
-          @include('select',['size'=>[3, 9],'id'=>'karyawan','label'=>'Pilih Karyawan','selectData'=>$listKaryawan,'selected'=>request()->query('karyawan')])
+          @include('select2-no-tags',['size'=>[3, 9],'id'=>'karyawan','label'=>'Pilih Karyawan','selectData'=>$listKaryawan,'selected'=>request()->query('karyawan')])
           <div class="form-group">
-            <label class="col-lg-3 control-label"></label>
+            <label class="col-lg-2 control-label"></label>
             <div class="col-sm-6">
               <button type="submit" class="btn btn-primary btn-flat">Lihat</button>
             </div>
@@ -19,3 +19,5 @@
     </div>
   </div>
 @endsection
+
+@include('import-select2')
