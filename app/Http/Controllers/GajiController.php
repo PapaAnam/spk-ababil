@@ -124,8 +124,8 @@ class GajiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal_dari'=>'required|date_format:Y-m-d',
-            'tanggal_sampai'=>'required|date_format:Y-m-d',
+            'tanggal_dari'=>'required|date_format:d-m-Y',
+            'tanggal_sampai'=>'required|date_format:d-m-Y',
             'id_karyawan'=>'required|numeric',
             'plat_no'=>'required',
             'total_jam_kerja'=>'required|numeric',
