@@ -59,4 +59,14 @@ class Karyawan extends Model
 	{
 		return number_format($this->insentif, 0, ',', '.');
 	}
+
+	public function overtime()
+	{
+		return $this->hasMany('App\OtOperator','id_karyawan');
+	}
+
+	public function insentifdetail()
+	{
+		return $this->hasMany('App\InsentifSopir','id_karyawan');
+	}
 }

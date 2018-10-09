@@ -22,11 +22,11 @@ class CreateKaryawan extends Migration
             $table->string('no_darurat')->nullable();
             $table->string('jabatan');
             $table->string('armada');
-            $table->double('gaji_pokok');
-            $table->double('rate_per_jam');
-            $table->double('um_harian');
-            $table->double('rate_lembur');
-            $table->double('insentif');
+            $table->double('gaji_pokok')->default(0);
+            $table->double('rate_per_jam')->default(0);
+            $table->double('um_harian')->default(0);
+            $table->double('rate_lembur')->default(0);
+            $table->double('insentif')->default(0);
         });
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Karyawan;
 use Illuminate\Http\Request;
 use DB;
+use App\OtOperator;
+use App\InsentifSopir;
 
 class KaryawanController extends Controller
 {
@@ -66,28 +68,28 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama'=>'required',
-            'nik'=>'required|numeric',
-            'alamat'=>'required',
-            'no_hp'=>'required',
-            'no_darurat'=>'required',
-            'jabatan'=>'required',
-            'armada'=>'required',
-            'gaji_pokok'=>'required|numeric',
-            'rate_per_jam'=>'required|numeric',
-            'um_harian'=>'required|numeric',
-            'rate_lembur'=>'required|numeric',
-            'insentif'=>'required|numeric',
-            'jenis'=>'required',
-            'no_rek'=>'required|numeric',
-            'atas_nama'=>'required',
-        ]);
-        if(Karyawan::count() == 0){
-            DB::statement('set foreign_key_checks=0;');
-            Karyawan::truncate();
-        }
-        Karyawan::create([
+        // $request->validate([
+        //     'nama'=>'required',
+        //     'nik'=>'required|numeric',
+        //     'alamat'=>'required',
+        //     'no_hp'=>'required',
+        //     'no_darurat'=>'required',
+        //     'jabatan'=>'required',
+        //     'armada'=>'required',
+        //     'gaji_pokok'=>'required|numeric',
+        //     // 'rate_per_jam'=>'required|numeric',
+        //     'um_harian'=>'required|numeric',
+        //     // 'rate_lembur'=>'required|numeric',
+        //     // 'insentif'=>'required|numeric',
+        //     'jenis'=>'required',
+        //     'no_rek'=>'required|numeric',
+        //     'atas_nama'=>'required',
+        // ]);
+        // if(Karyawan::count() == 0){
+        //     DB::statement('set foreign_key_checks=0;');
+        //     Karyawan::truncate();
+        // }
+        $karyawan = Karyawan::create([
             'nama'=>$request->nama,
             'nik'=>$request->nik,
             'alamat'=>$request->alamat,
@@ -96,14 +98,34 @@ class KaryawanController extends Controller
             'jabatan'=>$request->jabatan,
             'armada'=>$request->armada,
             'gaji_pokok'=>$request->gaji_pokok,
-            'rate_per_jam'=>$request->rate_per_jam,
+            'rate_per_jam'=>$request->jenis == 'Operator' ? $request->rate_per_jam : 0,
             'um_harian'=>$request->um_harian,
-            'rate_lembur'=>$request->rate_lembur,
-            'insentif'=>$request->insentif,
+            // 'rate_lembur'=>$request->rate_lembur,
+            // 'insentif'=>$request->insentif,
             'jenis'=>$request->jenis,
             'no_rek'=>$request->no_rek,
             'atas_nama'=>$request->atas_nama,
         ]);
+        if($request->jenis == 'Operator'){
+            $i=0;
+            foreach ($request->nama_overtime as $nama) {
+                OtOperator::create([
+                    'nama'=>$nama,
+                    'rate_overtime'=>$request->rate_overtime[$i++],
+                    'id_karyawan'=>$karyawan->id,
+                ]);
+            }
+        }elseif($request->jenis=='Sopir'){
+            $i=0;
+            foreach ($request->nama_insentif as $nama) {
+                InsentifSopir::create([
+                    'nama'=>$nama,
+                    'insentif'=>$request->insentif[$i],
+                    'lembur'=>$request->lembur[$i++],
+                    'id_karyawan'=>$karyawan->id,
+                ]);
+            }
+        }
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil dibuat');
     }
 
