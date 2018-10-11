@@ -26,7 +26,7 @@ class Karyawan extends Model
 	public function scopeSelectMode($q)
 	{
 		$data = [];
-		foreach ($q->get() as $a) {
+		foreach ($q->orderBy('id','desc')->get() as $a) {
 			$data[] = collect([
 				'value'=>$a->id,
 				'text'=>'['.$a->nik.'] '.$a->nama

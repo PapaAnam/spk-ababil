@@ -19,7 +19,7 @@ class CreateTimeSheetTable extends Migration
             $table->integer('id_karyawan')->unisgned();
             $table->time('jam_mulai');
             $table->time('jam_selesai');
-            $table->double('ritase');
+            $table->double('ritase')->default(0);
         });
     }
 

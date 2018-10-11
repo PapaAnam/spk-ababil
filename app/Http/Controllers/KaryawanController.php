@@ -13,7 +13,7 @@ class KaryawanController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin')->except('index');
+        $this->middleware('myrole:superadmin')->except('index','get');
     }
 
     private function getListJenis()
@@ -68,27 +68,27 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nama'=>'required',
-        //     'nik'=>'required|numeric',
-        //     'alamat'=>'required',
-        //     'no_hp'=>'required',
-        //     'no_darurat'=>'required',
-        //     'jabatan'=>'required',
-        //     'armada'=>'required',
-        //     'gaji_pokok'=>'required|numeric',
-        //     // 'rate_per_jam'=>'required|numeric',
-        //     'um_harian'=>'required|numeric',
-        //     // 'rate_lembur'=>'required|numeric',
-        //     // 'insentif'=>'required|numeric',
-        //     'jenis'=>'required',
-        //     'no_rek'=>'required|numeric',
-        //     'atas_nama'=>'required',
-        // ]);
-        // if(Karyawan::count() == 0){
-        //     DB::statement('set foreign_key_checks=0;');
-        //     Karyawan::truncate();
-        // }
+        $request->validate([
+            'nama'=>'required',
+            'nik'=>'required|numeric',
+            'alamat'=>'required',
+            'no_hp'=>'required',
+            'no_darurat'=>'required',
+            'jabatan'=>'required',
+            'armada'=>'required',
+            'gaji_pokok'=>'required|numeric',
+            // 'rate_per_jam'=>'required|numeric',
+            'um_harian'=>'required|numeric',
+            // 'rate_lembur'=>'required|numeric',
+            // 'insentif'=>'required|numeric',
+            'jenis'=>'required',
+            'no_rek'=>'required|numeric',
+            'atas_nama'=>'required',
+        ]);
+        if(Karyawan::count() == 0){
+            DB::statement('set foreign_key_checks=0;');
+            Karyawan::truncate();
+        }
         $karyawan = Karyawan::create([
             'nama'=>$request->nama,
             'nik'=>$request->nik,
@@ -176,6 +176,8 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, Karyawan $karyawan)
     {
+        // dd($request->id_insentif);
+        $id_karyawan = $karyawan->id;
         $request->validate([
             'nama'=>'required',
             'nik'=>'required|numeric',
@@ -185,13 +187,17 @@ class KaryawanController extends Controller
             'jabatan'=>'required',
             'armada'=>'required',
             'gaji_pokok'=>'required|numeric',
-            'rate_per_jam'=>'required|numeric',
+            // 'rate_per_jam'=>'required|numeric',
             'um_harian'=>'required|numeric',
-            'rate_lembur'=>'required|numeric',
-            'insentif'=>'required|numeric',
+            // 'rate_lembur'=>'required|numeric',
+            // 'insentif'=>'required|numeric',
             'jenis'=>'required',
             'no_rek'=>'required|numeric',
             'atas_nama'=>'required',
+            'nama_overtime'=>$request->jenis == 'Operator' ? "required|array" : '',
+            'nama_overtime.*'=>$request->jenis == 'Operator' ? "required" : '',
+            'nama_insentif'=>$request->jenis == 'Sopir' ? "required|array" : '',
+            'nama_insentif.*'=>$request->jenis == 'Sopir' ? "required" : '',
         ]);
         $karyawan->update([
             'nama'=>$request->nama,
@@ -202,14 +208,40 @@ class KaryawanController extends Controller
             'jabatan'=>$request->jabatan,
             'armada'=>$request->armada,
             'gaji_pokok'=>$request->gaji_pokok,
-            'rate_per_jam'=>$request->rate_per_jam,
+            // 'rate_per_jam'=>$request->rate_per_jam,
             'um_harian'=>$request->um_harian,
-            'rate_lembur'=>$request->rate_lembur,
-            'insentif'=>$request->insentif,
+            // 'rate_lembur'=>$request->rate_lembur,
+            // 'insentif'=>$request->insentif,
             'jenis'=>$request->jenis,
             'no_rek'=>$request->no_rek,
             'atas_nama'=>$request->atas_nama,
         ]);
+        if($request->jenis == 'Operator'){
+            $i=0;
+            foreach ($request->nama_overtime as $nama) {
+                OtOperator::whereNotIn('id',$request->id_overtime)->where('id_karyawan',$id_karyawan)->delete();
+                OtOperator::updateOrCreate([
+                    'id'=>$request->id_overtime[$i]
+                ],[
+                    'nama'=>$nama,
+                    'rate_overtime'=>$request->rate_overtime[$i++],
+                    'id_karyawan'=>$id_karyawan
+                ]);
+            }
+        }elseif($request->jenis=='Sopir'){
+            $i=0;
+            foreach ($request->nama_insentif as $nama) {
+                InsentifSopir::whereNotIn('id',$request->id_insentif)->where('id_karyawan',$id_karyawan)->delete();
+                InsentifSopir::updateOrCreate([
+                    'id'=>$request->id_insentif[$i]
+                ],[
+                    'nama'=>$nama,
+                    'insentif'=>$request->insentif[$i],
+                    'lembur'=>$request->lembur[$i++],
+                    'id_karyawan'=>$id_karyawan
+                ]);
+            }
+        }
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil diperbarui');
     }
 
@@ -223,5 +255,10 @@ class KaryawanController extends Controller
     {
         $karyawan->delete();
         return redirect()->route('karyawan.index')->with('success_msg', 'Karyawan berhasil dihapus');
+    }
+
+    public function get(Request $r)
+    {
+        return Karyawan::with('overtime','insentifdetail')->where('id', $r->query('id'))->first();
     }
 }

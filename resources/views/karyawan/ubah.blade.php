@@ -14,7 +14,7 @@
 @include('input_number',['value'=>$d->um_harian,'id'=>'um_harian','label'=>'UM Harian'])
 {{-- @include('input_number',['value'=>$d->rate_lembur,'id'=>'rate_lembur','label'=>'Rate Lembur']) --}}
 @include('select',['id'=>'jenis','label'=>'Jenis Karyawan','selectData'=>$listJenis,'selected'=>$d->jenis])
-{{-- @if(count($errors->all()) > 0)
+@if(count($errors->all()) > 0)
 <div id="operator-area">
 	@include('input',['id'=>'nama_overtime','name'=>'nama_overtime[]','label'=>'Nama Overtime','index'=>0])
 	@include('input_number',['id'=>'rate_overtime','name'=>'rate_overtime[]','label'=>'Rate Overtime','index'=>0])
@@ -71,123 +71,64 @@
 </div>
 @else
 <div id="operator-area">
-	@include('input',['id'=>'nama_overtime','name'=>'nama_overtime[]','label'=>'Nama Overtime'])
-	@include('input_number',['id'=>'rate_overtime','name'=>'rate_overtime[]','label'=>'Rate Overtime'])
+	@if (count($d->overtime) > 1)
+	<input type="hidden" name="id_overtime[]" value="{{$d->overtime[0]->id}}">
+	@endif
+	@include('input',['id'=>'nama_overtime','name'=>'nama_overtime[]','label'=>'Nama Overtime','value'=>count($d->overtime) > 1 ? $d->overtime[0]->nama : ''])
+	@include('input_number',['id'=>'rate_overtime','name'=>'rate_overtime[]','label'=>'Rate Overtime','value'=>count($d->overtime) > 1 ? $d->overtime[0]->rate_overtime : ''])
 	<div class="form-group">
 		<label for="" class="col-lg-2 control-label"></label>
 		<div class="col-sm-6">
 			<a href="#" id="tombol-tambah-ot" class="btn btn-primary btn-flat">Tambah OT</a>
 		</div>
 	</div>
-	<div id="operator-tambahan"></div>
+	<div id="operator-tambahan">
+		@if (count($d->overtime) > 1)
+		@foreach ($d->overtime as $ins)
+		@if($loop->index > 0)
+		<div id="operator-tambahan-item">
+			<input type="hidden" name="id_overtime[]" value="{{$d->overtime[$loop->index]->id}}">
+			@include('input',['id'=>'nama_overtime','name'=>'nama_overtime[]','label'=>'Nama Overtime','value'=>$d->overtime[$loop->index]->nama])
+			@include('input_number',['id'=>'rate_overtime','name'=>'rate_overtime[]','label'=>'Rate Overtime','value'=>$d->overtime[$loop->index]->rate_overtime])
+			<div class="form-group"><label for="" class="col-lg-2 control-label"></label><div class="col-sm-6"><a href="#" class="tombol-hapus-ot btn btn-danger btn-flat">Hapus</a></div></div>
+		</div>
+		@endif
+		@endforeach
+		@endif
+	</div>
 </div>
 <div id="sopir-area">
-	@include('input',['id'=>'nama_insentif','name'=>'nama_insentif[]','label'=>'Nama Insentif'])
-	@include('input_number',['id'=>'insentif','name'=>'insentif[]','label'=>'Insentif'])
-	@include('input_number',['id'=>'lembur','name'=>'lembur[]','label'=>'Lembur'])
+	@if (count($d->insentifdetail) > 1)
+	<input type="hidden" name="id_insentif[]" value="{{$d->insentifdetail[0]->id}}">
+	@endif
+	@include('input',['id'=>'nama_insentif','name'=>'nama_insentif[]','label'=>'Nama Insentif','value'=>count($d->insentifdetail) > 1 ? $d->insentifdetail[0]->nama : ''])
+	@include('input_number',['id'=>'insentif','name'=>'insentif[]','label'=>'Insentif','value'=>count($d->insentifdetail) > 1 ? $d->insentifdetail[0]->insentif : ''])
+	@include('input_number',['id'=>'lembur','name'=>'lembur[]','label'=>'Lembur','value'=>count($d->insentifdetail) > 1 ? $d->insentifdetail[0]->lembur : ''])
 	<div class="form-group">
 		<label for="" class="col-lg-2 control-label"></label>
 		<div class="col-sm-6">
 			<a href="#" id="tombol-tambah-insentif" class="btn btn-primary btn-flat">Tambah Insentif</a>
 		</div>
 	</div>
-	<div id="sopir-tambahan"></div>
+	<div id="sopir-tambahan">
+		@if (count($d->insentifdetail) > 1)
+		@foreach ($d->insentifdetail as $ins)
+		@if($loop->index > 0)
+		<div id="sopir-tambahan-item">
+			<input type="hidden" name="id_insentif[]" value="{{$d->insentifdetail[$loop->index]->id}}">
+			@include('input',['id'=>'nama_insentif','name'=>'nama_insentif[]','label'=>'Nama Insentif','value'=>count($d->insentifdetail) > 1 ? $d->insentifdetail[$loop->index]->nama : ''])
+			@include('input_number',['id'=>'insentif','name'=>'insentif[]','label'=>'Insentif','value'=>count($d->insentifdetail) > 1 ? $d->insentifdetail[$loop->index]->insentif : ''])
+			@include('input_number',['id'=>'lembur','name'=>'lembur[]','label'=>'Lembur','value'=>count($d->insentifdetail) > 1 ? $d->insentifdetail[$loop->index]->lembur : ''])
+			<div class="form-group"><label for="" class="col-lg-2 control-label"></label><div class="col-sm-6"><a href="#" class="tombol-hapus-insentif btn btn-danger btn-flat">Hapus</a></div></div>
+		</div>
+		@endif
+		@endforeach
+		@endif
+	</div>
 </div>
-@endif --}}
+@endif
 {{-- @include('input_number',['value'=>$d->rate_per_jam,'id'=>'rate_per_jam','label'=>'Rate Per Jam']) --}}
 {{-- @include('input_number',['value'=>$d->insentif,'id'=>'insentif','label'=>'Insentif']) --}}
 @endsection
 
-@push('script')
-<script>
-	$(document).ready(function(){
-		$('select#jenis').on('change', function(){
-			var jenis = $(this).val();
-			if(jenis){
-				if(jenis == 'Operator'){
-					$('#rate_per_jam').parent().parent().show();
-					$('#insentif').parent().parent().fadeOut();
-				}else if(jenis == 'Sopir'){
-					$('#rate_per_jam').parent().parent().fadeOut();
-					$('#insentif').parent().parent().show();
-				}else{
-					$('#rate_per_jam').parent().parent().fadeOut();
-					$('#insentif').parent().parent().fadeOut();
-				}
-				$('#rate_per_jam').val({{$d->rate_per_jam}});
-				$('#insentif').val({{$d->insentif}});
-			}else{
-				alert('Pilih salah satu jenis karyawan terlebih dahulu!!!');
-			}
-		});
-		@if($d->jenis != 'Sopir')
-		$('#insentif').parent().parent().fadeOut();
-		$('#insentif').val(0);
-		@endif
-		@if($d->jenis != 'Operator')
-		$('#rate_per_jam').parent().parent().fadeOut();
-		$('#rate_per_jam').val(0);
-		@endif
-	});
-</script>
-@endpush
-{{-- $('select#jenis').on('change', function(){
-var jenis = $(this).val();
-if(jenis){
-if(jenis == 'Operator'){
-$('#rate_per_jam').parent().parent().show();
-$('#insentif').parent().parent().fadeOut();
-$('#operator-area').fadeIn();
-$('#sopir-area').fadeOut();
-}else if(jenis == 'Sopir'){
-$('#rate_per_jam').parent().parent().fadeOut();
-$('#insentif').parent().parent().show();
-$('#operator-area').fadeOut();
-$('#sopir-area').fadeIn();
-}else{
-$('#rate_per_jam').parent().parent().fadeOut();
-$('#insentif').parent().parent().fadeOut();
-$('#operator-area').fadeOut();
-$('#sopir-area').fadeOut();
-}
-$('#rate_per_jam').val(0);
-$('#insentif').val(0);
-}else{
-alert('Pilih salah satu jenis karyawan terlebih dahulu!!!');
-}
-});
-$('#rate_per_jam').parent().parent().fadeOut();
-$('#insentif').parent().parent().fadeOut();
-$('#rate_per_jam').val(0);
-$('#insentif').val(0);
-$('#tombol-tambah-ot').on('click',function(e){
-e.preventDefault();
-var templateOt = '<div id="operator-tambahan-item"><div class="form-group"><label for="nama_overtime" class="col-lg-2 control-label">Nama Overtime</label><div class="col-sm-6"><input name="nama_overtime[]" type="text" class="form-control" id="nama_overtime" placeholder="Nama Overtime" value=""></div></div><div class="form-group"><label for="rate_overtime" class="col-lg-2 control-label">Rate Overtime</label><div class="col-sm-6"><input name="rate_overtime[]" type="number" class="form-control" id="rate_overtime" placeholder="Rate Overtime" value=""></div></div><div class="form-group"><label for="" class="col-lg-2 control-label"></label><div class="col-sm-6"><a href="#" class="tombol-hapus-ot btn btn-danger btn-flat">Hapus</a></div></div></div>';
-$('#operator-tambahan').append(templateOt);
-initHapusOtEvent();
-});
-
-function initHapusOtEvent() {
-$('.tombol-hapus-ot').on('click', function(e){
-e.preventDefault();
-$(this).parent().parent().parent().remove();
-});
-}
-
-$('#tombol-tambah-insentif').on('click',function(e){
-e.preventDefault();
-var templateInsentif = '<div id="operator-tambahan-item"><div class="form-group"><label for="nama_insentif" class="col-lg-2 control-label">Nama Insentif</label><div class="col-sm-6"><input name="nama_insentif[]" type="text" class="form-control" id="nama_insentif" placeholder="Nama Insentif" value=""></div></div>	<div class="form-group"><label for="insentif" class="col-lg-2 control-label">Insentif</label><div class="col-sm-6"><input name="insentif[]" type="number" class="form-control" id="insentif" placeholder="Insentif" value=""></div></div>	<div class="form-group"><label for="lembur" class="col-lg-2 control-label">Lembur</label><div class="col-sm-6"><input name="lembur[]" type="number" class="form-control" id="lembur" placeholder="Lembur" value=""></div></div><div class="form-group"><label for="" class="col-lg-2 control-label"></label><div class="col-sm-6"><a href="#" class="tombol-hapus-insentif btn btn-danger btn-flat">Hapus</a></div></div></div>';
-$('#sopir-tambahan').append(templateInsentif);
-initHapusInsentifEvent();
-});
-
-function initHapusInsentifEvent() {
-$('.tombol-hapus-insentif').on('click', function(e){
-e.preventDefault();
-$(this).parent().parent().parent().remove();
-});
-}
-$('#operator-area').hide();
-$('#sopir-area').hide();
-initHapusOtEvent();
-initHapusInsentifEvent(); --}}
+@include('karyawan.script-ubah')

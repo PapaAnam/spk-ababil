@@ -32,6 +32,16 @@ class TimeSheet extends Model
 		return $this->belongsTo('App\Karyawan', 'id_karyawan');
 	}
 
+	public function insentif()
+	{
+		return $this->hasMany('App\InsentifTS','id_timesheet');
+	}
+
+	public function overtime()
+	{
+		return $this->hasMany('App\OvertimeTS','id_timesheet');
+	}	
+
 	public function getTotalJamAttribute()
 	{
 		$total_waktu_dalam_detik = strtotime($this->tanggal.' '.$this->jam_selesai) - strtotime($this->tanggal.' '.$this->jam_mulai);
