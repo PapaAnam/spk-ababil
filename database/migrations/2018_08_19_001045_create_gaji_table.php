@@ -26,10 +26,10 @@ class CreateGajiTable extends Migration
             $table->double('rate_per_jam');
             $table->double('um_harian');
             $table->tinyInteger('jumlah_hari_timesheet');
-            $table->double('rate_insentif');
-            $table->double('jumlah_insentif');
-            $table->double('rate_lembur');
-            $table->double('jumlah_lembur');
+            $table->double('rate_insentif')->default(0);
+            $table->double('jumlah_insentif')->default(0);
+            $table->double('rate_lembur')->default(0);
+            $table->double('jumlah_lembur')->default(0);
             $table->timestamp('tanggal');
         });
     }

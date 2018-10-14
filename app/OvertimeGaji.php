@@ -11,8 +11,15 @@ class OvertimeGaji extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'total_qty',
 		'id_overtime',
 		'id_gaji',
+		'rate_overtime',
+		'jumlah_overtime',
+		'overtime_diterima',
 	];
+
+	public function overtimedetail()
+	{
+		return $this->belongsTo('App\OtOperator','id_overtime');
+	}
 }

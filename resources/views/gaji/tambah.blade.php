@@ -109,7 +109,20 @@
 				$('[name="pengeluaran[]"]').each(function(){
 					totalPengeluaran += Number($(this).val());
 				});
+				var total = 0;
+				$('.jl').each(function(item){
+					total+=Number($(this).val())
+				})
 				var totalGaji =  gaji_pokok + jumlah_jam + total_uang_makan + total_insentif + total_lembur - totalPengeluaran;
+				var total = 0;
+				$('.jl').each(function(item){
+					total+=Number($(this).val());
+				});
+					totalGaji =  gaji_pokok  + total_uang_makan + total - totalPengeluaran;
+				// if($('#jenis_karyawan').val() == 'Sopir'){
+				// }else if($('#jenis_karyawan').val() == 'Sopir'){
+				// 	totalGaji =  gaji_pokok  + total_uang_makan + total - totalPengeluaran;
+				// }
 				$('#total_gaji').val(totalGaji);
 			}else{
 				alert('silakan tekan cek gaji terlebih dahulu!')

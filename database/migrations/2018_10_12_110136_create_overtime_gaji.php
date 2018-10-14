@@ -15,7 +15,9 @@ class CreateOvertimeGaji extends Migration
     {
         Schema::create('overtime_gaji', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('total_qty');
+            $table->integer('jumlah_overtime');
+            $table->double('rate_overtime');
+            $table->double('overtime_diterima');
             $table->integer('id_overtime')->unsigned();
             $table->foreign('id_overtime')->on('overtime_operator')->references('id')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('id_gaji')->unsigned();

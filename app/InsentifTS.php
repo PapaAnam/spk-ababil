@@ -16,4 +16,9 @@ class InsentifTS extends Model
 		'id_insentif',
 		'id_timesheet',
 	];
+
+	public function timesheetasli()
+	{
+		return $this->belongsTo('App\TimeSheet','id_timesheet');
+	}
 }

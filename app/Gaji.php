@@ -12,7 +12,24 @@ class Gaji extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'tanggal_dari', 'tanggal_sampai', 'id_karyawan', 'plat_no', 'total_jam_kerja', 'gaji_pokok', 'rate_per_jam', 'um_harian', 'jumlah_hari_timesheet', 'rate_insentif', 'jumlah_insentif', 'rate_lembur', 'jumlah_lembur', 'tanggal', 'jabatan', 'armada', 'jenis'
+		'tanggal_dari', 
+		'tanggal_sampai', 
+		'id_karyawan', 
+		'plat_no', 
+		'total_jam_kerja', 
+		'gaji_pokok', 
+		'rate_per_jam', 
+		'um_harian', 
+		'jumlah_hari_timesheet', 
+		'rate_insentif', 
+		'jumlah_insentif', 
+		'rate_lembur', 
+		'jumlah_lembur', 
+		'tanggal', 
+		'jabatan', 
+		'armada', 
+		'jenis',
+		'total_gaji',
 	];
 
 	protected $appends = [
@@ -49,23 +66,33 @@ class Gaji extends Model
 		return $this->jumlah_lembur * $this->rate_lembur;
 	}
 
-	public function getTotalGajiAttribute()
-	{
-		$totalPengeluaran = 0;
-		foreach ($this->pengeluaran as $p) {
-			$totalPengeluaran += $p->jumlah;
-		}
-		if($this->jenis == 'Sopir'){
-			return $this->gaji_pokok + $this->total_uang_makan + $this->total_insentif + $this->total_lembur - $totalPengeluaran;
-		}else if($this->jenis == 'Operator'){
-			return $this->gaji_pokok + $this->total_jam + $this->total_uang_makan + $this->total_lembur - $totalPengeluaran;
-		}
-		return $this->gaji_pokok + $this->total_uang_makan + $this->total_lembur - $totalPengeluaran;
-	}
+	// public function getTotalGajiAttribute()
+	// {
+	// 	$totalPengeluaran = 0;
+	// 	foreach ($this->pengeluaran as $p) {
+	// 		$totalPengeluaran += $p->jumlah;
+	// 	}
+	// 	if($this->jenis == 'Sopir'){
+	// 		return $this->gaji_pokok + $this->total_uang_makan + $this->total_insentif + $this->total_lembur - $totalPengeluaran;
+	// 	}else if($this->jenis == 'Operator'){
+	// 		return $this->gaji_pokok + $this->total_jam + $this->total_uang_makan + $this->total_lembur - $totalPengeluaran;
+	// 	}
+	// 	return $this->gaji_pokok + $this->total_uang_makan + $this->total_lembur - $totalPengeluaran;
+	// }
 
 	public function getTotalGajiRpAttribute()
 	{
 		return number_format($this->total_gaji, 0, ',', '.');
 	}
 
+	public function insentif()
+	{
+		return $this->hasMany('App\InsentifGaji','id_gaji');
+	}
+
+
+	public function overtime()
+	{
+		return $this->hasMany('App\OvertimeGaji','id_gaji');
+	}
 }

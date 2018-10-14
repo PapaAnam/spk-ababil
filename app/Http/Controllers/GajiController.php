@@ -8,6 +8,10 @@ use App\Karyawan;
 use DB;
 use App\TimeSheet;
 use App\Mytrait\Tanggal;
+use App\InsentifSopir;
+use App\InsentifGaji;
+use App\OtOperator;
+use App\OvertimeGaji;
 
 class GajiController extends Controller
 {
@@ -130,31 +134,70 @@ class GajiController extends Controller
             'plat_no'=>'required',
             'total_jam_kerja'=>'required|numeric',
             'gaji_pokok'=>'required|numeric',
-            'rate_per_jam'=>'required|numeric',
+            // 'rate_per_jam'=>'required|numeric',
             'um_harian'=>'required|numeric',
             'jumlah_hari_timesheet'=>'required|numeric',
-            'rate_insentif'=>'required|numeric',
-            'jumlah_insentif'=>'required|numeric',
-            'rate_lembur'=>'required|numeric',
-            'jumlah_lembur'=>'required|numeric',
+            // 'rate_insentif'=>'required|numeric',
+            // 'jumlah_insentif'=>'required|numeric',
+            // 'rate_lembur'=>'required|numeric',
+            // 'jumlah_lembur'=>'required|numeric',
             'jabatan'=>'required',
             'armada'=>'required',
             'total_gaji'=>'required|numeric'
         ]);
-
-        $gaji = Gaji::create([
+        $data = [
             'tanggal_sampai'=>$this->englishFormat($request->tanggal_sampai),
             'tanggal_dari'=>$this->englishFormat($request->tanggal_dari),
-        ]+$request->except('tanggal_dari','tanggal_sampai'));
+            'id_karyawan'=>$request->id_karyawan,
+            'plat_no'=>$request->plat_no,
+            'total_jam_kerja'=>$request->total_jam_kerja,
+            'gaji_pokok'=>$request->gaji_pokok,
+            // 'rate_per_jam'=>$request->jenis == 'Sopir' ? 0 : $request->rate_per_jam,
+            'um_harian'=>$request->um_harian,
+            'jumlah_hari_timesheet'=>$request->jumlah_hari_timesheet,
+            // 'rate_lembur'=>$request->rate_lembur,
+            // 'jumlah_lembur'=>$request->jumlah_lembur,
+            'jabatan'=>$request->jabatan,
+            'armada'=>$request->armada,
+            'jenis'=>$request->jenis,
+            'total_gaji'=>$request->total_gaji,
+        ];
+        // dd($data);
+        $gaji = Gaji::create($data);
         $i = 0;
         foreach ($request->pengeluaran as $p) {
             if($p != null){
                 $gaji->pengeluaran()->create([
                     'jumlah'=>$p,
-                    'deskripsi'=>$request->deskripsi[$i]
+                    'deskripsi'=>$request->deskripsi[$i],
                 ]);
             }
             $i++;
+        }
+        $i=0;
+        if($request->jenis == 'Sopir'){
+            foreach ($request->id_insentif as $id) {
+                InsentifGaji::create([
+                    'id_insentif'=>$id,
+                    'id_gaji'=>$gaji->id,
+                    'jumlah_insentif'=>$request->jumlah_insentif[$i],
+                    'jumlah_lembur'=>$request->jumlah_lembur[$i],
+                    'rate_insentif'=>$request->rate_insentif[$i],
+                    'rate_lembur'=>$request->rate_lembur[$i],
+                    'insentif_diterima'=>$request->insentif_diterima[$i],
+                    'lembur_diterima'=>$request->lembur_diterima[$i++],
+                ]);
+            }
+        }elseif($request->jenis == 'Operator'){
+            foreach ($request->id_overtime as $id) {
+                OvertimeGaji::create([
+                    'id_overtime'=>$id,
+                    'id_gaji'=>$gaji->id,
+                    'rate_overtime'=>$request->rate_overtime[$i],
+                    'jumlah_overtime'=>$request->jumlah_overtime[$i],
+                    'overtime_diterima'=>$request->overtime_diterima[$i++],
+                ]);
+            }
         }
         $route = 'gaji.index';
         if($request->user()->role != 'superadmin'){
@@ -169,8 +212,11 @@ class GajiController extends Controller
      * @param  \App\Gaji  $gaji
      * @return \Illuminate\Http\Response
      */
-    public function show(Gaji $gaji)
+    public function show($id)
     {
+        $gaji = Gaji::with('overtime.overtimedetail','insentif.insentifdetail')->where('id',$id)->first();
+        if(is_null($gaji))
+            abort(404);
         return view('gaji.detail', [
             'active'=>'gaji.index',
             'modul'=>'Gaji',
@@ -213,7 +259,8 @@ class GajiController extends Controller
      */
     public function destroy(Gaji $gaji)
     {
-        //
+        $gaji->delete();
+        return redirect()->back()->with('success_msg','Gaji berhasil dihapus');
     }
 
     public function cek(Request $r)
@@ -222,11 +269,9 @@ class GajiController extends Controller
         $tanggal_dari = $this->englishFormat($r->query('tanggal_dari'));
         $tanggal_sampai = $this->englishFormat($r->query('tanggal_sampai'));
         $k = Karyawan::find($karyawan);
-        // DB::enableQueryLog();
         $timeSheet = TimeSheet::where('id_karyawan', $karyawan)->whereBetween('tanggal', [
             $tanggal_dari, $tanggal_sampai
         ])->get();
-        // $jumlahHariTimeSheet = floor((strtotime($tanggal_sampai) - strtotime($tanggal_dari)) / 3600 / 24);
         $jumlahHariTimeSheet = count($timeSheet);
         $totalJamKerja  = $timeSheet->sum('total_jam');
         $jumlahInsentif = $timeSheet->sum('ritase');
@@ -234,14 +279,59 @@ class GajiController extends Controller
         if($k->jenis != 'Sopir'){
             $jumlahLembur = ($totalJamKerja - 200) > 0 ? $totalJamKerja - 200 : 0;
         }
-        // return DB::getQueryLog();
+        if($k->jenis == 'Sopir'){
+            $insentifSopir = InsentifSopir::where('id_karyawan',$k->id)->get();
+            $insentifTimesheet = [];
+            foreach($insentifSopir as $is){
+                $id_insentif = $is->id;
+                $hasil = DB::table('time_sheet')
+                ->join('insentif_timesheet','time_sheet.id','=','insentif_timesheet.id_timesheet')
+                ->where('id_karyawan', $karyawan)
+                ->whereBetween('tanggal', [
+                    $tanggal_dari, $tanggal_sampai
+                ])
+                ->where('id_insentif',$id_insentif)
+                ->groupBy()
+                ->get();
+                $insentifTimesheet[] = [
+                    'id_insentif'=>$is->id,
+                    'nama_insentif'=>$is->nama,
+                    'rate_insentif'=>$is->insentif,
+                    'rate_lembur'=>$is->lembur,
+                    'jumlah'=>$hasil->sum('qty'),
+                    'jumlah_lembur'=>$hasil->sum('qty_lembur'),
+                ];
+            }
+        }else if ($k->jenis == 'Operator'){
+            $overtimeOperator = OtOperator::where('id_karyawan',$k->id)->get();
+            $overtimeTimesheet = [];
+            foreach($overtimeOperator as $is){
+                $id_overtime = $is->id;
+                $hasil = DB::table('time_sheet')
+                ->join('overtime_timesheet','time_sheet.id','=','overtime_timesheet.id_timesheet')
+                ->where('id_karyawan', $karyawan)
+                ->whereBetween('tanggal', [
+                    $tanggal_dari, $tanggal_sampai
+                ])
+                ->where('id_overtime',$id_overtime)
+                ->groupBy()
+                ->get();
+                $overtimeTimesheet[] = [
+                    'id_overtime'=>$is->id,
+                    'nama_overtime'=>$is->nama,
+                    'rate_overtime'=>$is->rate_overtime,
+                    'jumlah_overtime'=>$hasil->sum('qty'),
+                ];
+            }
+        }
         return view('gaji.cek',[
             'k'=>$k,
             'totalJamKerja'=>$totalJamKerja,
             'jumlahHariTimeSheet'=>$jumlahHariTimeSheet,
-            // 'jumlahHariTimeSheet'=>$jumlahHariTimeSheet+1,
             'jumlahInsentif'=>$jumlahInsentif,
             'jumlahLembur'=>$jumlahLembur,
+            'insentif'=>$k->jenis == 'Sopir' ? $insentifTimesheet : [],
+            'overtime'=>$k->jenis == 'Operator' ? $overtimeTimesheet : [],
         ]);
     }
 }

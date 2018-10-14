@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/gaji/by-karyawan', 'GajiController@byKaryawan')->name('gaji.by-karyawan');
 	Route::get('/gaji/by-periode', 'GajiController@byPeriode')->name('gaji.by-periode');
 	Route::get('/gaji/by-jabatan', 'GajiController@byJabatan')->name('gaji.by-jabatan');
-	Route::resource('gaji', 'GajiController');
+	Route::resource('gaji', 'GajiController')->except('edit','update');
 
 	Route::get('/home', function(){
 		return redirect('/');

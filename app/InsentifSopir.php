@@ -16,4 +16,9 @@ class InsentifSopir extends Model
 		'lembur',
 		'id_karyawan',
 	];
+
+	public function timesheet()
+	{
+		return $this->hasMany('App\InsentifTS', 'id_insentif');
+	}
 }

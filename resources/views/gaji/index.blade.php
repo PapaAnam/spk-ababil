@@ -35,6 +35,7 @@
     <td>{{ $d->total_gaji_rp }}</td>
     <td>
       @include('detail_button', ['link'=>route('gaji.show', [$d->id])])
+      @include('delete_button',['link'=>route('gaji.destroy',[$d->id])])
     </td>
   </tr>
   @endforeach
