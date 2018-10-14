@@ -25,4 +25,10 @@
 {{-- except --}}
 @include('input_readonly', ['id'=>'total_lembur','label'=>'Lembur Yang Diterima','value'=>$jumlahLembur * $k->rate_lembur])
 
+@if($k->jenis == 'Sopir')
+
+@include('input_readonly', ['id'=>'total_lembur','label'=>'Lembur Yang Diterima','value'=>$jumlahLembur * $k->rate_lembur])
+
+@endif
+
 <input type="hidden" name="jenis" value="{{ $k->jenis }}">
