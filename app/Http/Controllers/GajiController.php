@@ -286,12 +286,12 @@ class GajiController extends Controller
                 $id_insentif = $is->id;
                 $hasil = DB::table('time_sheet')
                 ->join('insentif_timesheet','time_sheet.id','=','insentif_timesheet.id_timesheet')
-                ->where('id_karyawan', $karyawan)
+                ->where('id_karyawan', $k->id)
                 ->whereBetween('tanggal', [
                     $tanggal_dari, $tanggal_sampai
                 ])
                 ->where('id_insentif',$id_insentif)
-                ->groupBy()
+                // ->groupBy()
                 ->get();
                 $insentifTimesheet[] = [
                     'id_insentif'=>$is->id,
@@ -309,12 +309,12 @@ class GajiController extends Controller
                 $id_overtime = $is->id;
                 $hasil = DB::table('time_sheet')
                 ->join('overtime_timesheet','time_sheet.id','=','overtime_timesheet.id_timesheet')
-                ->where('id_karyawan', $karyawan)
+                ->where('id_karyawan', $k->id)
                 ->whereBetween('tanggal', [
                     $tanggal_dari, $tanggal_sampai
                 ])
                 ->where('id_overtime',$id_overtime)
-                ->groupBy()
+                // ->groupBy()
                 ->get();
                 $overtimeTimesheet[] = [
                     'id_overtime'=>$is->id,
