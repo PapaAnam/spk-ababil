@@ -7,8 +7,8 @@ use App\TimeSheet;
 use App\Karyawan;
 use Illuminate\Http\Request;
 use App\Mytrait\Tanggal;
-use App\OvertimeTs;
-use App\InsentifTs;
+use App\OvertimeTS;
+use App\InsentifTS;
 
 class TimeSheetController extends Controller
 {
@@ -84,7 +84,7 @@ class TimeSheetController extends Controller
         if($jenis == 'Operator'){
             $i = 0;
             foreach ($request->id_overtime as $a) {
-                OvertimeTs::create([
+                OvertimeTS::create([
                     'qty'=>$request->overtime[$i++] == 'Tidak' ? 0 : 1,
                     'id_overtime'=>$a,
                     'id_timesheet'=>$ts->id,
@@ -94,7 +94,7 @@ class TimeSheetController extends Controller
             $i = 0;
             foreach ($request->id_insentif as $a) {
                 if(!is_null($request->insentif[$i]) && !is_null($request->lembur[$i])){
-                    InsentifTs::create([
+                    InsentifTS::create([
                         'qty'=>$request->insentif[$i],
                         'qty_lembur'=>$request->lembur[$i++],
                         'id_insentif'=>$a,
@@ -172,7 +172,7 @@ class TimeSheetController extends Controller
         if($jenis == 'Operator'){
             $i = 0;
             foreach ($request->id_overtime as $a) {
-                OvertimeTs::create([
+                OvertimeTS::create([
                     'qty'=>$request->overtime[$i++] == 'Tidak' ? 0 : 1,
                     'id_overtime'=>$a,
                     'id_timesheet'=>$ts->id,
@@ -182,7 +182,7 @@ class TimeSheetController extends Controller
             $i = 0;
             foreach ($request->id_insentif as $a) {
                 if(!is_null($request->insentif[$i]) && !is_null($request->lembur[$i])){
-                    InsentifTs::updateOrCreate([
+                    InsentifTS::updateOrCreate([
                         'id_insentif'=>$a,
                         'id_timesheet'=>$ts->id,
                     ],[
@@ -248,7 +248,7 @@ class TimeSheetController extends Controller
 
     public function insentifApi(Request $r)
     {
-        return InsentifTs::where('id_insentif',$r->query('id_insentif'))
+        return InsentifTS::where('id_insentif',$r->query('id_insentif'))
         ->where('id_timesheet',$r->query('id_timesheet'))
         ->first();
     }
