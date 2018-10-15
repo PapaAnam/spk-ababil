@@ -15,6 +15,7 @@
 @include('select',['id'=>'jenis','label'=>'Jenis Karyawan','selectData'=>$listJenis,'selected'=>$d->jenis])
 @if(count($errors->all()) > 0)
 <div id="operator-area">
+	@include('input_number',['value'=>$d->rate_per_jam,'id'=>'rate_per_jam','label'=>'Rate Per Jam'])
 	@include('input_number',['value'=>$d->rate_lembur,'id'=>'rate_lembur','label'=>'Rate Lembur'])
 	@include('input',['id'=>'nama_overtime','name'=>'nama_overtime[]','label'=>'Nama Overtime','index'=>0])
 	@include('input_number',['id'=>'rate_overtime','name'=>'rate_overtime[]','label'=>'Rate Overtime','index'=>0])
@@ -71,6 +72,7 @@
 </div>
 @else
 <div id="operator-area">
+	@include('input_number',['value'=>$d->rate_per_jam,'id'=>'rate_per_jam','label'=>'Rate Per Jam'])
 	@include('input_number',['value'=>$d->rate_lembur,'id'=>'rate_lembur','label'=>'Rate Lembur'])
 	@if (count($d->overtime) > 1)
 	<input type="hidden" name="id_overtime[]" value="{{$d->overtime[0]->id}}">
@@ -93,6 +95,7 @@
 			@include('input_number',['id'=>'rate_overtime','name'=>'rate_overtime[]','label'=>'Rate Overtime','value'=>$d->overtime[$loop->index]->rate_overtime])
 			<div class="form-group"><label for="" class="col-lg-2 control-label"></label><div class="col-sm-6"><a href="#" class="tombol-hapus-ot btn btn-danger btn-flat">Hapus</a></div></div>
 		</div>
+		<hr>
 		@endif
 		@endforeach
 		@endif
@@ -128,7 +131,6 @@
 	</div>
 </div>
 @endif
-{{-- @include('input_number',['value'=>$d->rate_per_jam,'id'=>'rate_per_jam','label'=>'Rate Per Jam']) --}}
 {{-- @include('input_number',['value'=>$d->insentif,'id'=>'insentif','label'=>'Insentif']) --}}
 @endsection
 

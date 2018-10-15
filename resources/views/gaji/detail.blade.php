@@ -10,12 +10,10 @@
 
 @include('input_readonly', ['id'=>'total_jam_kerja','label'=>'Total Jam Kerja','value'=>$d->total_jam_kerja])
 @include('input_readonly', ['id'=>'gaji_pokok','label'=>'Gaji Pokok','value'=>$d->gaji_pokok])
-{{-- @if($d->jenis != 'Sopir') --}}
-{{-- @include('input_readonly', ['id'=>'rate_per_jam','label'=>'Rate Per Jam','value'=>$d->rate_per_jam]) --}}
-
-{{-- except --}}
-{{-- @include('input_readonly', ['id'=>'jumlah_jam','label'=>'Total Jam','value'=>$d->total_jam]) --}}
-{{-- @endif --}}
+@if($d->jenis == 'Operator')
+@include('input_readonly', ['id'=>'rate_per_jam','label'=>'Rate Per Jam','value'=>$d->rate_per_jam])
+@include('input_readonly', ['id'=>'jumlah_jam','label'=>'Total Jam','value'=>$d->total_jam])
+@endif
 
 @include('input_readonly', ['id'=>'um_harian','label'=>'UM Harian','value'=>$d->um_harian])
 @include('input_readonly', ['id'=>'jumlah_hari_timesheet','label'=>'Jumlah Hari Time Sheet','value'=>$d->jumlah_hari_timesheet])

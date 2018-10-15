@@ -119,10 +119,9 @@
 					total+=Number($(this).val());
 				});
 					totalGaji =  gaji_pokok  + total_uang_makan + total - totalPengeluaran;
-				// if($('#jenis_karyawan').val() == 'Sopir'){
-				// }else if($('#jenis_karyawan').val() == 'Sopir'){
-				// 	totalGaji =  gaji_pokok  + total_uang_makan + total - totalPengeluaran;
-				// }
+				if($('#jenis_karyawan').val() == 'Operator'){
+					totalGaji =  gaji_pokok  + total_uang_makan + jumlah_jam + total - totalPengeluaran;
+				}
 				$('#total_gaji').val(totalGaji);
 			}else{
 				alert('silakan tekan cek gaji terlebih dahulu!')

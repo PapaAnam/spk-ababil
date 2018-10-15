@@ -208,7 +208,7 @@ class KaryawanController extends Controller
             'jabatan'=>$request->jabatan,
             'armada'=>$request->armada,
             'gaji_pokok'=>$request->gaji_pokok,
-            // 'rate_per_jam'=>$request->rate_per_jam,
+            'rate_per_jam'=>$request->jenis == 'Operator' ? $request->rate_per_jam : 0,
             'um_harian'=>$request->um_harian,
             'rate_lembur'=>$request->jenis == 'Operator' ? $request->rate_lembur : 0,
             // 'insentif'=>$request->insentif,

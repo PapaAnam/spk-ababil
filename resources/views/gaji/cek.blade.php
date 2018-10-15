@@ -3,11 +3,11 @@
 @include('input_readonly', ['id'=>'total_jam_kerja','label'=>'Total Jam Kerja','value'=>$totalJamKerja])
 @include('input_readonly', ['id'=>'gaji_pokok','label'=>'Gaji Pokok','value'=>$k->gaji_pokok])
 
-@if($k->jenis == 'Sopir')
-@include('input_readonly', ['id'=>'rate_per_jam','label'=>'Rate Per Jam','value'=>$k->jenis == 'Operator' ? $k->rate_per_jam : 0])
+@if($k->jenis == 'Operator')
+@include('input_readonly', ['id'=>'rate_per_jam','label'=>'Rate Per Jam','value'=>$k->rate_per_jam])
 
 {{-- except --}}
-@include('input_readonly', ['id'=>'jumlah_jam','label'=>'Total Jam','value'=>$k->jenis == 'Operator' ? ($k->rate_per_jam*$totalJamKerja) : 0])
+@include('input_readonly', ['id'=>'jumlah_jam','label'=>'Total Jam','value'=>$k->rate_per_jam*$totalJamKerja])
 @endif
 
 @include('input_readonly', ['id'=>'um_harian','label'=>'UM Harian','value'=>$k->um_harian])

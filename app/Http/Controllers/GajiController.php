@@ -152,7 +152,7 @@ class GajiController extends Controller
             'plat_no'=>$request->plat_no,
             'total_jam_kerja'=>$request->total_jam_kerja,
             'gaji_pokok'=>$request->gaji_pokok,
-            // 'rate_per_jam'=>$request->jenis == 'Sopir' ? 0 : $request->rate_per_jam,
+            'rate_per_jam'=>$request->jenis == 'Sopir' ? 0 : $request->rate_per_jam,
             'um_harian'=>$request->um_harian,
             'jumlah_hari_timesheet'=>$request->jumlah_hari_timesheet,
             // 'rate_lembur'=>$request->rate_lembur,

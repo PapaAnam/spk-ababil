@@ -10,6 +10,9 @@
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">{{ $title }}</h3>
+            @isset($edit_url)
+            <a href="<?=$edit_url?>" class="btn btn-primary btn-flat pull-right">Ubah</a>
+            @endisset
           </div>
           <form action="{{ $action }}" method="post" class="form-horizontal" enctype="multipart/form-data">
             @csrf

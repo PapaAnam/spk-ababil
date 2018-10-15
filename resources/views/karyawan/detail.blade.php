@@ -1,4 +1,4 @@
-@extends('create-form')
+@extends('create-form',['edit_url'=>route('karyawan.edit', [$d->id])])
 @section('form')
 @method('PUT')
 @include('input_readonly',['value'=>$d->id,'id'=>'id','label'=>'ID Karyawan'])
@@ -28,4 +28,5 @@
 <hr>
 @endforeach
 @endif
+{{-- @include('edit_button', ['link' => route('karyawan.edit', [$d->id])]) --}}
 @endsection
