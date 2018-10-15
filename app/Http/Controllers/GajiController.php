@@ -291,7 +291,6 @@ class GajiController extends Controller
                     $tanggal_dari, $tanggal_sampai
                 ])
                 ->where('id_insentif',$id_insentif)
-                // ->groupBy()
                 ->get();
                 $insentifTimesheet[] = [
                     'id_insentif'=>$is->id,
@@ -314,7 +313,6 @@ class GajiController extends Controller
                     $tanggal_dari, $tanggal_sampai
                 ])
                 ->where('id_overtime',$id_overtime)
-                // ->groupBy()
                 ->get();
                 $overtimeTimesheet[] = [
                     'id_overtime'=>$is->id,

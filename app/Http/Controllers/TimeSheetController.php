@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\TimeSheet;
 use App\Karyawan;
 use Illuminate\Http\Request;
-use DB;
 use App\Mytrait\Tanggal;
 use App\OvertimeTs;
 use App\InsentifTs;
