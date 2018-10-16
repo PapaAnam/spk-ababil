@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/progress/tugas','ProgressController@tugas')->name('progress.tugas');
 	Route::get('/progress/tugas/detail/{id}/{id_proyek}','ProgressController@tugasDetail')->name('progress.detail-tugas');
 	Route::get('/progress/proyek','ProgressController@proyek')->name('progress.proyek');
+	Route::get('/progress/proyek/detail/{id}','ProgressController@proyekDetail')->name('progress.cek-proyek');
 
 	Route::get('/home', function(){
 		return redirect('/');

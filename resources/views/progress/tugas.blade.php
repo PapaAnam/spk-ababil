@@ -40,7 +40,7 @@
 </div>
 @endsection
 
-@include('progress.table')
+@include('progress.tugas-table')
 @include('import-select2')
 
 @section('bottom-box')

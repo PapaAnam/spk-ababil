@@ -78,9 +78,61 @@ class ProgressController extends Controller
 		]);
 	}
 
-	public function proyek()
+	public function proyek(Request $r)
 	{
-		return 'masih tahap dev <a href="'.url('/').'">kembali</a>';
+		$klien = $r->query('klien');
+		$data = [];
+		if($klien){
+			$data = Proyek::with('kliendetail')
+			->withCount('tugas')
+			->where('klien', $klien)
+			->get();
+			$data->transform(function($d){
+				$hasil = $this->dataTugas($d->id,$d->klien);
+				$jml = $hasil->count();
+				if($jml <= 0){
+					$d->persentase = 0;
+				}else{
+					$d->persentase = $hasil->sum('persentase') / $jml;
+				}
+				return $d;
+			});
+		}
+		return view('progress.proyek',[
+			'listKlien'=>Klien::selectMode(),
+			'title'=>'Progress Proyek',
+			'data'=>$data,
+			'active'=>'progress.proyek',
+			'createLink'=>false,
+		]);
+	}
+
+	public function proyekDetail($idProyek)
+	{
+		$data = Proyek::with('kliendetail','pelaksana.karyawan')
+		->withCount('tugas')
+		->where('id', $idProyek)
+		->get()->transform(function($d){
+			$hasil = $this->dataTugas($d->id,$d->klien);
+			$jml = $hasil->count();
+			if($jml <= 0){
+				$d->persentase = 0;
+			}else{
+				$d->persentase = $hasil->sum('persentase') / $jml;
+			}
+			return $d;
+		});
+		return view('progress.proyek-detail',[
+			'listKlien'=>Klien::selectMode(),
+			'title'=>'Detail Progress Proyek',
+			'd'=>$data[0],
+			'active'=>'progress.proyek',
+			'createLink'=>false,
+			'modul_link'=>url()->previous(),
+			'modul'=>'Progress Tugas',
+			'action'=>false,
+			'saveBtn'=>false,
+		]);
 	}
 
 }
