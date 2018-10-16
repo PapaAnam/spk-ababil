@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function(){
 		});
 	});
 
+	Route::resource('kategori-armada', 'KategoriArmadaController');
+	Route::resource('armada', 'ArmadaController');
 	Route::resource('vendor', 'VendorController')->except(['show']);
 	Route::resource('uam', 'UamController')->except(['show']);
 	Route::resource('karyawan', 'KaryawanController');

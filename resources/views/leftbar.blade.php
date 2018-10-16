@@ -206,6 +206,23 @@
           <i class="fa fa-user-plus"></i> <span>Klien</span>
         </a>
       </li>
+      <li class="treeview @if(in_array($active, ['kategori-armada.index','kategori-armada.create'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-sitemap"></i>
+          <span>Armada</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['kategori-armada.create'])) class="active" @endif>
+            <a href="{{ route('kategori-armada.create') }}"><i class="fa fa-circle-o"></i> Tambah Kategori</a>
+          </li>
+          <li @if(in_array($active, ['kategori-armada.index'])) class="active" @endif>
+            <a href="{{ route('kategori-armada.index') }}"><i class="fa fa-circle-o"></i> Lihat Kategori</a>
+          </li>
+        </ul>
+      </li>
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
         <a href="#">
           <i class="fa fa-laptop"></i>
