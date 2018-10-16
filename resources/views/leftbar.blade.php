@@ -16,6 +16,23 @@
           <i class="fa fa-dashboard"></i> <span>Dasbor</span>
         </a>
       </li>
+      <li class="treeview @if(in_array($active, ['progress.tugas','progress.proyek'])) active @endif ">
+        <a href="#">
+          <i class="fa fa-check-circle-o"></i>
+          <span>Progress</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li @if(in_array($active, ['progress.tugas'])) class="active" @endif>
+            <a href="{{ route('progress.tugas') }}"><i class="fa fa-circle-o"></i> Tugas</a>
+          </li>
+          <li @if(in_array($active, ['progress.proyek'])) class="active" @endif>
+            <a href="{{ route('progress.proyek') }}"><i class="fa fa-circle-o"></i> Proyek</a>
+          </li>
+        </ul>
+      </li>
       <li class="treeview @if(in_array($active, ['time-sheet.by-waktu','time-sheet.by-karyawan','time-sheet.create'])) active @endif ">
         <a href="#">
           <i class="fa fa-clock-o"></i>

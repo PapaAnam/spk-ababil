@@ -9,6 +9,7 @@
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">{{ $title }}</h3>
+            @if($createLink)
             @isset($role)
             @if(is_array($role) && in_array(Auth::user()->role, $role))
             @include('tambah_button', ['link'  => $createLink])
@@ -18,6 +19,8 @@
             @else
             @include('tambah_button', ['link'  => $createLink])
             @endisset
+            @else
+            @endif
           </div>
           <div class="box-body">
             <div class="table-responsive">
@@ -27,6 +30,7 @@
             </div>
           </div>
         </div>
+        @yield('bottom-box')
       </div>
     </div>
   </section>

@@ -1,6 +1,6 @@
 <div class="form-group">
-  <label for="{{ $id }}" class="col-lg-2 control-label">{{ $label }}</label>
-  <div class="col-sm-6">
+  <label for="{{ $id }}" class="{{isset($labelSize)?'col-lg-'.$labelSize:'col-lg-2'}} control-label">{{ $label }}</label>
+  <div class="@isset($selectSize) col-sm-{{$selectSize}} @else col-sm-6 @endisset">
     <select name="{{ isset($name) ? $name : $id }}" type="text" class="form-control select2" id="{{ $id }}" data-placeholder="{{ $label }}" style="width: 100%;">
     	@foreach($selectData as $s)
     	<option  

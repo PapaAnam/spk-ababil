@@ -65,6 +65,9 @@ Route::middleware('auth')->group(function(){
 	Route::get('/gaji/by-periode', 'GajiController@byPeriode')->name('gaji.by-periode');
 	Route::get('/gaji/by-jabatan', 'GajiController@byJabatan')->name('gaji.by-jabatan');
 	Route::resource('gaji', 'GajiController')->except('edit','update');
+	Route::get('/progress/tugas','ProgressController@tugas')->name('progress.tugas');
+	Route::get('/progress/tugas/detail/{id}/{id_proyek}','ProgressController@tugasDetail')->name('progress.detail-tugas');
+	Route::get('/progress/proyek','ProgressController@proyek')->name('progress.proyek');
 
 	Route::get('/home', function(){
 		return redirect('/');

@@ -1,14 +1,14 @@
 @extends('create-form')
 @section('form')
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('d-m-Y')])
-@include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
+@include('select2-no-tags',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
 	<div class="col-sm-6">
 		<a href="#" id="cek-tugas-button" class="btn btn-primary btn-flat">Cek Tugas</a>
 	</div>
 </div>
-@include('select',['id'=>'id_tugas','label'=>'Pilih Tugas','selectData'=>[]])
+@include('select2-no-tags',['id'=>'id_tugas','label'=>'Pilih Tugas','selectData'=>[]])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
 	<div class="col-sm-6">
@@ -17,11 +17,11 @@
 </div>
 @include('input',['id'=>'material','label'=>'Material','readonly'=>true])
 @include('input',['id'=>'qty','label'=>'Qty','readonly'=>true])
-@include('input_number',['id'=>'ritase','label'=>'Ritase'])
+@include('input_number',['id'=>'ritase','label'=>'Ritase','value'=>0])
 @include('input_number',['id'=>'qty2','label'=>'Qty','value'=>0])
-@include('select',['id'=>'cuaca','label'=>'Pilih Cuaca','selectData'=>$listCuaca])
-@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi'])
-@include('textarea',['id'=>'kendala','label'=>'Kendala'])
+@include('select2-no-tags',['id'=>'cuaca','label'=>'Pilih Cuaca','selectData'=>$listCuaca])
+@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>'-'])
+@include('textarea',['id'=>'kendala','label'=>'Kendala','value'=>'-'])
 @endsection
 
 @include('import-datepicker')
@@ -34,7 +34,12 @@
 		$.ajax({
 			url : '{{ url('tugas-select') }}?proyek='+proyek,
 			success : function(response, status) {
+				var $parent = $('#id_tugas').parent();
+				$('#id_tugas').select2('destroy');
+				// $('#id_tugas').remove();
+				// $parent.append('<select id="id_tugas" class="form-control"></select>');
 				$('#id_tugas').html(response);
+				$('#id_tugas').select2();
 			}
 		})
 	});

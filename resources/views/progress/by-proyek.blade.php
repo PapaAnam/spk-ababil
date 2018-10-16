@@ -1,12 +1,12 @@
-@extends('proyek.layout')
-@section('filter')
+@extends('my-view')
+@section('other-box')
 <div class="box">
   <div class="box-header">
-    <h3 class="box-title">Lihat berdasarkan Klien</h3>
+    <h3 class="box-title">Lihat berdasarkan Proyek</h3>
   </div>
   <div class="box-body">
     <form method="get" action="" class="form-horizontal">
-      @include('select2-no-tags',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>request()->query('klien')])
+      @include('select',['id'=>'proyek','label'=>'Pilih Proyek','selectData'=>$listProyek,'selected'=>request()->query('proyek')])
       <div class="form-group">
         <label class="col-lg-2 control-label"></label>
         <div class="col-sm-6">
@@ -18,4 +18,4 @@
 </div>
 @endsection
 
-@include('import-select2')
+@include('tugas.table')

@@ -6,10 +6,11 @@
     <th>Tanggal</th>
     <th>Proyek</th>
     <th>Tugas</th>
-    <th>Deskripsi</th>
     <th>Ritase</th>
+    <th>Qty</th>
     <th>Material</th>
     <th>Cuaca</th>
+    <th>Deskripsi</th>
     <th>Kendala</th>
     @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <th>Aksi</th>
@@ -23,8 +24,8 @@
     <td>{{ $d->tanggal_indo }}</td>
     <td>{{ $d->proyek->nama }}</td>
     <td>{{ $d->tugas ? $d->tugas->nama_tugas : '' }}</td>
-    <td>{{ $d->deskripsi }}</td>
     <td align="right">{{ $d->ritase }}</td>
+    <td>{{$d->tugas->qty}}</td>
     <td>
       {{ $d->tugas ? $d->tugas->material : "" }}
       <br>
@@ -33,6 +34,7 @@
       {{ $d->tugas ? $d->tugas->satuandetail->nama : '' }}
     </td>
     <td>{{ $d->cuaca }}</td>
+    <td>{{ $d->deskripsi }}</td>
     <td>{{ $d->kendala }}</td>
     @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <td>
@@ -49,10 +51,11 @@
     <th>Tanggal</th>
     <th>Proyek</th>
     <th>Tugas</th>
-    <th>Deskripsi</th>
     <th>Ritase</th>
+    <th>Qty</th>
     <th>Material</th>
     <th>Cuaca</th>
+    <th>Deskripsi</th>
     <th>Kendala</th>
     @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <th>Aksi</th>

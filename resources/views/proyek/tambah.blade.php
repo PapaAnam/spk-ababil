@@ -1,7 +1,7 @@
 @extends('create-form')
 @section('form')
 @include('input',['id'=>'nama','label'=>'Nama'])
-@include('select',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien])
+@include('select2-no-tags',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien])
 @include('select2',['id'=>'pelaksana','label'=>'Pilih Pelaksana','selectData'=>$listKaryawan])
 @include('input_number',['id'=>'qty','label'=>'Qty'])
 @include('select',['id'=>'satuan','label'=>'Pilih Satuan','selectData'=>$listSatuan])
