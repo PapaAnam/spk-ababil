@@ -15,4 +15,16 @@ class KategoriArmada extends Model
 		'nama',
 	];
 
+	public function scopeSelectMode($q)
+	{
+		$data = [];
+		foreach ($q->get() as $a) {
+			$data[] = collect([
+				'value'=>$a->id,
+				'text'=>'['.$a->id.'] '.$a->nama,
+			]);
+		}
+		return $data;
+	}
+
 }

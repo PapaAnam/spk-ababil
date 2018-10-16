@@ -221,6 +221,12 @@
           <li @if(in_array($active, ['kategori-armada.index'])) class="active" @endif>
             <a href="{{ route('kategori-armada.index') }}"><i class="fa fa-circle-o"></i> Lihat Kategori</a>
           </li>
+          <li @if(in_array($active, ['armada.create'])) class="active" @endif>
+            <a href="{{ route('armada.create') }}"><i class="fa fa-circle-o"></i> Tambah Armada</a>
+          </li>
+          <li @if(in_array($active, ['armada.index'])) class="active" @endif>
+            <a href="{{ route('armada.index') }}"><i class="fa fa-circle-o"></i> Lihat Armada</a>
+          </li>
         </ul>
       </li>
       <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
