@@ -71,9 +71,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/progress/proyek','ProgressController@proyek')->name('progress.proyek');
 	Route::get('/progress/proyek/detail/{id}','ProgressController@proyekDetail')->name('progress.cek-proyek');
 
-	Route::get('/home', function(){
-		return redirect('/');
-	});
+	Route::get('/home', 'DasborController@home');
 
 	Route::get('/keluar', 'Auth\LoginController@logout');
 

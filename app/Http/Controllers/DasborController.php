@@ -19,7 +19,6 @@ class DasborController extends Controller
 
 	public function index()
 	{
-		// return view('my-dasbor');
 		return view('my-dasbor', [
 			'title'     => 'Dasbor',
 			'active'    => 'dasbor',
@@ -35,6 +34,11 @@ class DasborController extends Controller
 			'jmlPengeluaran'=>Pengeluaran::count(),
 			'createLink'=>false,
 		]);
+	}
+
+	public function home()
+	{
+		return redirect('/');
 	}
 
 }
