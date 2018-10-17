@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/ionicons/2.0.1/css/ionicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
+    @include('setting-font')
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">

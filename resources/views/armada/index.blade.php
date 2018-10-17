@@ -44,10 +44,10 @@
     <td>{{$d->vendor->nama}}</td>
     <td>{{$d->plat_no}}</td>
     <td>{{$d->merk}}</td>
-    <td>{{$d->model}}</td>
+    {{-- <td>{{$d->model}}</td>
     <td>{{$d->seri}}</td>
     <td>{{$d->tahun}}</td>
-    <td>{{$d->warna}}</td>
+    <td>{{$d->warna}}</td> --}}
     <td>{{$d->km_per_jam}}</td>
     <td>{{tglIndo($d->mulai)}}</td>
     <td>{{tglIndo($d->selesai)}}</td>
