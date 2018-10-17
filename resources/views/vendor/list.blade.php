@@ -1,0 +1,1 @@
+@include('select2-no-tags',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor,'selected'=>isset($selected)?$selected:false])

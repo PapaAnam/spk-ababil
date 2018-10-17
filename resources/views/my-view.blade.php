@@ -21,6 +21,9 @@
             @endisset
             @else
             @endif
+
+            @yield('custom-button')
+
           </div>
           <div class="box-body">
             <div class="table-responsive">

@@ -28,6 +28,18 @@ Route::middleware('auth')->group(function(){
 	});
 
 	Route::resource('jam-alat', 'JamAlatController')->except('show');
+	Route::resource('konsumsi-bbm', 'KonsumsiBBMController')->except('show');
+
+	Route::get('/konsumsi-bbm/masuk', 'KonsumsiBBMController@masuk')->name('konsumsi-bbm.masuk');
+	Route::get('/konsumsi-bbm/masuk/{masuk}', 'KonsumsiBBMController@editMasuk')->name('konsumsi-bbm.edit-masuk');
+	Route::post('/konsumsi-bbm/masuk', 'KonsumsiBBMController@masukStore')->name('konsumsi-bbm.masuk-store');
+	Route::put('/konsumsi-bbm/masuk/{masuk}', 'KonsumsiBBMController@masukUpdate')->name('konsumsi-bbm.masuk-update');
+
+	Route::get('/konsumsi-bbm/keluar', 'KonsumsiBBMController@keluar')->name('konsumsi-bbm.keluar');
+	Route::get('/konsumsi-bbm/keluar/{keluar}', 'KonsumsiBBMController@editKeluar')->name('konsumsi-bbm.edit-keluar');
+	Route::post('/konsumsi-bbm/keluar', 'KonsumsiBBMController@keluarStore')->name('konsumsi-bbm.keluar-store');
+	Route::put('/konsumsi-bbm/keluar/{keluar}', 'KonsumsiBBMController@keluarUpdate')->name('konsumsi-bbm.keluar-update');
+	
 	Route::resource('kategori-armada', 'KategoriArmadaController');
 	Route::resource('armada', 'ArmadaController');
 	Route::resource('vendor', 'VendorController')->except(['show']);

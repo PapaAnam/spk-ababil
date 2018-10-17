@@ -19,7 +19,7 @@ class JamAlatController extends Controller
         $data = JamAlat::with('armada')->get();
         return view('jam-alat.index', [
             'data'      => $data,
-            'title'     => 'Armada',
+            'title'     => 'Jam Alat',
             'active'    => 'jam-alat.index',
             'createLink'=>route('jam-alat.create'),
         ]);
@@ -55,9 +55,9 @@ class JamAlatController extends Controller
             'jam_selesai'=>'required|date_format:H:i:s',
             'id_armada'=>'required',
         ]);
-        if(Armada::count() == 0){
+        if(JamAlat::count() == 0){
             DB::statement('set foreign_key_checks=0;');
-            Armada::truncate();
+            JamAlat::truncate();
         }
         JamAlat::create([
             'jam_mulai'=>$request->jam_mulai,
@@ -89,7 +89,7 @@ class JamAlatController extends Controller
     {
         return view('jam-alat.ubah', [
             'd'             => $jamAlat,
-            'title'         => 'Ubah Armada',
+            'title'         => 'Ubah Jam Alat',
             'modul_link'    => route('jam-alat.index'),
             'modul'         => 'Armada',
             'action'        => route('jam-alat.update', $jamAlat->id),

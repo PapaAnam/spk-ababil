@@ -35,10 +35,20 @@ function namaBulan($bulan){
 
 function tglIndo($tgl)
 {
+	if(is_null($tgl))
+		return '';
 	return tgl($tgl).' '.namaBulan(bulan($tgl)).' '.tahun($tgl);
 }
 
 function englishFormat($tgl)
 {
 	return substr($tgl, 6, 4).'-'.substr($tgl, 3, 2).'-'.substr($tgl, 0, 2);
+}
+
+function formatIndo($tgl)
+{
+	if(is_null($tgl)){
+		return '';
+	}
+	return tgl($tgl).'-'.bulan($tgl).'-'.tahun($tgl);
 }

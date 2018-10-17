@@ -33,7 +33,7 @@
           </li>
         </ul>
       </li>
-      <li class="treeview @if(in_array($active, ['time-sheet.index','time-sheet.create','progress-kerja-harian.index','jam-alat.index','jam-alat.create'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['time-sheet.index','time-sheet.create','progress-kerja-harian.index','jam-alat.index','jam-alat.create','konsumsi-bbm.index'])) active @endif ">
         <a href="#">
           <i class="fa fa-book"></i>
           <span>Jurnal</span>
@@ -57,6 +57,9 @@
             </a>
           </li>
           @endif
+          <li @if(in_array($active, ['konsumsi-bbm.index'])) class="active" @endif>
+            <a href="{{ route('konsumsi-bbm.index') }}"><i class="fa fa-circle-o"></i> Konsumsi BBM</a>
+          </li>
           <li @if(in_array($active, ['jam-alat.create'])) class="active" @endif>
             <a href="{{ route('jam-alat.create') }}"><i class="fa fa-circle-o"></i> Tambah Jam Alat</a>
           </li>
