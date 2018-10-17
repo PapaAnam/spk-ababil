@@ -40,6 +40,7 @@
   @foreach ($data as $d) 
   <tr>
     <td>{{$d->id}}</td>
+    <td>{{$d->nama_unit}}</td>
     <td>{{$d->kategori->nama}}</td>
     <td>{{$d->vendor->nama}}</td>
     <td>{{$d->plat_no}}</td>
