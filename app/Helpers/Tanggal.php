@@ -37,3 +37,8 @@ function tglIndo($tgl)
 {
 	return tgl($tgl).' '.namaBulan(bulan($tgl)).' '.tahun($tgl);
 }
+
+function englishFormat($tgl)
+{
+	return substr($tgl, 6, 4).'-'.substr($tgl, 3, 2).'-'.substr($tgl, 0, 2);
+}

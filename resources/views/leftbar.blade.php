@@ -33,10 +33,10 @@
           </li>
         </ul>
       </li>
-      <li class="treeview @if(in_array($active, ['time-sheet.by-waktu','time-sheet.by-karyawan','time-sheet.create'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['time-sheet.index','time-sheet.create','progress-kerja-harian.index','jam-alat.index'])) active @endif ">
         <a href="#">
-          <i class="fa fa-clock-o"></i>
-          <span>Time Sheet Karyawan</span>
+          <i class="fa fa-book"></i>
+          <span>Jurnal</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -47,21 +47,21 @@
             <a href="{{ route('time-sheet.create') }}"><i class="fa fa-circle-o"></i> Tambah Time Sheet</a>
           </li>
           @endif
-          <li @if(in_array($active, ['time-sheet.by-waktu'])) class="active" @endif>
-            <a href="{{ route('time-sheet.by-waktu') }}"><i class="fa fa-circle-o"></i> By Rentang Waktu</a>
+          <li @if(in_array($active, ['time-sheet.index'])) class="active" @endif>
+            <a href="{{ route('time-sheet.index') }}"><i class="fa fa-circle-o"></i> Lihat Time Sheet</a>
           </li>
-          <li @if(in_array($active, ['time-sheet.by-karyawan'])) class="active" @endif>
-            <a href="{{ route('time-sheet.by-karyawan') }}"><i class="fa fa-circle-o"></i> By Karyawan</a>
+          @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
+          <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">
+            <a href="{{ route('progress-kerja-harian.index') }}">
+              <i class="fa fa-circle-o"></i> <span>Lap. Progress Kerja Harian</span>
+            </a>
+          </li>
+          @endif
+          <li @if(in_array($active, ['jam-alat.index'])) class="active" @endif>
+            <a href="{{ route('jam-alat.index') }}"><i class="fa fa-circle-o"></i> Jam Alat</a>
           </li>
         </ul>
       </li>
-      @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
-      <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">
-        <a href="{{ route('progress-kerja-harian.index') }}">
-          <i class="fa fa-money"></i> <span>Lap. Progress Kerja Harian</span>
-        </a>
-      </li>
-      @endif
       <li class="treeview @if(in_array($active, ['proyek.by-waktu','proyek.by-klien','proyek.create'])) active @endif ">
         <a href="#">
           <i class="fa fa-check-square-o"></i>

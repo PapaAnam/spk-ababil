@@ -50,8 +50,10 @@
     <th>Tanggal</th>
     <th>Jam Mulai</th>
     <th>Jam Selesai</th>
-    <th>Total Jam</th>
     <th>Ritase</th>
+    <th>Istirahat</th>
+    <th>Lembur</th>
+    <th>Total Jam</th>
     @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
     @endif

@@ -12,7 +12,6 @@ class Armada extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'nama',
 		'plat_no',
 		'merk',
 		'model',
@@ -22,6 +21,8 @@ class Armada extends Model
 		'km_per_jam',
 		'id_vendor',
 		'id_kategori',
+		'mulai',
+		'selesai',
 	];
 
 	public function kategori()
@@ -32,6 +33,18 @@ class Armada extends Model
 	public function vendor()
 	{
 		return $this->belongsTo('App\Vendor','id_vendor');
+	}
+
+	public function scopeSelectMode($q)
+	{
+		$data = [];
+		foreach ($q->get() as $a) {
+			$data[] = collect([
+				'value'=>$a->id,
+				'text'=>'ID Armada '.$a->id
+			]);
+		}
+		return $data;
 	}
 
 }

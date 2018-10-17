@@ -1,7 +1,6 @@
 @extends('create-form')
 @section('form')
 @method('PUT')
-@include('input',['id'=>'nama','value'=>$d->nama,'label'=>'Nama'])
 @include('input',['id'=>'plat_no','value'=>$d->plat_no,'label'=>'Plat No'])
 @include('input',['id'=>'merk','value'=>$d->merk,'label'=>'Merk'])
 @include('input',['id'=>'model','value'=>$d->model,'label'=>'Model'])
@@ -31,3 +30,4 @@
 @endsection
 
 @include('import-select2')
+@include('import-datepicker')

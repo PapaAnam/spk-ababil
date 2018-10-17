@@ -53,7 +53,6 @@ class ArmadaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'  => 'required',
             'plat_no'=>'required',
             'merk'=>'required',
             'model'=>'required',
@@ -61,6 +60,8 @@ class ArmadaController extends Controller
             'tahun'=>'required|numeric|max:3000|min:1900',
             'warna'=>'required',
             'km_per_jam'=>'required',
+            'mulai'=>'required|date_format:d-m-Y',
+            'selesai'=>'required|date_format:d-m-Y',
         ]);
         if(Armada::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -84,7 +85,6 @@ class ArmadaController extends Controller
             $id_kategori = $kategori->id;
         }
         Armada::create([
-            'nama' => $request->nama,
             'plat_no'=>$request->plat_no,
             'merk'=>$request->merk,
             'model'=>$request->model,
@@ -94,6 +94,8 @@ class ArmadaController extends Controller
             'km_per_jam'=>$request->km_per_jam,
             'id_vendor'=>$id_vendor,
             'id_kategori'=>$id_kategori,
+            'mulai'=>englishFormat($request->mulai),
+            'selesai'=>englishFormat($request->selesai),
         ]);
         return redirect()->route('armada.index')->with('success_msg', 'Armada berhasil dibuat');
     }
@@ -139,7 +141,6 @@ class ArmadaController extends Controller
     public function update(Request $request, Armada $armada)
     {
         $request->validate([
-            'nama'  => 'required',
             'plat_no'=>'required',
             'merk'=>'required',
             'model'=>'required',
@@ -147,6 +148,8 @@ class ArmadaController extends Controller
             'tahun'=>'required|numeric|max:3000|min:1900',
             'warna'=>'required',
             'km_per_jam'=>'required',
+            'mulai'=>'required|date_format:d-m-Y',
+            'selesai'=>'required|date_format:d-m-Y',
         ]);
         $id_vendor=$request->id_vendor;
         $id_kategori=$request->id_kategori;
@@ -166,7 +169,6 @@ class ArmadaController extends Controller
             $id_kategori = $kategori->id;
         }
         $armada->update([
-            'nama' => $request->nama,
             'plat_no'=>$request->plat_no,
             'merk'=>$request->merk,
             'model'=>$request->model,
@@ -176,6 +178,8 @@ class ArmadaController extends Controller
             'km_per_jam'=>$request->km_per_jam,
             'id_vendor'=>$id_vendor,
             'id_kategori'=>$id_kategori,
+            'mulai'=>$request->mulai,
+            'selesai'=>$request->selesai,
         ]);
         return redirect()->route('armada.index')->with('success_msg', 'Armada berhasil diperbarui');
     }

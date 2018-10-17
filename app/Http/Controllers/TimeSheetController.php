@@ -13,8 +13,6 @@ use App\InsentifTS;
 class TimeSheetController extends Controller
 {
 
-    use Tanggal;
-
     public function __construct()
     {
         $this->middleware('myrole:superadmin')->only('edit','update','destroy');
@@ -28,7 +26,26 @@ class TimeSheetController extends Controller
      */
     public function index(Request $r)
     {
-
+        $data = [];
+        $dari = englishFormat($r->query('dari'));
+        $sampai = englishFormat($r->query('sampai'));
+        if($r->query('dari') && $r->query('sampai')){
+            $data = TimeSheet::with('karyawan')->whereBetween('tanggal', [
+                $dari, $sampai
+            ])->get();
+        }elseif($r->query('karyawan')){
+            $data = TimeSheet::with('karyawan')->where('id_karyawan', $r->query('karyawan'))->get();
+        }
+        return view('time-sheet.index', [
+            'data'      => $data,
+            'title'     => 'Time Sheet',
+            'active'    => 'time-sheet.index',
+            'createLink'=>route('time-sheet.create'),
+            'role'=>[
+                'admin','superadmin'
+            ],
+            'listKaryawan'=>Karyawan::selectMode(),
+        ]);
     }
 
     /**
@@ -71,7 +88,7 @@ class TimeSheetController extends Controller
             TimeSheet::truncate();
         }
         $jenis = Karyawan::find($request->id_karyawan)->jenis;
-        $tanggal = $this->englishFormat($request->tanggal);
+        $tanggal = englishFormat($request->tanggal);
         $ts = TimeSheet::create([
             'id_karyawan'=>$request->id_karyawan,
             'tanggal'=>$tanggal,
@@ -158,7 +175,7 @@ class TimeSheetController extends Controller
             'istirahat'=>'required|numeric',
         ]);
         $jenis = Karyawan::find($request->id_karyawan)->jenis;
-        $tanggal = $this->englishFormat($request->tanggal);
+        $tanggal = englishFormat($request->tanggal);
         $timeSheet->update([
             'id_karyawan'=>$request->id_karyawan,
             'tanggal'=>$tanggal,
@@ -205,45 +222,6 @@ class TimeSheetController extends Controller
     {
         $timeSheet->delete();
         return redirect()->back()->with('success_msg', 'TimeSheet berhasil dihapus');
-    }
-
-    public function byWaktu(Request $r)
-    {
-        $data = [];
-        $dari = $this->englishFormat($r->query('dari'));
-        $sampai = $this->englishFormat($r->query('sampai'));
-        if($r->query('dari') && $r->query('sampai')){
-            $data = TimeSheet::with('karyawan')->whereBetween('tanggal', [
-                $dari, $sampai
-            ])->get();
-        }
-        return view('time-sheet.by-waktu', [
-            'data'      => $data,
-            'title'     => 'Time Sheet By Waktu',
-            'active'    => 'time-sheet.by-waktu',
-            'createLink'=>route('time-sheet.create'),
-            'role'=>[
-                'admin','superadmin'
-            ]
-        ]);
-    }
-
-    public function byKaryawan(Request $r)
-    {
-        $data = [];
-        if($r->query('karyawan')){
-            $data = TimeSheet::with('karyawan')->where('id_karyawan', $r->query('karyawan'))->get();
-        }
-        return view('time-sheet.by-karyawan', [
-            'data'      => $data,
-            'title'     => 'Time Sheet By Karyawan',
-            'active'    => 'time-sheet.by-karyawan',
-            'createLink'=>route('time-sheet.create'),
-            'role'=>[
-                'admin','superadmin'
-            ],
-            'listKaryawan'=>Karyawan::selectMode(),
-        ]);
     }
 
     public function insentifApi(Request $r)

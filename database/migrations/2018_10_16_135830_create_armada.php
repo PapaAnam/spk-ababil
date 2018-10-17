@@ -15,7 +15,6 @@ class CreateArmada extends Migration
     {
         Schema::create('armada', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama',50);
             $table->string('plat_no',50);
             $table->string('merk',50);
             $table->string('model',50);
@@ -23,6 +22,8 @@ class CreateArmada extends Migration
             $table->string('tahun',4);
             $table->string('warna',50);
             $table->string('km_per_jam',50);
+            $table->date('mulai');
+            $table->date('selesai');
             $table->integer('id_vendor')->unsigned();
             $table->foreign('id_vendor')->on('vendor')->references('id')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('id_kategori')->unsigned();

@@ -27,15 +27,14 @@ Route::middleware('auth')->group(function(){
 		});
 	});
 
+	Route::resource('jam-alat', 'JamAlatController')->except('show');
 	Route::resource('kategori-armada', 'KategoriArmadaController');
 	Route::resource('armada', 'ArmadaController');
 	Route::resource('vendor', 'VendorController')->except(['show']);
 	Route::resource('uam', 'UamController')->except(['show']);
 	Route::resource('karyawan', 'KaryawanController');
 	Route::resource('klien', 'KlienController')->except(['show']);
-	Route::get('time-sheet/by-waktu', 'TimeSheetController@byWaktu')->name('time-sheet.by-waktu');
-	Route::get('time-sheet/by-karyawan', 'TimeSheetController@byKaryawan')->name('time-sheet.by-karyawan');
-	Route::resource('time-sheet', 'TimeSheetController')->except(['show', 'index']);
+	Route::resource('time-sheet', 'TimeSheetController')->except(['show']);
 	Route::get('proyek/by-waktu', 'ProyekController@byWaktu')->name('proyek.by-waktu');
 	Route::get('proyek/by-klien', 'ProyekController@byKlien')->name('proyek.by-klien');
 	Route::resource('proyek', 'ProyekController')->except('index');

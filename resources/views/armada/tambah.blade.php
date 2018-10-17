@@ -1,6 +1,5 @@
 @extends('create-form')
 @section('form')
-@include('input',['id'=>'nama','label'=>'Nama'])
 @include('input',['id'=>'plat_no','label'=>'Plat No'])
 @include('input',['id'=>'merk','label'=>'Merk'])
 @include('input',['id'=>'model','label'=>'Model'])
@@ -27,6 +26,9 @@
 <div class="alert alert-info">
   Jika isi vendor atau isi kategori ada valuenya maka lebih diprioritaskan
 </div>
+@include('datepicker',['id'=>'mulai','label'=>'Mulai'])
+@include('datepicker',['id'=>'selesai','label'=>'Selesai'])
 @endsection
 
 @include('import-select2')
+@include('import-datepicker')

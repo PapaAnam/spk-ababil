@@ -23,6 +23,8 @@
             <hr>
             @include('line',['label'=>'Qty','text'=>$d->qty])
             <hr>
+            @include('line',['label'=>'Satuan','text'=>$d->satuandetail->nama])
+            <hr>
             @include('line',['label'=>'Jumlah Tugas','text'=>$d->tugas_count])
             <hr>
             <dt>Persentase</dt>
@@ -34,9 +36,6 @@
                     </div>
                 </div>
             </dd>
-            {{-- @include('line',['label'=>'Persentase','text'=>$d->persentase]) --}}
-            <hr>
-            @include('line',['label'=>'Satuan','text'=>$d->satuandetail->nama])
             <hr>
             @include('line',['label'=>'Waktu Mulai','text'=>$d->start_date_indo])
             <hr>
