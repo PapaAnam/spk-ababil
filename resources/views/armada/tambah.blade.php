@@ -1,11 +1,12 @@
 @extends('create-form')
 @section('form')
+@include('input',['id'=>'nama_unit','label'=>'Nama Unit'])
 @include('input',['id'=>'plat_no','label'=>'Plat No'])
 @include('input',['id'=>'merk','label'=>'Merk'])
-@include('input',['id'=>'model','label'=>'Model'])
+{{-- @include('input',['id'=>'model','label'=>'Model'])
 @include('input',['id'=>'seri','label'=>'Seri'])
 @include('input_number',['id'=>'tahun','label'=>'Tahun'])
-@include('input',['id'=>'warna','label'=>'Warna'])
+@include('input',['id'=>'warna','label'=>'Warna']) --}}
 @include('input',['id'=>'km_per_jam','label'=>'Km/jam'])
 @include('select2-no-tags',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor])
 <div class="form-group">

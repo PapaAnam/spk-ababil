@@ -1,12 +1,13 @@
 @extends('create-form')
 @section('form')
 @method('PUT')
+@include('input',['id'=>'nama_unit','label'=>'Nama Unit','value'=>$d->nama_unit])
 @include('input',['id'=>'plat_no','value'=>$d->plat_no,'label'=>'Plat No'])
 @include('input',['id'=>'merk','value'=>$d->merk,'label'=>'Merk'])
-@include('input',['id'=>'model','value'=>$d->model,'label'=>'Model'])
+{{-- @include('input',['id'=>'model','value'=>$d->model,'label'=>'Model'])
 @include('input',['id'=>'seri','value'=>$d->seri,'label'=>'Seri'])
 @include('input_number',['id'=>'tahun','value'=>$d->tahun,'label'=>'Tahun'])
-@include('input',['id'=>'warna','value'=>$d->warna,'label'=>'Warna'])
+@include('input',['id'=>'warna','value'=>$d->warna,'label'=>'Warna']) --}}
 @include('input',['id'=>'km_per_jam','value'=>$d->km_per_jam,'label'=>'Km/jam'])
 @include('select2-no-tags',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor,'selected'=>$d->id_vendor])
 <div class="form-group">

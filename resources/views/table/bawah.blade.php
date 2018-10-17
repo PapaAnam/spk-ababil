@@ -16,7 +16,7 @@
 			"language": {
 				"lengthMenu": "Menampilkan _MENU_ baris data per halaman",
 				"zeroRecords": "Tidak ada data",
-				"info": "Menampilkan halaman _PAGE_ of _PAGES_",
+				"info": "Menampilkan halaman _PAGE_ dari _PAGES_",
 				"infoFiltered": "(filtered from _MAX_ total records)",
 				"search":'Pencarian',
 				"paginate": {

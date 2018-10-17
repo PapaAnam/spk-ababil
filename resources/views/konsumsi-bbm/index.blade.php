@@ -55,7 +55,7 @@
     <td>{{$d->qty_masuk}}</td>
     <td>{{$d->qty_keluar}}</td>
     <td>{{$d->pelaksana ? $d->pelaksana->nama : ''}}</td>
-    <td>{{$d->armada ? $d->armada->id : ''}}</td>
+    <td>{{$d->armada ? $d->armada->nama : ''}}</td>
     <td>{{$d->proyek ? $d->proyek->nama : ''}}</td>
     <td>
       <a href="{{route('konsumsi-bbm.edit-masuk',[$d->id])}}" class="btn btn-flat btn-primary">Masuk</a>

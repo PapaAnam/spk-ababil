@@ -3,14 +3,15 @@
 <thead>
   <tr>
     <th>ID</th>
+    <th>Nama Unit</th>
     <th>Kategori</th>
     <th>Vendor</th>
     <th>Plat No</th>
     <th>Merk</th>
-    <th>Model</th>
+    {{-- <th>Model</th>
     <th>Seri</th>
     <th>Tahun</th>
-    <th>Warna</th>
+    <th>Warna</th> --}}
     <th>Km/jam</th>
     <th>Mulai</th>
     <th>Selesai</th>
@@ -20,14 +21,15 @@
 <tfoot>
   <tr>
     <th>ID</th>
+    <th>Nama Unit</th>
     <th>Kategori</th>
     <th>Vendor</th>
     <th>Plat No</th>
     <th>Merk</th>
-    <th>Model</th>
+    {{-- <th>Model</th>
     <th>Seri</th>
     <th>Tahun</th>
-    <th>Warna</th>
+    <th>Warna</th> --}}
     <th>Km/jam</th>
     <th>Mulai</th>
     <th>Selesai</th>

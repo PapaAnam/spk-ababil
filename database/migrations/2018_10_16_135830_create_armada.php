@@ -15,12 +15,13 @@ class CreateArmada extends Migration
     {
         Schema::create('armada', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nama_unit',50);
             $table->string('plat_no',50);
             $table->string('merk',50);
-            $table->string('model',50);
-            $table->string('seri',50);
-            $table->string('tahun',4);
-            $table->string('warna',50);
+            // $table->string('model',50);
+            // $table->string('seri',50);
+            // $table->string('tahun',4);
+            // $table->string('warna',50);
             $table->string('km_per_jam',50);
             $table->date('mulai');
             $table->date('selesai');

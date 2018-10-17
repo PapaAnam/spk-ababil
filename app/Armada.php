@@ -12,12 +12,13 @@ class Armada extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
+		'nama_unit',
 		'plat_no',
 		'merk',
-		'model',
-		'seri',
-		'tahun',
-		'warna',
+		// 'model',
+		// 'seri',
+		// 'tahun',
+		// 'warna',
 		'km_per_jam',
 		'id_vendor',
 		'id_kategori',
@@ -41,7 +42,7 @@ class Armada extends Model
 		foreach ($q->get() as $a) {
 			$data[] = collect([
 				'value'=>$a->id,
-				'text'=>'ID Armada '.$a->id
+				'text'=>'['.$a->id.'] '.$a->nama_unit
 			]);
 		}
 		return $data;

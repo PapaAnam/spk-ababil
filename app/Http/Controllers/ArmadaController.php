@@ -53,12 +53,13 @@ class ArmadaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nama_unit'=>'required',
             'plat_no'=>'required',
             'merk'=>'required',
-            'model'=>'required',
-            'seri'=>'required',
-            'tahun'=>'required|numeric|max:3000|min:1900',
-            'warna'=>'required',
+            // 'model'=>'required',
+            // 'seri'=>'required',
+            // 'tahun'=>'required|numeric|max:3000|min:1900',
+            // 'warna'=>'required',
             'km_per_jam'=>'required',
             'mulai'=>'required|date_format:d-m-Y',
             'selesai'=>'required|date_format:d-m-Y',
@@ -85,12 +86,13 @@ class ArmadaController extends Controller
             $id_kategori = $kategori->id;
         }
         Armada::create([
+            'nama_unit'=>$request->nama_unit,
             'plat_no'=>$request->plat_no,
             'merk'=>$request->merk,
-            'model'=>$request->model,
-            'seri'=>$request->seri,
-            'tahun'=>$request->tahun,
-            'warna'=>$request->warna,
+            // 'model'=>$request->model,
+            // 'seri'=>$request->seri,
+            // 'tahun'=>$request->tahun,
+            // 'warna'=>$request->warna,
             'km_per_jam'=>$request->km_per_jam,
             'id_vendor'=>$id_vendor,
             'id_kategori'=>$id_kategori,
@@ -141,12 +143,13 @@ class ArmadaController extends Controller
     public function update(Request $request, Armada $armada)
     {
         $request->validate([
+            'nama_unit'=>'required',
             'plat_no'=>'required',
             'merk'=>'required',
-            'model'=>'required',
-            'seri'=>'required',
-            'tahun'=>'required|numeric|max:3000|min:1900',
-            'warna'=>'required',
+            // 'model'=>'required',
+            // 'seri'=>'required',
+            // 'tahun'=>'required|numeric|max:3000|min:1900',
+            // 'warna'=>'required',
             'km_per_jam'=>'required',
             'mulai'=>'required|date_format:d-m-Y',
             'selesai'=>'required|date_format:d-m-Y',
@@ -169,12 +172,13 @@ class ArmadaController extends Controller
             $id_kategori = $kategori->id;
         }
         $armada->update([
+            'nama_unit'=>$request->nama_unit,
             'plat_no'=>$request->plat_no,
             'merk'=>$request->merk,
-            'model'=>$request->model,
-            'seri'=>$request->seri,
-            'tahun'=>$request->tahun,
-            'warna'=>$request->warna,
+            // 'model'=>$request->model,
+            // 'seri'=>$request->seri,
+            // 'tahun'=>$request->tahun,
+            // 'warna'=>$request->warna,
             'km_per_jam'=>$request->km_per_jam,
             'id_vendor'=>$id_vendor,
             'id_kategori'=>$id_kategori,
