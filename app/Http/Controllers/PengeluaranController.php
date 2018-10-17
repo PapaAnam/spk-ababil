@@ -93,7 +93,6 @@ use Tanggal;
      */
     public function store(Request $request)
     {
-        // dd($request->all());
     	$request->validate([
     		'id_vendor'=>'required',
     		'id_karyawan'=>'required',
@@ -113,8 +112,18 @@ use Tanggal;
 	    	$kwitansi = $request->kwitansi->store('public/kwitansi');
 	    	$kwitansi = url(str_replace('public/', 'storage/', $kwitansi));
     	}
-    	$klien = Pengeluaran::create([
-    		'id_vendor'=>$request->id_vendor,
+        $id_vendor=$request->id_vendor;
+        if($request->vendor_baru){
+            $vendor = Vendor::create([
+                'nama'        => $request->vendor_baru,
+                'telp'        => '-',
+                'alamat'      => '-',
+                'keterangan'  => '-',
+            ]);
+            $id_vendor = $vendor->id;
+        }
+    	$pengeluaran = Pengeluaran::create([
+    		'id_vendor'=>$id_vendor,
     		'id_karyawan'=>$request->id_karyawan,
     		'nominal'=>$request->nominal,
     		// 'jumlah_pengeluaran'=>$request->jumlah_pengeluaran,
@@ -194,8 +203,18 @@ use Tanggal;
 	    	$kwitansi = $request->kwitansi->store('public/kwitansi');
 	    	$kwitansi = url(str_replace('public/', 'storage/', $kwitansi));
     	}
+        $id_vendor=$request->id_vendor;
+        if($request->vendor_baru){
+            $vendor = Vendor::create([
+                'nama'        => $request->vendor_baru,
+                'telp'        => '-',
+                'alamat'      => '-',
+                'keterangan'  => '-',
+            ]);
+            $id_vendor = $vendor->id;
+        }
     	$pengeluaran->update([
-    		'id_vendor'=>$request->id_vendor,
+    		'id_vendor'=>$id_vendor,
     		'id_karyawan'=>$request->id_karyawan,
     		'nominal'=>$request->nominal,
     		// 'jumlah_pengeluaran'=>$request->jumlah_pengeluaran,

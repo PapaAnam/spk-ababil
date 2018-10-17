@@ -182,8 +182,8 @@ class ArmadaController extends Controller
             'km_per_jam'=>$request->km_per_jam,
             'id_vendor'=>$id_vendor,
             'id_kategori'=>$id_kategori,
-            'mulai'=>$request->mulai,
-            'selesai'=>$request->selesai,
+            'mulai'=>englishFormat($request->mulai),
+            'selesai'=>englishFormat($request->selesai),
         ]);
         return redirect()->route('armada.index')->with('success_msg', 'Armada berhasil diperbarui');
     }

@@ -64,6 +64,7 @@ class JamAlatController extends Controller
             'jam_selesai'=>$request->jam_selesai,
             'pekerjaan'=>$request->pekerjaan,
             'id_armada'=>$request->id_armada,
+            'istirahat'=>$request->istirahat,
         ]);
         return redirect()->route('jam-alat.index')->with('success_msg', 'Jam Alat berhasil dibuat');
     }
@@ -117,6 +118,7 @@ class JamAlatController extends Controller
             'jam_selesai'=>$request->jam_selesai,
             'pekerjaan'=>$request->pekerjaan,
             'id_armada'=>$request->id_armada,
+            'istirahat'=>$request->istirahat,
         ]);
         return redirect()->route('jam-alat.index')->with('success_msg', 'Jam Alat berhasil diperbarui');
     }

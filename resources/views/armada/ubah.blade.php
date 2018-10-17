@@ -25,6 +25,8 @@
   </div>
 </div>
 @include('input',['id'=>'kategori_baru','label'=>'Kategori Baru'])
+@include('datepicker',['id'=>'mulai','label'=>'Mulai','value'=>formatIndo($d->mulai)])
+@include('datepicker',['id'=>'selesai','label'=>'Selesai','value'=>formatIndo($d->selesai)])
 <div class="alert alert-info">
   Jika isi vendor atau isi kategori ada valuenya maka lebih diprioritaskan
 </div>

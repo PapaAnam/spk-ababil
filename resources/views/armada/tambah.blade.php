@@ -24,11 +24,11 @@
   </div>
 </div>
 @include('input',['id'=>'kategori_baru','label'=>'Kategori Baru'])
+@include('datepicker',['id'=>'mulai','label'=>'Mulai'])
+@include('datepicker',['id'=>'selesai','label'=>'Selesai'])
 <div class="alert alert-info">
   Jika isi vendor atau isi kategori ada valuenya maka lebih diprioritaskan
 </div>
-@include('datepicker',['id'=>'mulai','label'=>'Mulai'])
-@include('datepicker',['id'=>'selesai','label'=>'Selesai'])
 @endsection
 
 @include('import-select2')

@@ -3,6 +3,13 @@
 @include('input',['id'=>'no','label'=>'No','value'=>$no])
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('d-m-Y')])
 @include('select',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor])
+<div class="form-group">
+  <label for="" class="col-md-2 control-label"></label>
+  <div class="col-md-6">
+    Atau
+  </div>
+</div>
+@include('input',['id'=>'vendor_baru','label'=>'Vendor Baru'])
 @include('select',['id'=>'id_karyawan','label'=>'Pilih Pelaksana','selectData'=>$listPelaksana])
 @include('textarea',['id'=>'deskripsi','label'=>'Deskripsi'])
 @include('input_number',['id'=>'nominal','label'=>'Nominal'])

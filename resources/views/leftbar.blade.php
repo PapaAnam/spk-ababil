@@ -42,13 +42,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          @if(Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin')
-          <li @if(in_array($active, ['time-sheet.create'])) class="active" @endif>
-            <a href="{{ route('time-sheet.create') }}"><i class="fa fa-circle-o"></i> Tambah Time Sheet</a>
-          </li>
-          @endif
           <li @if(in_array($active, ['time-sheet.index'])) class="active" @endif>
-            <a href="{{ route('time-sheet.index') }}"><i class="fa fa-circle-o"></i> Lihat Time Sheet</a>
+            <a href="{{ route('time-sheet.index') }}"><i class="fa fa-circle-o"></i> Time Sheet Karyawan</a>
           </li>
           @if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin')
           <li class="{{ $active == 'progress-kerja-harian.index' ? 'active' : '' }}">
@@ -59,9 +54,6 @@
           @endif
           <li @if(in_array($active, ['konsumsi-bbm.index'])) class="active" @endif>
             <a href="{{ route('konsumsi-bbm.index') }}"><i class="fa fa-circle-o"></i> Konsumsi BBM</a>
-          </li>
-          <li @if(in_array($active, ['jam-alat.create'])) class="active" @endif>
-            <a href="{{ route('jam-alat.create') }}"><i class="fa fa-circle-o"></i> Tambah Jam Alat</a>
           </li>
           <li @if(in_array($active, ['jam-alat.index'])) class="active" @endif>
             <a href="{{ route('jam-alat.index') }}"><i class="fa fa-circle-o"></i> Jam Alat</a>
@@ -221,12 +213,6 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li @if(in_array($active, ['kategori-armada.create'])) class="active" @endif>
-            <a href="{{ route('kategori-armada.create') }}"><i class="fa fa-circle-o"></i> Tambah Kategori</a>
-          </li>
-          <li @if(in_array($active, ['kategori-armada.index'])) class="active" @endif>
-            <a href="{{ route('kategori-armada.index') }}"><i class="fa fa-circle-o"></i> Lihat Kategori</a>
-          </li>
           <li @if(in_array($active, ['armada.create'])) class="active" @endif>
             <a href="{{ route('armada.create') }}"><i class="fa fa-circle-o"></i> Tambah Armada</a>
           </li>
@@ -260,6 +246,9 @@
             <a href="{{ route('rekening') }}"><i class="fa fa-circle-o"></i> Rekening</a>
           </li>
           @endif
+          <li @if(in_array($active, ['kategori-armada.index'])) class="active" @endif>
+            <a href="{{ route('kategori-armada.index') }}"><i class="fa fa-circle-o"></i> Kategori Armada</a>
+          </li>
         </ul>
       </li>
     </ul>

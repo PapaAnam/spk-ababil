@@ -4,6 +4,7 @@
 @include('timemask',['id'=>'jam_mulai','value'=>$d->jam_mulai,'label'=>'Jam Mulai'])
 @include('timemask',['id'=>'jam_selesai','value'=>$d->jam_selesai,'label'=>'Jam Selesai'])
 @include('textarea',['id'=>'pekerjaan','value'=>$d->pekerjaan,'label'=>'Pekerjaan'])
+@include('input_number',['id'=>'istirahat','label'=>'Istirahat','value'=>$d->istirahat])
 @include('select2-no-tags',['id'=>'id_armada','label'=>'Pilih Armada','selectData'=>$listArmada,'selected'=>$d->id_armada])
 @endsection
 

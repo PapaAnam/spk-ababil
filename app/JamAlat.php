@@ -15,6 +15,8 @@ class JamAlat extends Model
 		'jam_mulai',
 		'jam_selesai',
 		'pekerjaan',
+		'istirahat',
+		'tanggal',
 		'id_armada',
 	];
 
