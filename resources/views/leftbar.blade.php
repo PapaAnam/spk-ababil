@@ -212,7 +212,7 @@
           <i class="fa fa-user-plus"></i> <span>Klien</span>
         </a>
       </li>
-      <li class="treeview @if(in_array($active, ['kategori-armada.index','kategori-armada.create'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['kategori-armada.index','kategori-armada.create','armada.index','armada.create'])) active @endif ">
         <a href="#">
           <i class="fa fa-sitemap"></i>
           <span>Armada</span>
