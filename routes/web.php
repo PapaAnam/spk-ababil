@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function(){
 		});
 	});
 
+	Route::resource('role-maker', 'RoleMakerController')->except('show');
 	Route::resource('memo', 'MemoController')->except('show');
 	Route::resource('jam-alat', 'JamAlatController')->except('show');
 	Route::resource('konsumsi-bbm', 'KonsumsiBBMController')->except('show');

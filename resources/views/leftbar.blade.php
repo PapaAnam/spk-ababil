@@ -224,7 +224,7 @@
           </li>
         </ul>
       </li>
-      <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['satuan', 'satuan.create', 'satuan.edit','rekening', 'rekening.create', 'rekening.edit', 'vendor.index', 'vendor.create','vendor.edit','uam.index', 'uam.create','uam.edit','role-maker.index'])) active @endif ">
         <a href="#">
           <i class="fa fa-laptop"></i>
           <span>Setting</span>
@@ -251,6 +251,9 @@
           @endif
           <li @if(in_array($active, ['kategori-armada.index'])) class="active" @endif>
             <a href="{{ route('kategori-armada.index') }}"><i class="fa fa-circle-o"></i> Kategori Armada</a>
+          </li>
+          <li @if(in_array($active, ['role-maker.index'])) class="active" @endif>
+            <a href="{{ route('role-maker.index') }}"><i class="fa fa-circle-o"></i> Role Maker</a>
           </li>
         </ul>
       </li>

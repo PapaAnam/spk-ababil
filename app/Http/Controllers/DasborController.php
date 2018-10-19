@@ -13,6 +13,7 @@ use App\Kategori;
 use App\User;
 use App\Invoice;
 use App\Pengeluaran;
+use App\Memo;
 
 class DasborController extends Controller
 {
@@ -33,6 +34,7 @@ class DasborController extends Controller
 			'jmlInvoice'=>Invoice::count(),
 			'jmlPengeluaran'=>Pengeluaran::count(),
 			'createLink'=>false,
+			'memo'=>Memo::orderBy('tanggal','desc')->first(),
 		]);
 	}
 

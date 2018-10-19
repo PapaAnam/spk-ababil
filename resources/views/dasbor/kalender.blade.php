@@ -16,4 +16,45 @@
       </div>
     </div>
   </section>
+  <div class="col-md-7">
+    <div class="box bg-yellow" style="border-top: 0;">
+      <div class="box-header">
+        <center><h3 class="box-title" style="color: white;">Memo</h3></center>
+      </div>
+      <div class="box-body">
+        @if($memo)
+        <table class="table memo">
+          <tbody>
+            <tr>
+              <td>Tanggal</td>
+              <td>: {{tglIndo($memo->tanggal)}}</td>
+            </tr>
+            <tr>
+              <td>Deadline</td>
+              <td>: {{tglIndo($memo->deadline)}}</td>
+            </tr>
+            <tr>
+              <td>Kepada</td>
+              <td>: 
+                @foreach($memo->pelaksana as $p)
+                {{ $p->karyawan ? $p->karyawan->nama : "" }}@if($loop->last) @else,@endif
+                @endforeach
+                <br>
+                @foreach($memo->jeniskaryawan as $p)
+                {{ $p->jeniskaryawan }}@if($loop->last) @else,@endif
+                @endforeach
+              </td>
+            </tr>
+            <tr>
+              <td>Pesan</td>
+              <td>: {{$memo->pesan}}</td>
+            </tr>
+          </tbody>
+        </table>
+        @else
+        <center>Tidak ada memo</center>
+        @endif
+      </div>
+    </div>
+  </div>
 </div>
