@@ -23,6 +23,9 @@ class KonsumsiBBMController extends Controller
         if($r->query('dari') && $r->query('sampai')){
             $data = KonsumsiBBM::with('vendor','pelaksana','armada','proyek')
             ->whereBetween('tanggal_masuk',[englishFormat($r->query('dari')),englishFormat($r->query('sampai')),])
+            ->orWhere(function($q) use ($r){
+                $q->whereBetween('tanggal_keluar',[englishFormat($r->query('dari')),englishFormat($r->query('sampai')),]);
+            })
             ->get();
         }
         return view('konsumsi-bbm.index', [

@@ -42,7 +42,7 @@ class InvoiceController extends Controller
             'modul_link'    => url()->previous(),
             'modul'         => 'Invoice',
             'action'        => route('invoice.store'),
-            'active'        => 'invoice.index',
+            'active'        => 'invoice.create',
             // 'listProyek'=>Proyek::selectMode(),
             'listKlien'=>Klien::selectMode(),
             'listRekening'=>Rekening::selectMode(),

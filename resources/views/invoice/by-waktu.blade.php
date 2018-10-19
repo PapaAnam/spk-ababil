@@ -1,7 +1,7 @@
 @extends('invoice.layout')
 @section('filter')
-<div class="box">
-  <div class="box-header">
+<div class="box box-primary">
+  <div class="box-header with-border">
     <h3 class="box-title">Lihat berdasarkan rentang waktu</h3>
   </div>
   <div class="box-body">

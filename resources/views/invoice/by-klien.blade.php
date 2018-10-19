@@ -1,12 +1,12 @@
 @extends('invoice.layout')
 @section('filter')
-<div class="box">
-  <div class="box-header">
+<div class="box box-primary">
+  <div class="box-header with-border">
     <h3 class="box-title">Lihat berdasarkan Klien</h3>
   </div>
   <div class="box-body">
     <form method="get" action="" class="form-horizontal">
-      @include('select',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>request()->query('klien')])
+      @include('select2-no-tags',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>request()->query('klien')])
       <div class="form-group">
         <label class="col-lg-2 control-label"></label>
         <div class="col-sm-6">
@@ -17,3 +17,5 @@
   </div>
 </div>
 @endsection
+
+@include('import-select2')

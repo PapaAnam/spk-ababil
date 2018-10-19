@@ -58,8 +58,11 @@
     <td>{{$d->armada ? $d->armada->nama : ''}}</td>
     <td>{{$d->proyek ? $d->proyek->nama : ''}}</td>
     <td>
-      <a href="{{route('konsumsi-bbm.edit-masuk',[$d->id])}}" class="btn btn-flat btn-primary">Masuk</a>
-      <a href="{{route('konsumsi-bbm.edit-keluar',[$d->id])}}" class="btn btn-flat btn-warning">Keluar</a>
+      @if($d->tanggal_masuk)
+      @include('edit_button',['link'=>route('konsumsi-bbm.edit-masuk',[$d->id])])
+      @else
+      @include('edit_button',['link'=>route('konsumsi-bbm.edit-keluar',[$d->id])])
+      @endif
       @include('delete_button', ['link' => route('konsumsi-bbm.destroy', $d->id)])
     </td>
   </tr>
@@ -71,6 +74,7 @@
 
 <a href="{{route('konsumsi-bbm.keluar')}}" class="btn btn-flat btn-warning pull-right">BBM Keluar</a>
 <a href="{{route('konsumsi-bbm.masuk')}}" class="btn btn-flat btn-primary pull-right">BBM Masuk</a>&nbsp;
+
 
 @endsection
 

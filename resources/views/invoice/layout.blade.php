@@ -6,6 +6,7 @@
 <thead>
   <tr>
     <th>ID</th>
+    <th>Jatuh Tempo</th>
     <th>Tanggal</th>
     <th width="200px">No Invoice</th>
     <th>Client</th>
@@ -18,6 +19,7 @@
     <th>Pajak</th>
     <th width="300px">Detail Bank Account</th>
     <th>Ttd</th>
+    <th>Jumlah Tagihan</th>
     @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
     @endif
@@ -26,6 +28,7 @@
 <tfoot>
   <tr>
     <th>ID</th>
+    <th>Jatuh Tempo</th>
     <th>Tanggal</th>
     <th width="200px">No Invoice</th>
     <th>Client</th>
@@ -38,6 +41,7 @@
     <th>Pajak</th>
     <th width="300px">Detail Bank Account</th>
     <th>Ttd</th>
+    <th>Jumlah Tagihan</th>
     @if('superadmin' == Auth::user()->role)
     <th>Aksi</th>
     @endif
@@ -47,6 +51,10 @@
   @foreach ($data as $d)
   <tr>
     <td>{{ $d->id }}</td>
+    @php
+        $jatuhTempo = (strtotime($d->tanggal)-strtotime(date('Y-m-d')))/3600/24;
+    @endphp
+    <td>{!! $jatuhTempo > 0 ? '<font color="red">'.$jatuhTempo.'</font>' : $jatuhTempo !!}</td>
     <td>{{ $d->tanggal_indo }}</td>
     <td>{{ $d->no_invoice }}</td>
     <td>{{ $d->proyek->kliendetail->nama_perusahaan }}</td>
@@ -64,13 +72,22 @@
     <td align="right">{{ number_format($d->tertagih, 0, ',', '.') }}</td>
     <td>
       <ul>
+        @php
+            $totalPajak = 0;
+        @endphp
         @foreach($d->pajak as $pajak)
+        @php
+            $totalPajak += ($d->tertagih*$pajak->pajak/100);
+        @endphp
         <li>{{ $pajak->nama.' : '.number_format($pajak->pajak, 0, ',', '.') }}</li>
         @endforeach
       </ul>
     </td>
     <td>{{ $d->rekening->bank }}</td>
     <td>{{ $d->ttd->nama_lengkap }}</td>
+    <td>
+        {{number_format($d->tertagih+$totalPajak, 0, ',', '.')}}
+    </td>
     @if('superadmin' == Auth::user()->role)
     <td>
       @include('edit_button', ['link' => route('invoice.edit', [$d->id])])

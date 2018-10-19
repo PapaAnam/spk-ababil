@@ -2,7 +2,7 @@
 @section('form')
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('d-m-Y')])
 {{-- @include('input',['id'=>'no_invoice','label'=>'No Invoice']) --}}
-@include('select',['id'=>'id_klien','label'=>'Pilih Klien','selectData'=>$listKlien])
+@include('select2-no-tags',['id'=>'id_klien','label'=>'Pilih Klien','selectData'=>$listKlien])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
 	<div class="col-sm-6">
@@ -15,8 +15,8 @@
 @include('input_number',['id'=>'total_tagihan','label'=>'Total Tagihan'])
 @include('input_number',['id'=>'terbayar','label'=>'Terbayar'])
 @include('input_number',['id'=>'tertagih','label'=>'Tertagih'])
-@include('select',['id'=>'id_rekening','label'=>'Pilih Detail Bank Account','selectData'=>$listRekening])
-@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi'])
+@include('select2-no-tags',['id'=>'id_rekening','label'=>'Pilih Detail Bank Account','selectData'=>$listRekening])
+@include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>'-'])
 <hr>
 @if(count($errors->all()) > 0)
 @foreach(old('nama_pajak') as $namaPajak)
