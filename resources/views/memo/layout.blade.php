@@ -45,7 +45,7 @@
         <td>
             <ul>
                 @foreach ($d->pelaksana as $p)
-                    <li>{{ $p->karyawan->nama }}</li>
+                    <li>{{ $p->karyawan ? $p->karyawan->nama : "" }}</li>
                 @endforeach
             </ul>
         </td>
@@ -58,8 +58,8 @@
         </td>
         @if('superadmin' == Auth::user()->role)
         <td>
-            @include('edit_button', ['link' => route('time-sheet.edit', [$d->id])])
-            @include('delete_button', ['link' => route('time-sheet.destroy', [$d->id])])
+            @include('edit_button', ['link' => route('memo.edit', [$d->id])])
+            @include('delete_button', ['link' => route('memo.destroy', [$d->id])])
         </td>
         @endif
     </tr>

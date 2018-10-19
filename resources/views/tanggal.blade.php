@@ -1,0 +1,1 @@
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal'])

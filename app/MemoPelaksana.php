@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class MemoPelaksana extends Model
 {
 
-	protected $table = 'memo_jenis_karyawan';
+	protected $table = 'memo_pelaksana';
 
 	protected $fillable = [
 		'id_memo',
 		'id_karyawan',
 	];
+
+	public $timestamps = false;
 
 	public function karyawan()
 	{

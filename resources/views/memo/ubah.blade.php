@@ -1,16 +1,14 @@
 @extends('create-form')
 @section('form')
 @method('PUT')
-@include('select',['id'=>'id_karyawan','label'=>'Karyawan','selectData'=>$listKaryawan,'selected'=>$d->id_karyawan])
-@include('datepicker',['value'=>$tanggal,'id'=>'tanggal','label'=>'Tanggal'])
-@include('timemask',['value'=>$d->jam_mulai,'id'=>'jam_mulai','label'=>'Jam Mulai'])
-@include('timemask',['value'=>$d->jam_selesai,'id'=>'jam_selesai','label'=>'Jam Selesai'])
-{{-- @include('input_number',['value'=>$d->ritase,'id'=>'ritase','label'=>'Ritase']) --}}
-{{-- @include('input',['id'=>'lembur','label'=>'Lembur','value'=>$d->lembur]) --}}
-@include('input',['id'=>'istirahat','label'=>'Istirahat','value'=>$d->istirahat])
-<div id="tambahan">	</div>
+@include('tanggal',['value'=>formatIndo($d->deadline)])
+@include('datepicker',['id'=>'deadline','label'=>'Deadline','value'=>formatIndo($d->deadline)])
+@include('karyawan.pelaksana-tags',['selected'=>$d->pelaksana->pluck('id_karyawan')->toArray()])
+@include('select2',['id'=>'jenis_karyawan[]','label'=>'Jenis Karyawan','selectData'=>[['text'=>'Sopir','value'=>'Sopir'],['text'=>'Operator','value'=>'Operator'],['text'=>'Office','value'=>'Office'],],'selected'=>$d->jeniskaryawan->pluck('id')->toArray()])
+@include('proyek.list',['selected'=>$d->id_proyek])
+@include('klien.list',['selected'=>$d->id_klien])
+@include('textarea',['id'=>'pesan','label'=>'Pesan','value'=>$d->pesan])
 @endsection
 
 @include('import-datepicker')
-@include('import-timemask')
-@include('time-sheet.script-ubah')
+@include('import-select2')

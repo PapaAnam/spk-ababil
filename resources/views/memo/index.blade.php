@@ -1,4 +1,4 @@
-@extends('time-sheet.layout')
+@extends('memo.layout')
 @section('filter')
 <div class="row">
 	<div class="col-md-6">

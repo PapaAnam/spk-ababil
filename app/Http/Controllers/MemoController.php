@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Klien;
 use App\Proyek;
 use App\Memo;
+use App\MemoPelaksana;
+use App\MemoJenisKaryawan;
+use App\Karyawan;
+use DB;
 use Illuminate\Http\Request;
 
 class MemoController extends Controller
@@ -53,8 +57,10 @@ class MemoController extends Controller
             'modul_link'    => url()->previous(),
             'modul'         => 'Memo',
             'action'        => route('memo.store'),
-            'active'        => 'memo.create',
-            'listKaryawan'=>Karyawan::selectMode()
+            'active'        => 'memo.index',
+            'listPelaksana'=>Karyawan::selectMode(),
+            'listProyek'=>Proyek::selectMode(),
+            'listKlien'=>Klien::selectMode(),
         ]);
     }
 
@@ -66,51 +72,38 @@ class MemoController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'id_karyawan'=>'required',
             'tanggal'=>'required|date_format:d-m-Y',
-            'jam_mulai'=>'required|date_format:H\:i\:s',
-            'jam_selesai'=>'required|date_format:H\:i\:s',
-            // 'ritase'=>'required|numeric',
-            // 'lembur'=>'required|numeric',
-            'istirahat'=>'required|numeric',
+            'deadline'=>'required|date_format:d-m-Y',
+            'pesan'=>'required|string',
         ]);
         if(Memo::count() == 0){
             DB::statement('set foreign_key_checks=0;');
             Memo::truncate();
         }
-        $jenis = Karyawan::find($request->id_karyawan)->jenis;
-        $tanggal = englishFormat($request->tanggal);
-        $ts = Memo::create([
-            'id_karyawan'=>$request->id_karyawan,
-            'tanggal'=>$tanggal,
-            'jam_mulai'=>$request->jam_mulai,
-            'jam_selesai'=>$request->jam_selesai,
-            // 'ritase'=>$request->ritase,
-            // 'lembur'=>$request->lembur,
-            'istirahat'=>$request->istirahat,
+        $memo = Memo::create([
+            'id_klien'=>$request->id_klien,
+            'id_proyek'=>$request->id_proyek,
+            'tanggal'=>englishFormat($request->tanggal),
+            'deadline'=>englishFormat($request->deadline),
+            'pesan'=>$request->pesan,
         ]);
-        if($jenis == 'Operator'){
-            $i = 0;
-            foreach ($request->id_overtime as $a) {
-                OvertimeTS::create([
-                    'qty'=>$request->overtime[$i++] == 'Tidak' ? 0 : 1,
-                    'id_overtime'=>$a,
-                    'id_timesheet'=>$ts->id,
+        $id_memo = $memo->id;
+        if($request->id_karyawan){
+            foreach ($request->id_karyawan as $a) {
+                MemoPelaksana::create([
+                    'id_karyawan'=>$a,
+                    'id_memo'=>$id_memo,
                 ]);
             }
-        }elseif($jenis == 'Sopir'){
-            $i = 0;
-            foreach ($request->id_insentif as $a) {
-                if(!is_null($request->insentif[$i]) && !is_null($request->lembur[$i])){
-                    InsentifTS::create([
-                        'qty'=>$request->insentif[$i],
-                        'qty_lembur'=>$request->lembur[$i++],
-                        'id_insentif'=>$a,
-                        'id_timesheet'=>$ts->id,
-                    ]); 
-                }
+        }
+        if($request->jenis_karyawan){
+            foreach ($request->jenis_karyawan as $a) {
+                MemoJenisKaryawan::create([
+                    'jenis_karyawan'=>$a,
+                    'id_memo'=>$id_memo
+                ]);
             }
         }
         return redirect()->back()->with('success_msg', 'Memo berhasil dibuat');
@@ -142,8 +135,9 @@ class MemoController extends Controller
             'modul'         => 'Memo',
             'action'        => route('memo.update', $memo->id),
             'active'        => 'memo.edit',
-            'listKaryawan'=>Karyawan::selectMode(),
-            'tanggal'=>$this->formatIndo($memo->tanggal),
+            'listPelaksana'=>Karyawan::selectMode(),
+            'listProyek'=>Proyek::selectMode(),
+            'listKlien'=>Klien::selectMode(),
         ]);
     }
 
@@ -156,50 +150,36 @@ class MemoController extends Controller
      */
     public function update(Request $request, Memo $memo)
     {
-        // dd($request->all());
-        $id_ts = $memo->id;
+        $id_memo = $memo->id;
         $request->validate([
             'id_karyawan'=>'required',
             'tanggal'=>'required|date_format:d-m-Y',
-            'jam_mulai'=>'required|date_format:H\:i\:s',
-            'jam_selesai'=>'required',
-            // 'ritase'=>'required',
-            // 'lembur'=>'required|numeric',
-            'istirahat'=>'required|numeric',
+            'deadline'=>'required|date_format:d-m-Y',
+            'pesan'=>'required|string',
         ]);
-        $jenis = Karyawan::find($request->id_karyawan)->jenis;
-        $tanggal = englishFormat($request->tanggal);
         $memo->update([
-            'id_karyawan'=>$request->id_karyawan,
-            'tanggal'=>$tanggal,
-            'jam_mulai'=>$request->jam_mulai,
-            'jam_selesai'=>$request->jam_selesai,
-            // 'ritase'=>$request->ritase,
-            // 'lembur'=>$request->lembur,
-            'istirahat'=>$request->istirahat,
+            'id_klien'=>$request->id_klien,
+            'id_proyek'=>$request->id_proyek,
+            'tanggal'=>englishFormat($request->tanggal),
+            'deadline'=>englishFormat($request->deadline),
+            'pesan'=>$request->pesan,
         ]);
-        $ts = Memo::find($id_ts);
-        if($jenis == 'Operator'){
-            $i = 0;
-            foreach ($request->id_overtime as $a) {
-                OvertimeTS::create([
-                    'qty'=>$request->overtime[$i++] == 'Tidak' ? 0 : 1,
-                    'id_overtime'=>$a,
-                    'id_timesheet'=>$ts->id,
+        MemoPelaksana::where('id_memo', $id_memo)->delete();
+        MemoJenisKaryawan::where('id_memo', $id_memo)->delete();
+        if($request->id_karyawan){
+            foreach ($request->id_karyawan as $a) {
+                MemoPelaksana::create([
+                    'id_karyawan'=>$a,
+                    'id_memo'=>$id_memo,
                 ]);
             }
-        }elseif($jenis == 'Sopir'){
-            $i = 0;
-            foreach ($request->id_insentif as $a) {
-                if(!is_null($request->insentif[$i]) && !is_null($request->lembur[$i])){
-                    InsentifTS::updateOrCreate([
-                        'id_insentif'=>$a,
-                        'id_timesheet'=>$ts->id,
-                    ],[
-                        'qty'=>$request->insentif[$i],
-                        'qty_lembur'=>$request->lembur[$i++],
-                    ]); 
-                }
+        }
+        if($request->jenis_karyawan){
+            foreach ($request->jenis_karyawan as $a) {
+                MemoJenisKaryawan::create([
+                    'jenis_karyawan'=>$a,
+                    'id_memo'=>$id_memo
+                ]);
             }
         }
         return redirect()->back()->with('success_msg', 'Memo berhasil diperbarui');

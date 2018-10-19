@@ -1,0 +1,1 @@
+@include('select2-no-tags',['id'=>'id_klien','label'=>'Pilih Klien','selectData'=>$listKlien])

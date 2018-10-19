@@ -14,4 +14,6 @@ class MemoJenisKaryawan extends Model
 		'jenis_karyawan'
 	];
 
+	public $timestamps = false;
+
 }

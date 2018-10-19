@@ -17,6 +17,8 @@ class Memo extends Model
 		'id_proyek',
 	];
 
+	public $timestamps = false;
+
 	public function pelaksana()
 	{
 		return $this->hasMany('App\MemoPelaksana', 'id_memo');
