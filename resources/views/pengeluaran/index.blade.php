@@ -71,3 +71,17 @@
   @endforeach
 </tbody>
 @endsection
+
+@section('bottom-box')
+<div class="box box-primary">
+  <div class="box-header">
+    <h3 class="box-title">Total Pengeluaran</h3>
+  </div>
+  <div class="box-body">
+    <dl>
+      <dd>Total Pengeluaran</dd>
+      <dt>{{number_format($data->sum('nominal'), 0, ',', '.')}}</dt>
+    </dl>
+  </div>
+</div>
+@endsection

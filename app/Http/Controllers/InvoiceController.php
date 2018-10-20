@@ -83,6 +83,7 @@ class InvoiceController extends Controller
             'id_rekening'=>$request->id_rekening,
             'id_user'=>$request->user()->id,
             'deskripsi'=>$request->deskripsi,
+            'jumlah_tagihan'=>$request->jumlah_tagihan,
         ]);
         if($invoice->id <= 9){
             $no_invoice = '000'.$invoice->id;
@@ -101,7 +102,8 @@ class InvoiceController extends Controller
         foreach ($request->nama_pajak as $namaPajak) {
             $invoice->pajak()->create([
                 'nama'=>$namaPajak,
-                'pajak'=>$request->pajak[$i++]
+                'pajak'=>$request->pajak[$i],
+                'nilai_pajak'=>$request->pajak[$i++]
             ]);
         }
         return redirect()->back()->with('success_msg', 'Invoice berhasil dibuat');
@@ -133,7 +135,7 @@ class InvoiceController extends Controller
             'modul_link'    => url()->previous(),
             'modul'         => 'Invoice',
             'action'        => route('invoice.update', $invoice->id),
-            'active'        => 'invoice.edit',
+            'active'        => 'invoice.index',
             'listProyek'=>Proyek::selectMode(['klien', $p->klien]),
             'listKlien'=>Klien::selectMode(),
             'listRekening'=>Rekening::selectMode(),
@@ -172,13 +174,15 @@ class InvoiceController extends Controller
             'id_rekening'=>$request->id_rekening,
             'id_user'=>$request->user()->id,
             'deskripsi'=>$request->deskripsi,
+            'jumlah_tagihan'=>$request->jumlah_tagihan,
         ]);
         $invoice->pajak()->delete();
         $i = 0;
         foreach ($request->nama_pajak as $namaPajak) {
             $invoice->pajak()->create([
                 'nama'=>$namaPajak,
-                'pajak'=>$request->pajak[$i++]
+                'pajak'=>$request->pajak[$i],
+                'nilai_pajak'=>$request->nilai_pajak[$i++],
             ]);
         }
         return redirect()->back()->with('success_msg', 'Invoice berhasil diperbarui');

@@ -37,9 +37,9 @@ class MemoController extends Controller
             'title'     => 'Memo',
             'active'    => 'memo.index',
             'createLink'=>route('memo.create'),
-            'role'=>[
-                'admin','superadmin'
-            ],
+            // 'role'=>[
+            //     'admin','superadmin'
+            // ],
             'listProyek'=>Proyek::selectMode(),
             'listKlien'=>Klien::selectMode(),
         ]);
@@ -72,6 +72,7 @@ class MemoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'id_karyawan'=>'required',
             'tanggal'=>'required|date_format:d-m-Y',

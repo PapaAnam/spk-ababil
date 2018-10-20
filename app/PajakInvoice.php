@@ -12,6 +12,7 @@ class PajakInvoice extends Model
 		'id_invoice',
 		'nama',
 		'pajak',
+		'nilai_pajak',
 	];
 
 	public function invoice()

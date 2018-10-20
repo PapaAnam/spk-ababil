@@ -23,6 +23,7 @@ use Tanggal;
 		'tertagih',
 		'id_rekening',
 		'id_user',
+		'jumlah_tagihan',
 	];
 
 	protected $appends = [

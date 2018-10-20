@@ -52,6 +52,7 @@
 <div id="template-pajak">
 	@include('input',['id'=>'nama_pajak','label'=>'Nama Pajak','name'=>'nama_pajak[]'])
 	@include('input_number',['id'=>'pajak','label'=>'Pajak','name'=>'pajak[]'])
+	@include('input',['id'=>'nilai_pajak','label'=>'Nilai Pajak','name'=>'nilai_pajak[]','readonly'=>true])
 </div>
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
@@ -73,6 +74,15 @@
 	</div>
 </div>
 <div id="pajak-baru-view"></div>
+<div class="form-group">
+	<label class="col-lg-2 control-label"></label>
+	<div class="col-sm-6">
+		<button onclick="hitungJumlahTagihan(event)" class="btn btn-primary btn-flat">
+			Hitung
+		</button>
+	</div>
+</div>
+@include('input',['id'=>'jumlah_tagihan','label'=>'Jumlah Tagihan','readonly'=>true])
 @endsection
 
 @include('import-datepicker')
@@ -124,5 +134,26 @@
 		}
 	})
 	@endif
+
+	function hitungJumlahTagihan(event) {
+		event.preventDefault();
+		var total = 0;
+		var tertagih = Number($('#tertagih').val());
+		$('[name="pajak[]"]').each(function(item){
+			var nilaiPajakInput = $(this).parent().parent().next().find('input');
+			var nilaiPajak = tertagih * Number($(this).val()) / 100;
+			nilaiPajakInput.val(nilaiPajak);
+			total += nilaiPajak;
+		});
+		$('#jumlah_tagihan').val(tertagih + total);
+	}
+
+	// function setJumlahTagihan(event, inputTertagih = false) {
+	// 	var tertagih = Number($('#tertagih').val());
+
+	// 	var $target = $(event.target);
+	// 	var nilaiPajakInput = $target.parent().parent().next().find('input');
+
+	// }
 </script>
 @endpush

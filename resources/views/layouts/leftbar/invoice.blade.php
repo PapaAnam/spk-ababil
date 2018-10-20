@@ -1,5 +1,5 @@
 @isset($_menu->invoice)
-      <li class="treeview @if(in_array($active, ['invoice.by-waktu','invoice.by-proyek','invoice.by-klien','invoice.create'])) active @endif ">
+      <li class="treeview @if(in_array($active, ['invoice.by-waktu','invoice.by-proyek','invoice.by-klien','invoice.create','invoice.index'])) active @endif ">
         <a href="#">
           <i class="fa fa-print"></i>
           <span>Invoice</span>

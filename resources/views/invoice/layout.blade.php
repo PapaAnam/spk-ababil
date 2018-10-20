@@ -20,9 +20,9 @@
     <th width="300px">Detail Bank Account</th>
     <th>Ttd</th>
     <th>Jumlah Tagihan</th>
-    @if('superadmin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </thead>
 <tfoot>
@@ -42,9 +42,9 @@
     <th width="300px">Detail Bank Account</th>
     <th>Ttd</th>
     <th>Jumlah Tagihan</th>
-    @if('superadmin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </tfoot>
 <tbody>
@@ -72,13 +72,13 @@
     <td align="right">{{ number_format($d->tertagih, 0, ',', '.') }}</td>
     <td>
       <ul>
-        @php
+        {{-- @php
             $totalPajak = 0;
-        @endphp
+        @endphp --}}
         @foreach($d->pajak as $pajak)
-        @php
+        {{-- @php
             $totalPajak += ($d->tertagih*$pajak->pajak/100);
-        @endphp
+        @endphp --}}
         <li>{{ $pajak->nama.' : '.number_format($pajak->pajak, 0, ',', '.') }}</li>
         @endforeach
       </ul>
@@ -86,14 +86,15 @@
     <td>{{ $d->rekening->bank }}</td>
     <td>{{ $d->ttd->nama_lengkap }}</td>
     <td>
-        {{number_format($d->tertagih+$totalPajak, 0, ',', '.')}}
+        {{-- {{number_format($d->tertagih+$totalPajak, 0, ',', '.')}} --}}
+        {{number_format($d->jumlah_tagihan, 0, ',', '.')}}
     </td>
-    @if('superadmin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role) --}}
     <td>
       @include('edit_button', ['link' => route('invoice.edit', [$d->id])])
       @include('delete_button', ['link' => route('invoice.destroy', [$d->id])])
     </td>
-    @endif
+    {{-- @endif --}}
   </tr>
   @endforeach
 </tbody>

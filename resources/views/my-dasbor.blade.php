@@ -69,7 +69,25 @@
     $(function () {
 
       "use strict";
-      $("#calendar").datepicker();
+      // $("#calendar").datepicker();
+      // An array of dates
+    var eventDates = {};
+    eventDates[ new Date( '10/07/2018' )] = new Date( '10/07/2018' );
+    eventDates[ new Date( '10/12/2018' )] = new Date( '10/12/2018' );
+    eventDates[ new Date( '10/18/2018' )] = new Date( '10/18/2018' );
+    eventDates[ new Date( '10/23/2018' )] = new Date( '10/23/2018' );
+    
+    // datepicker
+    $('#calendar').datepicker({
+        beforeShowDay: function( date ) {
+            var highlight = eventDates[date];
+            if( highlight ) {
+                 return [true, "event", 'Tooltip text'];
+            } else {
+                 return [true, '', ''];
+            }
+        }
+    });
 
     });
   </script>

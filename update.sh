@@ -1,4 +1,4 @@
 #! /bin/sh
 
-composer dump-autoload
-php artisan db:seed --class=CreateDefaultUser
+php artisan migrate:rollback --step=7
+php artisan migrate --force

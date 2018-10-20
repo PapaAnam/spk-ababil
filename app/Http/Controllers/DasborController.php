@@ -20,6 +20,8 @@ class DasborController extends Controller
 
 	public function index()
 	{
+		$memos = Memo::with('pelaksana.karyawan','jeniskaryawan')->orderBy('tanggal','desc')->get();
+		// return $memos;
 		return view('my-dasbor', [
 			'title'     => 'Dasbor',
 			'active'    => 'dasbor',
@@ -34,7 +36,7 @@ class DasborController extends Controller
 			'jmlInvoice'=>Invoice::count(),
 			'jmlPengeluaran'=>Pengeluaran::count(),
 			'createLink'=>false,
-			'memo'=>Memo::orderBy('tanggal','desc')->first(),
+			'memos'=>$memos,
 		]);
 	}
 

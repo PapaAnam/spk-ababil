@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Mytrait\Tanggal;
 use App\OvertimeTS;
 use App\InsentifTS;
+use App\Proyek;
 
 class TimeSheetController extends Controller
 {
@@ -36,15 +37,19 @@ class TimeSheetController extends Controller
         }elseif($r->query('karyawan')){
             $data = TimeSheet::with('karyawan')->where('id_karyawan', $r->query('karyawan'))->get();
         }
+        // elseif($r->query('proyek')){
+        //     $data = TimeSheet::with('proyek')->where('id_proyek', $r->query('proyek'))->get();
+        // }
         return view('time-sheet.index', [
             'data'      => $data,
             'title'     => 'Time Sheet',
             'active'    => 'time-sheet.index',
             'createLink'=>route('time-sheet.create'),
-            'role'=>[
-                'admin','superadmin'
-            ],
+            // 'role'=>[
+            //     'admin','superadmin'
+            // ],
             'listKaryawan'=>Karyawan::selectMode(),
+            // 'listProyek'=>Proyek::selectMode(),
         ]);
     }
 

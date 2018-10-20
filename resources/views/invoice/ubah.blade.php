@@ -24,6 +24,7 @@
 <div id="template-pajak">
 	@include('input',['id'=>'nama_pajak','label'=>'Nama Pajak','name'=>'nama_pajak[]', 'index'=>$loop->index])
 	@include('input_number',['id'=>'pajak','label'=>'Pajak','name'=>'pajak[]', 'index'=>$loop->index])
+	@include('input_number',['id'=>'nilai_pajak','label'=>'Pajak','name'=>'nilai_pajak[]', 'index'=>$loop->index])
 </div>
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
@@ -37,6 +38,7 @@
 <div id="pajak-baru">
 	@include('input',['id'=>'nama_pajak','label'=>'Nama Pajak','name'=>'nama_pajak[]', 'index'=>$loop->index])
 	@include('input_number',['id'=>'pajak','label'=>'Pajak','name'=>'pajak[]', 'index'=>$loop->index])
+	@include('input_number',['id'=>'nilai_pajak','label'=>'Pajak','name'=>'nilai_pajak[]', 'index'=>$loop->index])
 	<div class="form-group">
 		<label class="col-lg-2 control-label"></label>
 		<div class="col-sm-6">
@@ -52,6 +54,7 @@
 <div id="template-pajak">
 	@include('input',['id'=>'nama_pajak','label'=>'Nama Pajak','name'=>'nama_pajak[]','value'=>count($d->pajak) > 0 ? $d->pajak[0]->nama : ''])
 	@include('input_number',['id'=>'pajak','label'=>'Pajak','name'=>'pajak[]','value'=>count($d->pajak) > 0 ? $d->pajak[0]->pajak : ''])
+	@include('input_number',['id'=>'nilai_pajak','label'=>'Nilai Pajak','name'=>'nilai_pajak[]','value'=>count($d->pajak) > 0 ? $d->pajak[0]->nilai_pajak : ''])
 </div>
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
@@ -79,6 +82,7 @@
 	<div id="pajak-baru">
 		@include('input',['id'=>'nama_pajak','label'=>'Nama Pajak','name'=>'nama_pajak[]','value'=>$p->nama])
 		@include('input_number',['id'=>'pajak','label'=>'Pajak','name'=>'pajak[]','value'=>$p->pajak])
+		@include('input_number',['id'=>'nilai_pajak','label'=>'Nilai Pajak','name'=>'nilai_pajak[]','value'=>$p->nilai_pajak])
 		<div class="form-group">
 			<label class="col-lg-2 control-label"></label>
 			<div class="col-sm-6">
@@ -92,6 +96,15 @@
 	@endforeach
 	@endif
 </div>
+<div class="form-group">
+	<label class="col-lg-2 control-label"></label>
+	<div class="col-sm-6">
+		<button onclick="hitungJumlahTagihan(event)" class="btn btn-primary btn-flat">
+			Hitung
+		</button>
+	</div>
+</div>
+@include('input',['id'=>'jumlah_tagihan','label'=>'Jumlah Tagihan','readonly'=>true,'value'=>$d->jumlah_tagihan])
 @endsection
 
 @include('import-datepicker')
@@ -143,5 +156,17 @@
 		}
 	})
 	@endif
+	function hitungJumlahTagihan(event) {
+		event.preventDefault();
+		var total = 0;
+		var tertagih = Number($('#tertagih').val());
+		$('[name="pajak[]"]').each(function(item){
+			var nilaiPajakInput = $(this).parent().parent().next().find('input');
+			var nilaiPajak = tertagih * Number($(this).val()) / 100;
+			nilaiPajakInput.val(nilaiPajak);
+			total += nilaiPajak;
+		});
+		$('#jumlah_tagihan').val(tertagih + total);
+	}
 </script>
 @endpush
