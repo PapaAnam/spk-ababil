@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use DB;
+use App\Role;
 
 class UamController extends Controller
 {
@@ -15,7 +16,7 @@ class UamController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+        $data = User::with('hakakses')->get();
         return view('uam.index', [
             'data'      => $data,
             'title'     => 'User',
@@ -31,12 +32,18 @@ class UamController extends Controller
      */
     public function create()
     {
+        $roles = Role::all()->transform(function($item){
+            $item->hak_akses = json_decode($item->hak_akses);
+            return $item;
+        });
         return view('uam.tambah', [
             'title'         => 'Tambah User',
             'modul_link'    => route('uam.index'),
             'modul'         => 'User',
             'action'        => route('uam.store'),
-            'active'        => 'uam.create'
+            'active'        => 'uam.create',
+            'listRole'=>Role::selectMode(),
+            'roles'=>$roles,
         ]);
     }
 
@@ -59,12 +66,13 @@ class UamController extends Controller
             DB::statement('set foreign_key_checks=0;');
             User::truncate();
         }
-        User::create([
+        $user = User::create([
             'nama_lengkap'              => $request->nama_lengkap,
             'jabatan'         => $request->jabatan,
             'email'            => $request->email,
-            'password'     => $request->password,
+            'password'     => bcrypt($request->password),
             'role'     => $request->role,
+            'id_role'=>$request->role,
         ]);
         return redirect()->route('uam.index')->with('success_msg', 'User berhasil dibuat');
     }
@@ -88,13 +96,19 @@ class UamController extends Controller
      */
     public function edit(User $uam)
     {
+        $roles = Role::all()->transform(function($item){
+            $item->hak_akses = json_decode($item->hak_akses);
+            return $item;
+        });
         return view('uam.ubah', [
             'd'             => $uam,
             'title'         => 'Ubah User',
             'modul_link'    => route('uam.index'),
             'modul'         => 'User',
             'action'        => route('uam.update', $uam->id),
-            'active'        => 'uam.edit'
+            'active'        => 'uam.edit',
+            'listRole'=>Role::selectMode(),
+            'roles'=>$roles,
         ]);
     }
 
@@ -122,9 +136,10 @@ class UamController extends Controller
             'jabatan'         => $request->jabatan,
             'email'            => $request->email,
             'role'     => $request->role,
+            'id_role'=>$request->role,
         ];
         if($request->password){
-            $data['password'] = $request->password;
+            $data['password'] = bcrypt($request->password);
         }
         $request->validate($rule);
         $uam->update($data);

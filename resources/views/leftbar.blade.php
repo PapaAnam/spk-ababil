@@ -1,4 +1,5 @@
-<aside class="main-sidebar">
+@include('layouts.new-leftbar')
+{{-- <aside class="main-sidebar">
   <section class="sidebar">
     <div class="user-panel">
       <div class="pull-left image">
@@ -259,4 +260,4 @@
       </li>
     </ul>
   </section>
-</aside>
+</aside> --}}

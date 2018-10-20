@@ -19,7 +19,7 @@ class TugasController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin,admin')->only('create','store', 'edit','update','destroy');
+        // $this->middleware('myrole:superadmin,admin')->only('create','store', 'edit','update','destroy');
     }
 
     public function index()

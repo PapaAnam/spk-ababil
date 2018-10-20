@@ -10,7 +10,7 @@ class KategoriController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('myrole:superadmin')->except('show');
+        // $this->middleware('myrole:superadmin')->except('show');
     }
 
     /**

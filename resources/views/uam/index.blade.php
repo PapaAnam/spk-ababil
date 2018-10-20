@@ -17,7 +17,7 @@
     <td>{{ $d->nama_lengkap }}</td>
     <td>{{ $d->jabatan }}</td>
     <td>{{ $d->email }}</td>
-    <td>{{ $d->role }}</td>
+    <td>{{ $d->hakakses ? $d->hakakses->nama : "" }}</td>
     <td>
       @include('edit_button', ['link' => route('uam.edit', [$d->id])])
       @include('delete_button', ['link' => route('uam.destroy', [$d->id])])

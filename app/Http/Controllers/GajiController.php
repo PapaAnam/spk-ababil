@@ -20,7 +20,7 @@ class GajiController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin')->except('create','store','cek');
+        // $this->middleware('myrole:superadmin')->except('create','store','cek');
     }
 
     /**

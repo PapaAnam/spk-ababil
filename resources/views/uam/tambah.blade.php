@@ -4,22 +4,8 @@
 @include('input',['id'=>'jabatan','label'=>'Jabatan'])
 @include('input_email',['id'=>'email','label'=>'Email'])
 @include('input_password',['id'=>'password','label'=>'Password'])
-@include('select',['id'=>'role','label'=>'Role','selectData'=>[
-	[
-		'text'=>'Pilih salah satu',
-		'value'=>''
-	],
-	[
-		'text'=>'superadmin',
-		'value'=>'superadmin'
-	],
-	[
-		'text'=>'admin',
-		'value'=>'admin'
-	],
-	[
-		'text'=>'finance',
-		'value'=>'finance'
-	]
-	]])
+@include('select2-no-tags',['id'=>'role','label'=>'Role','selectData'=>$listRole])
+@include('uam.hak-akses')
 @endsection
+
+@include('uam.script')

@@ -17,7 +17,7 @@ class InvoiceController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin,finance')->only('index','create','store');
+        // $this->middleware('myrole:superadmin,finance')->only('index','create','store');
     }
 
     /**

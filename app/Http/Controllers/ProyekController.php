@@ -18,8 +18,8 @@ class ProyekController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin')->only('edit','update','destroy');
-        $this->middleware('myrole:superadmin,admin')->only('create','store');
+        // $this->middleware('myrole:superadmin')->only('edit','update','destroy');
+        // $this->middleware('myrole:superadmin,admin')->only('create','store');
     }
 
     /**

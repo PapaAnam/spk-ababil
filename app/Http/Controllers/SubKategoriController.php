@@ -10,7 +10,7 @@ class SubKategoriController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('myrole:superadmin')->except('getData');
+        // $this->middleware('myrole:superadmin')->except('getData');
     }
     
     public function create(Kategori $kategori)

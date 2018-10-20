@@ -11,7 +11,7 @@ class VendorController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin')->except('index','create','store');
+        // $this->middleware('myrole:superadmin')->except('index','create','store');
     }
 
     /**

@@ -5,22 +5,10 @@
 @include('input',['value'=>$d->jabatan,'id'=>'jabatan','label'=>'Jabatan'])
 @include('input_email',['value'=>$d->email,'id'=>'email','label'=>'Email'])
 @include('input_password',['id'=>'password','label'=>'Password','hint'=>'* Jika password dikosongi maka tidak akan diubah'])
-@include('select',['selected'=>$d->role,'id'=>'role','label'=>'Role','selectData'=>[
-	[
-		'text'=>'Pilih salah satu',
-		'value'=>''
-	],
-	[
-		'text'=>'superadmin',
-		'value'=>'superadmin'
-	],
-	[
-		'text'=>'admin',
-		'value'=>'admin'
-	],
-	[
-		'text'=>'finance',
-		'value'=>'finance'
-	]
-	]])
+{{-- @include('select',['selected'=>$d->role,'id'=>'role','label'=>'Role','selectData'=>[['text'=>'Pilih salah satu','value'=>''],['text'=>'superadmin','value'=>'superadmin'],['text'=>'admin','value'=>'admin'],['text'=>'finance','value'=>'finance']]]) --}}
+@include('select2-no-tags',['selected'=>$d->role,'id'=>'role','label'=>'Role','selectData'=>$listRole])
+@include('uam.hak-akses')
 @endsection
+
+@include('import-select2')
+@include('uam.script')

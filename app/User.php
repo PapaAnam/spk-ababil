@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama_lengkap', 'email', 'password', 'role', 'jabatan'
+        'nama_lengkap', 'email', 'password', 'role', 'jabatan', 'id_role'
     ];
 
     /**
@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function hakakses()
+    {
+        return $this->belongsTo('App\Role', 'id_role');
+    }
 }

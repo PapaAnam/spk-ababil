@@ -24,7 +24,7 @@
       <div class="icon">
         <i class="fa fa-clock-o"></i>
       </div>
-      <a href="{{ route('time-sheet.index') }}" class="small-box-footer">
+      <a href="{{ isset (Auth::user()->hakakses->menu->timesheet) ? route('time-sheet.index') : '#' }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
@@ -84,7 +84,7 @@
       <div class="icon">
         <i class="fa fa-money"></i>
       </div>
-      <a href="{{ Auth::user()->role != 'finance' ? route('progress-kerja-harian.index') : '#' }}" class="small-box-footer">
+      <a href="{{ isset (Auth::user()->hakakses->menu->laporan_progress_kerja_harian) ? route('progress-kerja-harian.index') : '#' }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
@@ -129,7 +129,7 @@
       <div class="icon">
         <i class="fa fa-print"></i>
       </div>
-      <a href="{{ Auth::user()->role === 'superadmin' || Auth::user()->role === 'finance' ? route('invoice.by-waktu') : '#' }}" class="small-box-footer">
+      <a href="{{ isset (Auth::user()->hakakses->menu->invoice) ? route('invoice.by-waktu') : '#' }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>
@@ -144,7 +144,7 @@
       <div class="icon">
         <i class="fa fa-paypal"></i>
       </div>
-      <a href="{{ route('pengeluaran.create') }}" class="small-box-footer">
+      <a href="{{ isset (Auth::user()->hakakses->menu->pengeluaran) ? route('pengeluaran.create') : '#' }}" class="small-box-footer">
         Selengkapnya <i class="fa fa-arrow-circle-right"></i>
       </a>
     </div>

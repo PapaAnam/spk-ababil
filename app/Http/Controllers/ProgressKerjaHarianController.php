@@ -16,7 +16,7 @@ class ProgressKerjaHarianController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin,admin')->except('show');
+        // $this->middleware('myrole:superadmin,admin')->except('show');
     }
 
     private function getListCuaca(){
