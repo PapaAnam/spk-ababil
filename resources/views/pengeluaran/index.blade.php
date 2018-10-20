@@ -72,6 +72,7 @@
 </tbody>
 @endsection
 
+@if(count($data) > 0)
 @section('bottom-box')
 <div class="box box-primary">
   <div class="box-header">
@@ -85,3 +86,4 @@
   </div>
 </div>
 @endsection
+@endif

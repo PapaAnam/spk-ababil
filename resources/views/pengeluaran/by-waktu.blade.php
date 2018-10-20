@@ -7,8 +7,8 @@
 		</div>
 		<div class="box-body">
 			<form method="get" action="" class="form-horizontal">
-				@include('datepicker', ['size'=>10, 'id'=>'dari','label'=>'Dari','required'=>true,'value'=>request()->query('dari')])
-				@include('datepicker', ['size'=>10, 'id'=>'sampai','label'=>'Sampai','required'=>true,'value'=>request()->query('sampai')])
+				@include('datepicker', ['size'=>6, 'id'=>'dari','label'=>'Dari','required'=>true,'value'=>request()->query('dari')])
+				@include('datepicker', ['size'=>6, 'id'=>'sampai','label'=>'Sampai','required'=>true,'value'=>request()->query('sampai')])
 				<div class="form-group">
 					<label class="col-lg-2 control-label"></label>
 					<div class="col-sm-6">
