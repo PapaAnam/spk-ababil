@@ -15,9 +15,9 @@
     <th>Istirahat</th>
     <th>Lembur</th>
     <th>Total Jam</th>
-    @if('superadmin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </thead>
 <tbody>
@@ -33,12 +33,12 @@
     <td align="right">{{ $d->istirahat }}</td>
     <td align="right">{{ $d->lembur }}</td>
     <td align="right">{{ $d->total_jam }}</td>
-    @if('superadmin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role) --}}
     <td>
       @include('edit_button', ['link' => route('time-sheet.edit', [$d->id])])
       @include('delete_button', ['link' => route('time-sheet.destroy', [$d->id])])
     </td>
-    @endif
+    {{-- @endif --}}
   </tr>
   @endforeach
 </tbody>
@@ -54,9 +54,9 @@
     <th>Istirahat</th>
     <th>Lembur</th>
     <th>Total Jam</th>
-    @if('superadmin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </tfoot>
 @endsection

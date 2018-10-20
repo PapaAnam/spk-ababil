@@ -12,9 +12,9 @@
     <th>Cuaca</th>
     <th>Deskripsi</th>
     <th>Kendala</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </thead>
 <tbody>
@@ -36,12 +36,12 @@
     <td>{{ $d->cuaca }}</td>
     <td>{{ $d->deskripsi }}</td>
     <td>{{ $d->kendala }}</td>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role) --}}
     <td>
       @include('edit_button', ['link' => route('progress-kerja-harian.edit', [$d->id])])
       @include('delete_button', ['link' => route('progress-kerja-harian.destroy', [$d->id])])
     </td>
-    @endif
+    {{-- @endif --}}
   </tr>
   @endforeach
 </tbody>
@@ -57,9 +57,9 @@
     <th>Cuaca</th>
     <th>Deskripsi</th>
     <th>Kendala</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </tfoot>
 @endsection

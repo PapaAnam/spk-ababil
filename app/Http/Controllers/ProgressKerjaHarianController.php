@@ -41,9 +41,9 @@ class ProgressKerjaHarianController extends Controller
             'title'     => 'Progress Kerja Harian',
             'active'    => 'progress-kerja-harian.index',
             'createLink'=>route('progress-kerja-harian.create'),
-            'role'=>[
-                'admin','superadmin'
-            ]
+            // 'role'=>[
+            //     'admin','superadmin'
+            // ]
         ]);
     }
 

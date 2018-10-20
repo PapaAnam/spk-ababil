@@ -12,9 +12,9 @@
     <th>Pelaksana</th>
     <th>Mulai</th>
     <th>Akhir</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </thead>
 <tfoot>
@@ -30,9 +30,9 @@
     <th>Pelaksana</th>
     <th>Mulai</th>
     <th>Akhir</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </tfoot>
 <tbody>
@@ -59,12 +59,12 @@
     </td>
     <td>{{ $d->start_date_indo }}</td>
     <td>{{ $d->end_date_indo }}</td>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
+    {{-- @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role) --}}
     <td>
       @include('edit_button', ['link' => route('tugas.edit', [$d->id])])
       @include('delete_button', ['link' => route('tugas.destroy', [$d->id])])
     </td>
-    @endif
+    {{-- @endif --}}
   </tr>
   @endforeach
 </tbody>

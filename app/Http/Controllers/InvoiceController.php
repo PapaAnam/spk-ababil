@@ -214,9 +214,9 @@ class InvoiceController extends Controller
             'title'     => 'Invoice By Waktu',
             'active'    => 'invoice.by-waktu',
             'createLink'=>route('invoice.create'),
-            'role'=>[
-                'finance','superadmin'
-            ],
+            // 'role'=>[
+            //     'finance','superadmin'
+            // ],
         ]);
     }
 

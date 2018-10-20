@@ -39,7 +39,7 @@ class KaryawanController extends Controller
             'title'     => 'Karyawan',
             'active'    => 'karyawan.index',
             'createLink'=>route('karyawan.create'),
-            'role'=>'superadmin'
+            // 'role'=>'superadmin'
         ]);
     }
 
