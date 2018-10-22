@@ -8,9 +8,9 @@
     <th>No Telp</th>
     <th>Jabatan</th>
     <th>Armada</th>
-    @if($role == Auth::user()->role)
+    {{-- @if($role == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </thead>
 <tbody>
@@ -22,13 +22,13 @@
     <td>{{ $d->no_hp }}</td>
     <td>{{ $d->jabatan }}</td>
     <td>{{ $d->armada }}</td>
-    @if($role == Auth::user()->role)
+    {{-- @if($role == Auth::user()->role) --}}
     <td>
       @include('edit_button', ['link' => route('karyawan.edit', [$d->id])])
       @include('delete_button', ['link' => route('karyawan.destroy', [$d->id])])
       @include('detail_button', ['link' => route('karyawan.show', [$d->id])])
     </td>
-    @endif
+    {{-- @endif --}}
   </tr>
   @endforeach
 </tbody>
@@ -40,9 +40,9 @@
     <th>No Telp</th>
     <th>Jabatan</th>
     <th>Armada</th>
-    @if($role == Auth::user()->role)
+    {{-- @if($role == Auth::user()->role) --}}
     <th>Aksi</th>
-    @endif
+    {{-- @endif --}}
   </tr>
 </tfoot>
 @endsection
