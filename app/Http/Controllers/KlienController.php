@@ -10,10 +10,10 @@ use DB;
 class KlienController extends Controller
 {
 
-    public function __construct()
-    {
+    // public function __construct()
+    // {
         // $this->middleware('myrole:superadmin')->except('index','create','store');
-    }
+    // }
 
     /**
      * Display a listing of the resource.
@@ -61,9 +61,11 @@ class KlienController extends Controller
             'tipe'=>'required|array',
             'nama'=>'required|array',
             'no_hp'=>'required|array',
+            'jabatan'=>'required|array',
             'tipe.*'=>'required',
             'nama.*'=>'required',
             'no_hp.*'=>'required',
+            'jabatan.*'=>'required',
         ]);
         if(Klien::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -78,6 +80,7 @@ class KlienController extends Controller
                 'tipe' => $request->tipe[$key],
                 'nama' => $request->nama[$key],
                 'no_hp' => $request->no_hp[$key],
+                'jabatan' => $request->jabatan[$key],
                 'klien'=>$klien->id,
             ]);
         }
@@ -129,9 +132,11 @@ class KlienController extends Controller
             'tipe'=>'required|array',
             'nama'=>'required|array',
             'no_hp'=>'required|array',
+            'jabatan'=>'required|array',
             'tipe.*'=>'required',
             'nama.*'=>'required',
             'no_hp.*'=>'required',
+            'jabatan.*'=>'required',
         ]);
         $klien->pic()->delete();
         foreach ($request->tipe as $key => $type) {
@@ -139,6 +144,7 @@ class KlienController extends Controller
                 'tipe' => $request->tipe[$key],
                 'nama' => $request->nama[$key],
                 'no_hp' => $request->no_hp[$key],
+                'jabatan' => $request->jabatan[$key],
                 'klien'=>$klien->id,
             ]);
         }

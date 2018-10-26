@@ -6,6 +6,7 @@
     <th>Nama</th>
     <th>No Telp</th>
     <th>Alamat</th>
+    <th>No Rekening</th>
     <th>Keterangan</th>
     {{-- @if(Auth::user()->role == 'superadmin') --}}
     <th>Aksi</th>
@@ -19,6 +20,7 @@
     <td><?=$d->nama?></td>
     <td><?=$d->telp?></td>
     <td><?=$d->alamat?></td>
+    <td><?=$d->no_rekening?></td>
     <td><?=$d->keterangan?></td>
     {{-- @if(Auth::user()->role == 'superadmin') --}}
     <td>
@@ -35,6 +37,7 @@
     <th>Nama</th>
     <th>No Telp</th>
     <th>Alamat</th>
+    <th>No Rekening</th>
     <th>Keterangan</th>
     {{-- @if(Auth::user()->role == 'superadmin') --}}
     <th>Aksi</th>

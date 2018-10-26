@@ -41,4 +41,9 @@ use Tanggal;
 	{
 		return $this->tglIndo($this->tanggal);
 	}
+
+	public function foto()
+	{
+		return $this->hasMany('App\FotoLaporan','id_laporan');
+	}
 }

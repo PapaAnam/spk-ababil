@@ -6,7 +6,7 @@
   </div>
   <div class="box-body">
     <form method="get" action="" class="form-horizontal">
-      @include('select',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>request()->query('klien')])
+      @include('select2-no-tags',['id'=>'klien','label'=>'Pilih Klien','selectData'=>$listKlien,'selected'=>request()->query('klien')])
       <div class="form-group">
         <label class="col-lg-2 control-label"></label>
         <div class="col-sm-6">
@@ -19,3 +19,4 @@
 @endsection
 
 @include('tugas.table')
+@include('import-select2')

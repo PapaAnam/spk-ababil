@@ -13,15 +13,13 @@
     <th>Vendor</th>
     <th>Pelaksana</th>
     <th>Nominal</th>
-    {{-- <th>Jumlah Pengeluaran</th> --}}
+    <th>Metode Pembayaran</th>
     <th>Proyek</th>
     <th>Kategori</th>
     <th>Deskripsi</th>
     <th>Ref</th>
     <th>Kwitansi</th>
-    @if(Auth::user()->role == 'superadmin')
     <th>Aksi</th>
-    @endif
   </tr>
 </thead>
 <tfoot>
@@ -32,15 +30,13 @@
     <th>Vendor</th>
     <th>Pelaksana</th>
     <th>Nominal</th>
-    {{-- <th>Jumlah Pengeluaran</th> --}}
+    <th>Metode Pembayaran</th>
     <th>Proyek</th>
     <th>Kategori</th>
     <th>Deskripsi</th>
     <th>Ref</th>
     <th>Kwitansi</th>
-    @if(Auth::user()->role == 'superadmin')
     <th>Aksi</th>
-    @endif
   </tr>
 </tfoot>
 <tbody>
@@ -52,7 +48,7 @@
     <td>{{ $d->vendor->nama }}</td>
     <td>{{ $d->pelaksana->nama }}</td>
     <td align="right">{{ number_format($d->nominal, 0, ',', '.') }}</td>
-    {{-- <td align="right">{{ number_format($d->jumlah_pengeluaran, 0, ',', '.') }}</td> --}}
+    <td>{{$d->metode_pembayaran}}</td>
     <td>{{ $d->proyek->nama }}</td>
     <td>
       {{ $d->kategori->nama }} <br>
@@ -61,12 +57,10 @@
     <td>{{ $d->deskripsi }}</td>
     <td>{{ $d->ref }}</td>
     <td>@if($d->kwitansi)<a href="{{ $d->kwitansi }}" target="_blank">Lihat</a>@endif</td>
-    @if(Auth::user()->role == 'superadmin')
     <td>
       @include('edit_button', ['link' => route('pengeluaran.edit', [$d->id])])
       @include('delete_button', ['link' => route('pengeluaran.destroy', [$d->id])])
     </td>
-    @endif
   </tr>
   @endforeach
 </tbody>

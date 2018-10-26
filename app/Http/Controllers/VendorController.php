@@ -59,6 +59,7 @@ class VendorController extends Controller
             'telp'         => 'required',
             'alamat'            => 'required',
             'keterangan'     => 'required',
+            'no_rekening'     => 'required',
         ]);
         if(Vendor::count() == 0){
             DB::statement('set foreign_key_checks=0;');
@@ -69,6 +70,7 @@ class VendorController extends Controller
             'telp'         => $request->telp,
             'alamat'            => $request->alamat,
             'keterangan'     => $request->keterangan,
+            'no_rekening'=>$request->no_rekening,
         ]);
         return redirect()->route('vendor.index')->with('success_msg', 'Vendor berhasil dibuat');
     }
@@ -116,12 +118,14 @@ class VendorController extends Controller
             'telp'         => 'required',
             'alamat'            => 'required',
             'keterangan'     => 'required',
+            'no_rekening'     => 'required',
         ]);
         $vendor->update([
             'nama'              => $request->nama,
             'telp'         => $request->telp,
             'alamat'            => $request->alamat,
             'keterangan'     => $request->keterangan,
+            'no_rekening'=>$request->no_rekening,
         ]);
         return redirect()->route('vendor.index')->with('success_msg', 'Vendor berhasil diperbarui');
     }

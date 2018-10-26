@@ -8,6 +8,7 @@
 	<hr>
 	@include('select',['name'=>'tipe[]','id'=>'tipe','label'=>'Pilih Jenis','selectData'=>[['value'=>'ibu','text'=>'Ibu'],['value'=>'bapak','text'=>'Bapak'],]])
 	@include('input',['name'=>'nama[]','id'=>'nama','label'=>'Nama PIC'])
+	@include('input',['name'=>'jabatan[]','id'=>'jabatan','label'=>'Jabatan'])
 	@include('input',['name'=>'no_hp[]','id'=>'no_hp','label'=>'No HP'])
 </div>
 
@@ -22,6 +23,7 @@
 		<hr>
 		@include('select',['index'=>$loop->index,'name'=>'tipe[]','id'=>'tipe','label'=>'Pilih Jenis','selectData'=>[['value'=>'ibu','text'=>'Ibu'],['value'=>'bapak','text'=>'Bapak'],]])
 		@include('input',['index'=>$loop->index,'name'=>'nama[]','id'=>'nama','label'=>'Nama PIC'])
+		@include('input',['index'=>$loop->index,'name'=>'jabatan[]','id'=>'jabatan','label'=>'Jabatan'])
 		@include('input',['index'=>$loop->index,'name'=>'no_hp[]','id'=>'no_hp','label'=>'No HP'])
 		@if($loop->index == 0)
 	</div> 

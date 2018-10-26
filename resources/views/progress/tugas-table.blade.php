@@ -12,9 +12,7 @@
     <th>%</th>
     <th>Mulai</th>
     <th>Akhir</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <th>Aksi</th>
-    @endif
   </tr>
 </thead>
 <tfoot>
@@ -30,9 +28,7 @@
     <th>%</th>
     <th>Mulai</th>
     <th>Akhir</th>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <th>Aksi</th>
-    @endif
   </tr>
 </tfoot>
 <tbody>
@@ -49,11 +45,9 @@
     <td>{{$d->persentase}}</td>
     <td>{{ tglIndo($d->start_date) }}</td>
     <td>{{ tglIndo($d->end_date) }}</td>
-    @if('superadmin' == Auth::user()->role || 'admin' == Auth::user()->role)
     <td>
       @include('detail_button', ['link' => route('progress.detail-tugas', [$d->id_tugas,$d->id_proyek])])
     </td>
-    @endif
   </tr>
   @endforeach
 </tbody>

@@ -22,6 +22,13 @@
 @include('select2-no-tags',['id'=>'cuaca','label'=>'Pilih Cuaca','selectData'=>$listCuaca])
 @include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>'-'])
 @include('textarea',['id'=>'kendala','label'=>'Kendala','value'=>'-'])
+<div class="form-group">
+	<label class="col-lg-2 control-label"></label>
+	<div class="col-sm-6">
+		<a href="#" id="attach-foto-button" class="btn btn-primary btn-flat">Tambah Attach Foto</a>
+	</div>
+</div>
+<div id="attach-foto-area"></div>
 @endsection
 
 @include('import-datepicker')
@@ -36,8 +43,6 @@
 			success : function(response, status) {
 				var $parent = $('#id_tugas').parent();
 				$('#id_tugas').select2('destroy');
-				// $('#id_tugas').remove();
-				// $parent.append('<select id="id_tugas" class="form-control"></select>');
 				$('#id_tugas').html(response);
 				$('#id_tugas').select2();
 			}
@@ -54,5 +59,13 @@
 			}
 		})
 	});
+    $('#attach-foto-button').on('click', function(e){
+        e.preventDefault();
+        $('#attach-foto-area').append('<div class="form-group"><label for="attach" class="col-lg-2 control-label">Attach Foto</label><div class="col-sm-6"><input  name="attach[]" type="file" accept="image/*" class="form-control" id="attach" placeholder="Attach Foto" value=""><br><a href="#" onclick="hapusAttach(event,this)" class="btn btn-danger btn-flat">Hapus</a></div></div>');
+    });
+    function hapusAttach(e,el) {
+        e.preventDefault();
+        $(el).parent().parent().remove();
+    }
 </script>
 @endpush

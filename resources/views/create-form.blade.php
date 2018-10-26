@@ -23,7 +23,10 @@
               @include('batal_btn')
               @isset($saveBtn)
               @else
+              @isset($simpanBtn)
+              @else
               @include('simpan_btn')
+              @endisset
               @endisset
             </div>
           </form>

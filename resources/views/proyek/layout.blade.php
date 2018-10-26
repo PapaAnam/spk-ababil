@@ -12,9 +12,7 @@
     <th>Satuan</th>
     <th>Mulai</th>
     <th>Akhir</th>
-    {{-- @if('superadmin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    {{-- @endif --}}
   </tr>
 </thead>
 <tfoot>
@@ -26,9 +24,7 @@
     <th>Satuan</th>
     <th>Mulai</th>
     <th>Akhir</th>
-    {{-- @if('superadmin' == Auth::user()->role) --}}
     <th>Aksi</th>
-    {{-- @endif --}}
   </tr>
 </tfoot>
 <tbody>
@@ -42,10 +38,8 @@
     <td>{{ $d->start_date_indo }}</td>
     <td>{{ $d->end_date_indo }}</td>
     <td>
-    @if('superadmin' == Auth::user()->role)
       @include('edit_button', ['link' => route('proyek.edit', [$d->id])])
       @include('delete_button', ['link' => route('proyek.destroy', [$d->id])])
-    @endif
     @include('detail_button', ['link' => route('proyek.show', [$d->id])])
     </td>
   </tr>

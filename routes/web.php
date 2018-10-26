@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/tugas/by-waktu', 'TugasController@byWaktu')->name('tugas.by-waktu');
 	Route::get('/tugas/by-klien', 'TugasController@byKlien')->name('tugas.by-klien');
 	Route::get('/tugas/by-proyek', 'TugasController@byProyek')->name('tugas.by-proyek');
-	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController')->except(['show']);
+	Route::resource('progress-kerja-harian', 'ProgressKerjaHarianController');
 	Route::get('/invoice/by-proyek', 'InvoiceController@byProyek')->name('invoice.by-proyek');
 	Route::get('/invoice/by-klien', 'InvoiceController@byKlien')->name('invoice.by-klien');
 	Route::get('/invoice/by-waktu', 'InvoiceController@byWaktu')->name('invoice.by-waktu');

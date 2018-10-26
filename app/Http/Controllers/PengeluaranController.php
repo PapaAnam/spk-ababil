@@ -15,11 +15,11 @@ use App\Mytrait\Tanggal;
 class PengeluaranController extends Controller
 {
 
-use Tanggal;
+    use Tanggal;
 
-	public function __construct()
-	{
-	}
+	// public function __construct()
+	// {
+	// }
 
     /**
      * Display a listing of the resource.
@@ -102,6 +102,7 @@ use Tanggal;
     		'ref'=>'required',
     		'no'=>'required',
     		'tanggal'=>'required',
+            'metode_pembayaran'=>'required',
     	]);
     	if(Pengeluaran::count() == 0){
     		DB::statement('set foreign_key_checks=0;');
@@ -126,7 +127,7 @@ use Tanggal;
     		'id_vendor'=>$id_vendor,
     		'id_karyawan'=>$request->id_karyawan,
     		'nominal'=>$request->nominal,
-    		// 'jumlah_pengeluaran'=>$request->jumlah_pengeluaran,
+    		'metode_pembayaran'=>$request->metode_pembayaran,
     		'id_proyek'=>$request->id_proyek,
     		'id_kategori'=>$request->id_kategori,
     		'id_sub_kategori'=>$request->id_sub_kategori == 'Tidak ada sub' ? null : $request->id_sub_kategori,
@@ -197,6 +198,7 @@ use Tanggal;
     		'ref'=>'required',
     		'no'=>'required',
     		'tanggal'=>'required',
+            'metode_pembayaran'=>'required',
     	]);
     	$kwitansi = $pengeluaran->kwitansi;
     	if($request->kwitansi){
@@ -217,7 +219,7 @@ use Tanggal;
     		'id_vendor'=>$id_vendor,
     		'id_karyawan'=>$request->id_karyawan,
     		'nominal'=>$request->nominal,
-    		// 'jumlah_pengeluaran'=>$request->jumlah_pengeluaran,
+            'metode_pembayaran'=>$request->metode_pembayaran,
     		'id_proyek'=>$request->id_proyek,
     		'id_kategori'=>$request->id_kategori,
     		'id_sub_kategori'=>$request->id_sub_kategori == 'Tidak ada sub' ? null : $request->id_sub_kategori,

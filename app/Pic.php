@@ -8,7 +8,9 @@ class Pic extends Model
 {
 	public $timestamps = false;
 	protected $table = 'pic_detail';
-	protected $fillable = ['tipe','nama','no_hp','klien'
+	protected $fillable = [
+		'tipe','nama','no_hp','klien',
+		'jabatan',
 	];
 
 	public function pic()

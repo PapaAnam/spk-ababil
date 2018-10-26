@@ -24,7 +24,8 @@ class Pengeluaran extends Model
 		'kwitansi',
 		'no',
 		'tanggal',
-		'deskripsi'
+		'deskripsi',
+		'metode_pembayaran',
 	];
 
 	protected $appends = [

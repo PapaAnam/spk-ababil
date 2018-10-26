@@ -1,5 +1,7 @@
 <?php 
 
+require_once('Helpers.php');
+
 function tahun($tgl)
 {
 	return substr($tgl, 0, 4);

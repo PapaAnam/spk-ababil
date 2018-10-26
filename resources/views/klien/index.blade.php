@@ -19,12 +19,7 @@
     <td>
       <ul>
         @foreach($d->pic as $p)
-        <li>Jenis : {{ $p->tipe }}</li>
-        <li>Nama : {{ $p->nama }}</li>
-        <li>No HP : {{ $p->no_hp }}</li>
-        @if(!$loop->last)
-        <hr>
-        @endif
+        <li>{{ $p->nama }}</li>
         @endforeach
       </ul>
     </td>

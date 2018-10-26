@@ -40,6 +40,7 @@
     <td>
       @include('edit_button', ['link' => route('progress-kerja-harian.edit', [$d->id])])
       @include('delete_button', ['link' => route('progress-kerja-harian.destroy', [$d->id])])
+      @include('detail_button', ['link' => route('progress-kerja-harian.show', [$d->id])])
     </td>
     {{-- @endif --}}
   </tr>

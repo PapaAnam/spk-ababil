@@ -18,6 +18,7 @@
 		@include('select',['selected'=>$pic->tipe,'name'=>'tipe[]','id'=>'tipe','label'=>'Pilih Jenis','selectData'=>[['value'=>'ibu','text'=>'Ibu'],['value'=>'bapak','text'=>'Bapak'],]])
 		@include('input',['value'=>$pic->nama,'name'=>'nama[]','id'=>'nama','label'=>'Nama PIC'])
 		@include('input',['value'=>$pic->no_hp,'name'=>'no_hp[]','id'=>'no_hp','label'=>'No HP'])
+		@include('input',['value'=>$pic->jabatan,'name'=>'jabatan[]','id'=>'jabatan','label'=>'Jabatan'])
 		@if($loop->index == 0)
 	</div> 
 	@else
@@ -43,6 +44,7 @@
 		@include('select',['index'=>$loop->index,'name'=>'tipe[]','id'=>'tipe','label'=>'Pilih Jenis','selectData'=>[['value'=>'ibu','text'=>'Ibu'],['value'=>'bapak','text'=>'Bapak'],]])
 		@include('input',['index'=>$loop->index,'name'=>'nama[]','id'=>'nama','label'=>'Nama PIC'])
 		@include('input',['index'=>$loop->index,'name'=>'no_hp[]','id'=>'no_hp','label'=>'No HP'])
+		@include('input',['index'=>$loop->index,'name'=>'jabatan[]','id'=>'jabatan','label'=>'Jabatan'])
 		@if($loop->index == 0)
 	</div> 
 	@else

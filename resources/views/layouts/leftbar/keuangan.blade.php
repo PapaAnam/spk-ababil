@@ -2,7 +2,7 @@
       <li class="treeview @if(in_array($active, ['gaji.index', 'gaji.create','gaji.index', 'gaji.by-karyawan','gaji.by-periode','gaji.by-jabatan'])) active @endif ">
         <a href="#">
           <i class="fa fa-dollar"></i>
-          <span>Keuangan</span>
+          <span>Penggajian</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>

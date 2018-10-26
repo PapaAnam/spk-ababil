@@ -2,20 +2,27 @@
 @section('form')
 @include('input',['id'=>'no','label'=>'No','value'=>$no])
 @include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>date('d-m-Y')])
-@include('select',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor])
+@include('select2-no-tags',['id'=>'id_vendor','label'=>'Pilih Vendor','selectData'=>$listVendor])
 <div class="form-group">
-  <label for="" class="col-md-2 control-label"></label>
-  <div class="col-md-6">
-    Atau
-  </div>
+	<label for="" class="col-md-2 control-label"></label>
+	<div class="col-md-6">
+		Atau
+	</div>
 </div>
 @include('input',['id'=>'vendor_baru','label'=>'Vendor Baru'])
-@include('select',['id'=>'id_karyawan','label'=>'Pilih Pelaksana','selectData'=>$listPelaksana])
+@include('select2-no-tags',['id'=>'id_karyawan','label'=>'Pilih Pelaksana','selectData'=>$listPelaksana])
 @include('textarea',['id'=>'deskripsi','label'=>'Deskripsi'])
 @include('input_number',['id'=>'nominal','label'=>'Nominal'])
-{{-- @include('input_number',['id'=>'jumlah_pengeluaran','label'=>'Jumlah Pengeluaran']) --}}
-@include('select',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
-@include('select',['id'=>'id_kategori','label'=>'Pilih Kategori','selectData'=>$listKategori])
+<div class="form-group">
+	<label class="col-lg-2 control-label">Metode Pembayaran</label>
+	<div class="col-sm-6">
+		@include('iradio',['id'=>'metode_pembayaran','label'=>'Tunai','value'=>'Tunai'])
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		@include('iradio',['id'=>'metode_pembayaran','label'=>'Transfer','value'=>'Transfer'])
+	</div>
+</div>
+@include('select2-no-tags',['id'=>'id_proyek','label'=>'Pilih Proyek','selectData'=>$listProyek])
+@include('select2-no-tags',['id'=>'id_kategori','label'=>'Pilih Kategori','selectData'=>$listKategori])
 <div class="form-group">
 	<label class="col-lg-2 control-label"></label>
 	<div class="col-sm-6">
@@ -24,12 +31,14 @@
 		</button>
 	</div>
 </div>
-@include('select',['id'=>'id_sub_kategori','label'=>'Pilih Sub Kategori','selectData'=>[]])
+@include('select2-no-tags',['id'=>'id_sub_kategori','label'=>'Pilih Sub Kategori','selectData'=>[]])
 @include('input',['id'=>'ref','label'=>'Ref'])
 @include('input_image',['id'=>'kwitansi','label'=>'Scan Kwitansi'])
 @endsection
 
 @include('import-datepicker')
+@include('import-icheck')
+@include('import-select2')
 @push('script')
 <script>
 	$(document).ready(function(){

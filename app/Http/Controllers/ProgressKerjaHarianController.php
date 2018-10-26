@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Proyek;
 use DB;
 use App\Mytrait\Tanggal;
+use App\FotoLaporan;
 
 class ProgressKerjaHarianController extends Controller
 {
@@ -57,7 +58,7 @@ class ProgressKerjaHarianController extends Controller
         return view('progress-kerja-harian.tambah', [
             'title'         => 'Tambah Progress Kerja Harian',
             'modul_link'    => route('progress-kerja-harian.index'),
-            'modul'         => 'ProgressKerjaHarian',
+            'modul'         => 'Progress Kerja Harian',
             'action'        => route('progress-kerja-harian.store'),
             'active'        => 'progress-kerja-harian.index',
             'listProyek'=>Proyek::selectMode(),
@@ -94,6 +95,13 @@ class ProgressKerjaHarianController extends Controller
             'kendala'=>$request->kendala,
             'qty'=>$request->qty2
         ]);
+        if($request->file('attach')){
+            foreach ($request->file('attach') as $attach) {
+                $progressKerjaHarian->foto()->create([
+                    'url'=>uploadPath($attach,'progress-kerja-harian')
+                ]);
+            }   
+        }
         return redirect()->route('progress-kerja-harian.index')->with('success_msg', 'Progress Kerja Harian berhasil dibuat');
     }
 
@@ -105,7 +113,16 @@ class ProgressKerjaHarianController extends Controller
      */
     public function show(ProgressKerjaHarian $progressKerjaHarian)
     {
-        //
+        $progressKerjaHarian->load('foto','tugas','proyek');
+        return view('progress-kerja-harian.detail', [
+            'd'             => $progressKerjaHarian,
+            'title'         => 'Detail Progress Kerja Harian',
+            'modul_link'    => route('progress-kerja-harian.index'),
+            'modul'         => 'Progress Kerja Harian',
+            'active'        => 'progress-kerja-harian.index',
+            'action'=>false,
+            'simpanBtn'=>false,
+        ]);
     }
 
     /**
@@ -116,11 +133,12 @@ class ProgressKerjaHarianController extends Controller
      */
     public function edit(ProgressKerjaHarian $progressKerjaHarian)
     {
+        $progressKerjaHarian->load('foto','tugas','proyek');
         return view('progress-kerja-harian.ubah', [
             'd'             => $progressKerjaHarian,
-            'title'         => 'Ubah ProgressKerjaHarian',
+            'title'         => 'Ubah Progress Kerja Harian',
             'modul_link'    => route('progress-kerja-harian.index'),
-            'modul'         => 'ProgressKerjaHarian',
+            'modul'         => 'Progress Kerja Harian',
             'action'        => route('progress-kerja-harian.update', $progressKerjaHarian->id),
             'active'        => 'progress-kerja-harian.edit',
             'listProyek'=>Proyek::selectMode(),
@@ -165,19 +183,14 @@ class ProgressKerjaHarianController extends Controller
             'kendala'=>$request->kendala,
             'qty'=>$request->qty2
         ]);
-        // $progressKerjaHarian->material()->delete();
-        // set material
-        // $proyek = Proyek::with('tugas')->where('id', $request->id_proyek)->first();
-        // $progressKerjaHarian->material()->create([
-        //     'qty'=>$proyek->qty,
-        //     'tipe'=>'proyek'
-        // ]);
-        // foreach ($proyek->tugas as $tugas) {
-        //     $progressKerjaHarian->material()->create([
-        //         'qty'=>$tugas->qty,
-        //         'tipe'=>'tugas'
-        //     ]);
-        // }
+        if($request->file('attach')){
+            foreach ($request->file('attach') as $attach) {
+                $progressKerjaHarian->foto()->create([
+                    'url'=>uploadPath($attach,'progress-kerja-harian')
+                ]);
+            }
+        }
+        FotoLaporan::destroy($request->siap_dihapus);
         return redirect()->route('progress-kerja-harian.index')->with('success_msg', 'Progress Kerja Harian berhasil diperbarui');
     }
 
