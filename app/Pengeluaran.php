@@ -26,6 +26,7 @@ class Pengeluaran extends Model
 		'tanggal',
 		'deskripsi',
 		'metode_pembayaran',
+		'user_id',
 	];
 
 	protected $appends = [

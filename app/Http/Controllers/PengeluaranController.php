@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pengeluaran;
+use Auth;
 use Illuminate\Http\Request;
 use App\Kategori;
 use App\Vendor;
@@ -136,6 +137,7 @@ class PengeluaranController extends Controller
     		'no'=>$request->no,
     		'tanggal'=>$this->englishFormat($request->tanggal),
             'deskripsi'=>$request->deskripsi,
+            'user_id'=>Auth::id(),
     	]);
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil dibuat');
     }
@@ -228,6 +230,7 @@ class PengeluaranController extends Controller
     		'no'=>$request->no,
             'deskripsi'=>$request->deskripsi,
     		'tanggal'=>$this->englishFormat($request->tanggal),
+            'user_id'=>Auth::id(),
     	]);
     	return redirect()->route('pengeluaran.index')->with('success_msg', 'Pengeluaran berhasil diperbarui');
     }

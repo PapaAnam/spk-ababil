@@ -69,6 +69,12 @@
 <div class="col-md-3">
 	@include('icheck',['id'=>'pengeluaran_create','label'=>'Tambah Pengeluaran'])
 </div>
+{{-- <div class="col-md-3">
+	@include('icheck',['id'=>'pengeluaran_user_saat_ini','label'=>'User'])
+</div>
+<div class="col-md-3">
+	@include('icheck',['id'=>'pengeluaran_user','label'=>'Semua'])
+</div> --}}
 <div class="col-md-12"><hr></div>
 <div class="col-md-3">
 	@include('icheck',['id'=>'karyawan','label'=>'Karyawan'])
