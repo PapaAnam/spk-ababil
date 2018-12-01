@@ -30,7 +30,7 @@ class PengeluaranController extends Controller
     public function index(Request $r)
     {
     	$data = [];
-    	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+    	$query = $this->myquery($r);
     	if($r->query('dari') && $r->query('sampai')){
     		$data = $query
     		->whereBetween('tanggal', [$r->query('dari'), $r->query('sampai')])
@@ -252,7 +252,7 @@ class PengeluaranController extends Controller
     	$data = [];
         $dari = $this->englishFormat($r->query('dari'));
         $sampai = $this->englishFormat($r->query('sampai'));
-    	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+    	$query = $this->myquery($r);
     	if($r->query('dari') && $r->query('sampai')){
     		$data = $query
     		->whereBetween('tanggal', [$dari, $sampai])
@@ -269,7 +269,7 @@ class PengeluaranController extends Controller
     public function byProyek(Request $r)
     {
     	$data = [];
-    	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+    	$query = $this->myquery($r);
     	if($r->query('proyek')){
     		$data = $query
     		->where('id_proyek', $r->query('proyek'))
@@ -287,7 +287,7 @@ class PengeluaranController extends Controller
     public function byKategori(Request $r)
     {
     	$data = [];
-    	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+    	$query = $this->myquery($r);
     	if($r->query('kategori')){
     		$data = $query
     		->where('id_kategori', $r->query('kategori'))
@@ -302,10 +302,20 @@ class PengeluaranController extends Controller
     	]);
     }
 
+    private function myquery($r)
+    {
+        $query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+        $user = $r->user();
+        if(isset($user->hakakses->menu->pengeluaran_user_saat_ini)){
+            $query = $query->where('user_id', $user->id);
+        }
+        return $query;
+    }
+
     public function byPelaksana(Request $r)
     {
     	$data = [];
-    	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+    	$query = $this->myquery($r);
     	if($r->query('pelaksana')){
     		$data = $query
     		->where('id_karyawan', $r->query('pelaksana'))
@@ -323,7 +333,7 @@ class PengeluaranController extends Controller
     public function byVendor(Request $r)
     {
     	$data = [];
-    	$query = Pengeluaran::with('vendor','proyek','kategori','subkategori','pelaksana');
+    	$query = $this->myquery($r);
     	if($r->query('vendor')){
     		$data = $query
     		->where('id_vendor', $r->query('vendor'))

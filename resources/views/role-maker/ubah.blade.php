@@ -73,6 +73,12 @@
 <div class="col-md-3">
 	@include('icheck',['id'=>'pengeluaran_create','checked'=>isset($p->pengeluaran_create) ? true : false,'label'=>'Tambah Pengeluaran'])
 </div>
+<div class="col-md-3">
+	@include('icheck',['id'=>'pengeluaran_user_saat_ini','checked'=>isset($p->pengeluaran_user_saat_ini) ? true : false,'label'=>'User'])
+</div>
+<div class="col-md-3">
+	@include('icheck',['id'=>'pengeluaran_user_semua','checked'=>isset($p->pengeluaran_user_semua) ? true : false,'label'=>'Semua'])
+</div>
 <div class="col-md-12"><hr></div>
 <div class="col-md-3">
 	@include('icheck',['id'=>'karyawan','checked'=>isset($p->karyawan) ? true : false,'label'=>'Karyawan'])
