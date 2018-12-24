@@ -25,7 +25,7 @@
     <td>{{ $d->proyek->nama }}</td>
     <td>{{ $d->tugas ? $d->tugas->nama_tugas : '' }}</td>
     <td align="right">{{ $d->ritase }}</td>
-    <td>{{$d->tugas->qty}}</td>
+    <td>{{$d->tugas ? $d->tugas->qty : ''}}</td>
     <td>
       {{ $d->tugas ? $d->tugas->material : "" }}
       <br>
