@@ -36,6 +36,7 @@ class ProgressKerjaHarianController extends Controller
      */
     public function index(Request $r)
     {
+        // dd(1);
         $data = ProgressKerjaHarian::with(['proyek','tugas.satuandetail'])->get();
         return view('progress-kerja-harian.index', [
             'data'      => $data,

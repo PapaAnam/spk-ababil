@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use DB;
 use App\OtOperator;
 use App\InsentifSopir;
+use Auth;
 
 class KaryawanController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('myrole:superadmin')->except('index','get');
+        $this->middleware('aksesmenu:karyawan_create')->only('create', 'store');
+        $this->middleware('aksesmenu:karyawan')->except('create', 'store');
     }
 
     private function getListJenis()

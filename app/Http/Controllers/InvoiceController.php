@@ -17,7 +17,8 @@ class InvoiceController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('myrole:superadmin,finance')->only('index','create','store');
+        $this->middleware('aksesmenu:invoice_create')->only('create', 'store');
+        $this->middleware('aksesmenu:invoice')->except('create', 'store');
     }
 
     /**

@@ -10,6 +10,14 @@ use DB;
 
 class ArmadaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('aksesmenu:armada_create')->only('create', 'store');
+        $this->middleware('aksesmenu:armada')->except('create', 'store');
+    }
+
+
     /**
      * Display a listing of the resource.
      *

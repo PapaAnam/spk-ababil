@@ -10,10 +10,11 @@ use DB;
 class KlienController extends Controller
 {
 
-    // public function __construct()
-    // {
-        // $this->middleware('myrole:superadmin')->except('index','create','store');
-    // }
+    public function __construct()
+    {
+        $this->middleware('aksesmenu:klien_create')->only('create', 'store');
+        $this->middleware('aksesmenu:klien')->except('create', 'store');
+    }
 
     /**
      * Display a listing of the resource.

@@ -18,10 +18,11 @@ class GajiController extends Controller
 
     use Tanggal;
 
-    public function __construct()
-    {
-        // $this->middleware('myrole:superadmin')->except('create','store','cek');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('aksesmenu:karyawan_create')->only('create', 'store');
+    //     $this->middleware('aksesmenu:karyawan')->except('create', 'store');
+    // }
 
     /**
      * Display a listing of the resource.

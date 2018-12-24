@@ -19,7 +19,8 @@ class TugasController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('myrole:superadmin,admin')->only('create','store', 'edit','update','destroy');
+        $this->middleware('aksesmenu:tugas_create')->only('create', 'store');
+        $this->middleware('aksesmenu:tugas')->except('create', 'store');
     }
 
     public function index()

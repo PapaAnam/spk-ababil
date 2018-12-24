@@ -18,7 +18,8 @@
 @include('input',['id'=>'material','label'=>'Material','readonly'=>true])
 @include('input',['id'=>'qty','label'=>'Qty','readonly'=>true])
 @include('input_number',['id'=>'ritase','label'=>'Ritase','value'=>0])
-@include('input_number',['id'=>'qty2','label'=>'Qty','value'=>0])
+{{-- @include('input_number',['id'=>'qty2','label'=>'Qty','value'=>0]) --}}
+@include('input',['id'=>'qty2','label'=>'Qty','hint'=>'Gunakan (.) untuk desimal','value'=>0])
 @include('select2-no-tags',['id'=>'cuaca','label'=>'Pilih Cuaca','selectData'=>$listCuaca])
 @include('textarea',['id'=>'deskripsi','label'=>'Deskripsi','value'=>'-'])
 @include('textarea',['id'=>'kendala','label'=>'Kendala','value'=>'-'])
