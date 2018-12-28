@@ -4,9 +4,11 @@
 		$('#id_karyawan').on('change', function(){
 			$('#tambahan').empty();
 			$('#tambahan').html('<div class="form-group"><label for="insentif" class="col-lg-2 control-label"></label><div class="col-sm-6"><h4 class="badge badge-info">Tunggu Sebentar</h4></div></div>')
+			var API_TOKEN = $('meta[name="api-token"]').attr('content');
 			$.ajax({
 				type : "GET",
 				url : '{{url('api/karyawan')}}?id='+$(this).val(),
+				headers: { 'Authorization':  'Bearer '+API_TOKEN},
 				success:function(res,status){
 					$('#tambahan').empty();
 					var jenis = res.jenis;
