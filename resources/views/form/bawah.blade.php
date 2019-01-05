@@ -2,6 +2,15 @@
   @include('sidebar')
 </div>
 <script src="{{ asset('plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script>
+	var token = $('[name="api-token"]').attr('content');
+	$.ajaxSetup({
+		beforeSend: function (xhr)
+		{
+			xhr.setRequestHeader("Authorization","Bearer "+token);
+		}
+	});
+</script>
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('plugins/fastclick/fastclick.js') }}"></script>
 @stack('js')
