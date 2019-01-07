@@ -15,7 +15,12 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#"><b>SPK</b>ABABIL</a>
+            <a href="#">
+                @php
+                $_pengaturan = \App\Pengaturan::where('key', 'nama_aplikasi')->first();
+                echo $_pengaturan->value;
+                @endphp
+            </a>
         </div>
         <div class="login-box-body">
             <p class="login-box-msg">Masuk untuk memulai sesi anda</p>
