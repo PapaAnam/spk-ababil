@@ -1,7 +1,15 @@
+@php
+$_pengaturan = \App\Pengaturan::where('key', 'tahun')->first();
+$tahun = $_pengaturan->value;
+$_pengaturan = \App\Pengaturan::where('key', 'nama_aplikasi_footer')->first();
+$app = $_pengaturan->value;
+$_pengaturan = \App\Pengaturan::where('key', 'versi')->first();
+$versi = $_pengaturan->value;
+@endphp
 <footer class="main-footer">
 	<div class="pull-right hidden-xs">
-		<b>Version</b> 1.0.0
+		<b>Version</b> {{$versi}}
 	</div>
-	<strong>Copyright &copy; {{ date('Y') == 2018 ? 2018 : '2018-'.date('Y') }} <a href="#">SPK ABABIL</a>.</strong> All rights
+	<strong>Copyright &copy; {{ date('Y') == $tahun ? $tahun : $tahun.'-'.date('Y') }} <a href="{{ url('') }}">{{$app}}</a>.</strong> All rights
 	reserved.
 </footer>

@@ -40,6 +40,11 @@ class DasborController extends Controller
 		]);
 	}
 
+	public function jmlTS()
+	{
+		return TimeSheet::count();
+	}
+
 	public function home()
 	{
 		return redirect('/');

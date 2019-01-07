@@ -1,7 +1,14 @@
-<!-- Logo -->
+@php
+$_pengaturan = \App\Pengaturan::where('key', 'nama_aplikasi')->first();
+$namaApp = $_pengaturan->value;
+$_pengaturan = \App\Pengaturan::where('key', 'nama_aplikasi_mobile')->first();
+$namaAppMobile = $_pengaturan->value;
+@endphp
 <a href="{{ url('') }}" class="logo">
-	<!-- mini logo for sidebar mini 50x50 pixels -->
-	<span class="logo-mini"><b>S</b>PK</span>
-	<!-- logo for regular state and mobile devices -->
-	<span class="logo-lg"><b>SPK</b>Ababil</span>
+	<span class="logo-mini">
+		{!!$namaAppMobile!!}
+	</span>
+	<span class="logo-lg">
+		{!!$namaApp!!}
+	</span>
 </a>

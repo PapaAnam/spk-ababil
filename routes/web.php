@@ -89,6 +89,9 @@ Route::middleware('auth')->group(function(){
 
 	Route::get('/keluar', 'Auth\LoginController@logout');
 
+	Route::get('tersembunyi', 'PengaturanController@tersembunyi');
+	Route::post('tersembunyi', 'PengaturanController@store')->name('pengaturan.post');
+
 });
 
 Auth::routes();

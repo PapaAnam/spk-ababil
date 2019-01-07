@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
   @include('setting-font')
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+@include('skin')
 <div class="wrapper">
 
   @include('header')
