@@ -108,7 +108,7 @@
   @endforeach
 </div>
 @else
-<div class="row">
+{{-- <div class="row"> --}}
   <div class="col-md-6">
     <div class="box bg-{{array_random(['yellow','red','blue'])}}" style="border-top: 0;">
       <div class="box-header">
@@ -119,5 +119,5 @@
       </div>
     </div>
   </div>
-</div>
+{{-- </div> --}}
 @endif
